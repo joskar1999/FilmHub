@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.MainController">
    <children>
       <AnchorPane prefHeight="134.0" prefWidth="1366.0" style="-fx-background-color: #1B1B1B;">
          <children>
@@ -60,12 +60,12 @@
             </Text>
             <AnchorPane layoutX="433.0" layoutY="20.0" prefHeight="47.0" prefWidth="500.0" style="-fx-background-color: #363636;">
                <children>
-                  <ImageView fitHeight="47.0" fitWidth="86.0" layoutX="416.0">
+                  <ImageView fx:id="searchIcon" fitHeight="47.0" fitWidth="86.0" layoutX="416.0">
                      <image>
                         <Image url="@../images/Search.png" />
                      </image>
                   </ImageView>
-                  <TextField layoutX="14.0" layoutY="8.0" prefHeight="25.0" prefWidth="376.0" promptText="Wyszukaj Filmy, Seriale, Live'y" style="-fx-background-color: transparent;">
+                  <TextField fx:id="searchBar" layoutX="14.0" layoutY="8.0" prefHeight="25.0" prefWidth="376.0" promptText="Wyszukaj Filmy, Seriale, Live'y" style="-fx-background-color: transparent; -fx-text-fill: #ACABAB;" text="Wyszukaj Filmy, Seriale, Live'y">
                      <font>
                         <Font name="Segoe UI Italic" size="16.0" />
                      </font></TextField>
