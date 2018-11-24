@@ -1,5 +1,9 @@
 package main.java.model;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import java.util.List;
 
 public class User {
@@ -7,11 +11,15 @@ public class User {
     private int id;
     private String name;
     private String surname;
-    private long dateOfBirth;
+    private String dateOfBirth;
     private String email;
-    private int cardNumber;
+    private String cardNumber;
     private SubscriptionType subscriptionType;
     private List<Product> products;
+
+    public User(int id) {
+        createFromJSON(id);
+    }
 
     public int getId() {
         return id;
@@ -37,11 +45,11 @@ public class User {
         this.surname = surname;
     }
 
-    public long getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(long dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -53,11 +61,11 @@ public class User {
         this.email = email;
     }
 
-    public int getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
@@ -75,5 +83,22 @@ public class User {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    /**
+     * Creating random user, data will be chosen from fake file by given id
+     *
+     * @param id user id 0-999
+     */
+    private void createFromJSON(int id) {
+        JSONArray array = Utils.readJSONArray("\\src\\main\\resources\\json\\fakeUsers.json");
+        JSONObject person = (JSONObject) array.get(id);
+
+        this.id = id;
+        this.name = (String) person.get("name");
+        this.surname = (String) person.get("surname");
+        this.email = (String) person.get("email");
+        this.cardNumber = (String) person.get("cardNumber");
+        this.dateOfBirth = (String) person.get("dateOfBirth");
     }
 }
