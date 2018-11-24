@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="134.0" prefWidth="1366.0" style="-fx-background-color: #1B1B1B;">
+         <children>
+            <ImageView fitHeight="59.0" fitWidth="207.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="96.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Główna">
+               <font>
+                  <Font name="Segoe UI" size="22.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="1188.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Promocje">
+               <font>
+                  <Font name="Segoe UI" size="22.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="1032.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktorzy">
+               <font>
+                  <Font name="Segoe UI" size="22.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="847.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top Listy">
+               <font>
+                  <Font name="Segoe UI" size="22.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="275.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filmy">
+               <font>
+                  <Font name="Segoe UI" size="22.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="433.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seriale">
+               <font>
+                  <Font name="Segoe UI" size="22.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="612.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Live Streaming">
+               <font>
+                  <Font name="Segoe UI" size="22.0" />
+               </font>
+            </Text>
+            <Text fill="#acabab" layoutX="1188.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rejestracja">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Text>
+            <AnchorPane layoutX="433.0" layoutY="20.0" prefHeight="47.0" prefWidth="500.0" style="-fx-background-color: #363636;">
+               <children>
+                  <ImageView fitHeight="47.0" fitWidth="86.0" layoutX="416.0">
+                     <image>
+                        <Image url="@../images/Search.png" />
+                     </image>
+                  </ImageView>
+                  <TextField layoutX="14.0" layoutY="8.0" prefHeight="25.0" prefWidth="376.0" promptText="Wyszukaj Filmy, Seriale, Live'y" style="-fx-background-color: transparent;">
+                     <font>
+                        <Font name="Segoe UI Italic" size="16.0" />
+                     </font></TextField>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <Text fill="WHITE" layoutX="35.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Najlepiej oceniane w Polsce">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="13.0" fitWidth="19.0" layoutX="262.0" layoutY="162.0">
+         <image>
+            <Image url="@../images/flaga.jpeg" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="504.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nie masz abonamentu?">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="#f89921" layoutX="697.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kup go teraz!">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <VBox layoutX="35.0" layoutY="201.0" prefHeight="537.0" prefWidth="969.0">
+         <children>
+            <HBox prefHeight="260.0" prefWidth="969.0" style="-fx-background-color: #000000;">
+               <children>
+                  <AnchorPane prefHeight="260.0" prefWidth="330.0">
+                     <children>
+                        <ImageView fitHeight="190.0" fitWidth="330.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="16.0">
+                           <image>
+                              <Image url="@../images/altered_carbon.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#f89921" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Altered Carbon">
+                           <font>
+                              <Font name="Segoe UI" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9.2">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="60.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5.2M Odsłon">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="260.0" prefWidth="330.0">
+                     <children>
+                        <ImageView fitHeight="190.0" fitWidth="330.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="16.0">
+                           <image>
+                              <Image url="@../images/narcos.jpeg" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#f89921" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Narcos">
+                           <font>
+                              <Font name="Segoe UI" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9.2">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="60.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5.2M Odsłon">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="260.0" prefWidth="330.0">
+                     <children>
+                        <ImageView fitHeight="190.0" fitWidth="330.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/game_of_thrones.jpeg" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#f89921" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gra o Tron">
+                           <font>
+                              <Font name="Segoe UI" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9.2">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="60.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5.2M Odsłon">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+            <HBox prefHeight="260.0" prefWidth="969.0" style="-fx-background-color: #000000;">
+               <children>
+                  <AnchorPane prefHeight="260.0" prefWidth="330.0">
+                     <children>
+                        <ImageView fitHeight="190.0" fitWidth="330.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="16.0">
+                           <image>
+                              <Image url="@../images/friends.jpeg" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#f89921" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Przyjaciele">
+                           <font>
+                              <Font name="Segoe UI" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9.2">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="60.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5.2M Odsłon">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="260.0" prefWidth="330.0">
+                     <children>
+                        <ImageView fitHeight="190.0" fitWidth="330.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="16.0">
+                           <image>
+                              <Image url="@../images/dark.jpeg" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#f89921" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dark">
+                           <font>
+                              <Font name="Segoe UI" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9.2">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="60.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5.2M Odsłon">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="260.0" prefWidth="330.0">
+                     <children>
+                        <ImageView fitHeight="190.0" fitWidth="330.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/blacklist.jpeg" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#f89921" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Blacklist">
+                           <font>
+                              <Font name="Segoe UI" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9.2">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="60.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5.2M Odsłon">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <ImageView fitHeight="239.0" fitWidth="287.0" layoutX="1057.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/reklama.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
