@@ -2,14 +2,23 @@ package main.java.model;
 
 public abstract class Product {
 
+    private String title;
     private String image;
     private String description;
-    private long productionDate;
+    private String productionDate;
     private int duration;
     private String distributor;
     private String country;
     private double rating;
     private double price;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getImage() {
         return image;
@@ -27,11 +36,11 @@ public abstract class Product {
         this.description = description;
     }
 
-    public long getProductionDate() {
+    public String getProductionDate() {
         return productionDate;
     }
 
-    public void setProductionDate(long productionDate) {
+    public void setProductionDate(String productionDate) {
         this.productionDate = productionDate;
     }
 
