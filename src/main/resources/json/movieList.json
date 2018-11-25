@@ -1,0 +1,144 @@
+[
+    {
+        "description": "Adaptacja opowiadania Stephena Kinga. Niesłusznie skazany na dożywocie bankier, stara się przetrwać w brutalnym, więziennym świecie.",
+        "title": "The Shawshank Redemption",
+        "image": "shawshank.jpg",
+        "year": 1994,
+        "cast": [
+            "Tim Robbins",
+            "Morgan Freeman",
+            "James Whitmore",
+            "Clancy Brown",
+            "William Sadler",
+            "Gil Bellows",
+            "Bob Gunton"
+        ],
+        "genres": [
+            "Drama"
+        ]
+    },
+    {
+        "description": "Jake, sparaliżowany były komandos, zostaje wysłany na planetę Pandora, gdzie zaprzyjaźnia się z lokalną społecznością i postanawia jej pomóc. ",
+        "title": "Avatar",
+        "image": "avatar.jpeg",
+        "year": 2009,
+        "cast": [
+            "Sam Worthington",
+            "Zoe Saldana",
+            "Sigourney Weaver",
+            "Michelle Rodriguez",
+            "Stephen Lang",
+            "Laz Alonso",
+            "Giovanni Ribisi",
+            "Joel Moore",
+            "Wes Studi"
+        ],
+        "genres": [
+            "Science Fiction"
+        ]
+    },
+    {
+        "description": "Niesłusznie oskarżony o zdradę agent IMF musi odkryć i zdemaskować prawdziwego szpiega. ",
+        "title": "Mission: Impossible",
+        "image": "mission_impossible.jpg",
+        "year": 1996,
+        "cast": [
+            "Tom Cruise",
+            "Ving Rhames",
+            "Jon Voight",
+            "Vanessa Redgrave",
+            "Emmanuelle Béart",
+            "Kristin Scott Thomas",
+            "Jean Reno"
+        ],
+        "genres": [
+            "Action"
+        ]
+    },
+    {
+        "description": "Historia życia Forresta, chłopca o niskim ilorazie inteligencji z niedowładem kończyn, który staje się miliarderem i bohaterem wojny w Wietnamie.",
+        "title": "Forrest Gump",
+        "image": "forrest_gump.jpeg",
+        "year": 1994,
+        "cast": [
+            "Tom Hanks",
+            "Robin Wright Penn",
+            "Gary Sinise",
+            "Sally Field",
+            "Mykelti Williamson",
+            "Haley Joel Osment"
+        ],
+        "genres": [
+            "Drama"
+        ]
+    },
+    {
+        "description": "Czasy, gdy technologia pozwala na wchodzenie w świat snów. Złodziej Cobb ma za zadanie wszczepić myśl do śpiącego umysłu.",
+        "title": "Inception",
+        "image": "inception.jpeg",
+        "year": 2010,
+        "cast": [
+            "Leonardo DiCaprio",
+            "Ken Watanabe",
+            "Joseph Gordon-Levitt",
+            "Marion Cotillard",
+            "Ellen Page",
+            "Tom Hardy",
+            "Cillian Murphy",
+            "Tom Berenger",
+            "Michael Caine"
+        ],
+        "genres": [
+            "Science Fiction"
+        ]
+    },
+    {
+        "description": "Zaraz po wyjściu z więzienia Danny Ocean planuje napaść jednocześnie na trzy kasyna w Las Vegas. W tym celu kompletuje niezwykłą grupę fachowców. ",
+        "title": "Ocean's 11",
+        "image": "oceans_11.jpeg",
+        "year": 1960,
+        "cast": [
+            "Frank Sinatra",
+            "Dean Martin",
+            "Sammy Davis Jr.",
+            "Peter Lawford",
+            "Joey Bishop",
+            "Angie Dickinson",
+            "Richard Conte",
+            "George Raft",
+            "Cesar Romero"
+        ],
+        "genres": [
+            "Crime",
+            "Drama"
+        ]
+    },
+    {
+        "description": "Opowieść o nowojorskiej rodzinie mafijnej. Starzejący się Don Corleone pragnie przekazać władzę swojemu synowi.",
+        "title": "The Godfather",
+        "image": "the_godfather.jpeg",
+        "year": 1972,
+        "cast": [
+            "Marlon Brando",
+            "Al Pacino",
+            "James Caan",
+            "Robert Duvall",
+            "John Cazale",
+            "Diane Keaton",
+            "Talia Shire",
+            "Richard Castellano",
+            "Richard Conte",
+            "Sterling Hayden",
+            "Al Lettieri",
+            "Gianni Russo",
+            "Abe Vigoda",
+            "John Marley",
+            "Alex Rocco",
+            "Al Martino"
+        ],
+        "genres": [
+            "Crime",
+            "Drama"
+        ]
+    }
+]
