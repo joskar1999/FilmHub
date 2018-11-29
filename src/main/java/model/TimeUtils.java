@@ -8,9 +8,14 @@ public class TimeUtils implements Runnable {
     private long startTimestamp;
     private long currentTimestamp;
     private SimpleDateFormat simpleDateFormat;
+    private SimpleDateFormat dayDateFormat;
+    private OnPaymentPeriodListener onPaymentPeriodListener;
+    private boolean testPaymentPeriod;
 
     public TimeUtils() {
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        dayDateFormat = new SimpleDateFormat("dd");
+        testPaymentPeriod = false;
     }
 
     public long getStartTimestamp() {
@@ -43,11 +48,37 @@ public class TimeUtils implements Runnable {
         return formatted;
     }
 
+    /**
+     * Checking if payment period occurs,
+     * payment period is treated as 1st every month
+     *
+     * @return true if occurs, false otherwise
+     */
+    private boolean checkForPaymentPeriod() {
+        Date date = new Date(currentTimestamp * 1000L);
+        String formatted = dayDateFormat.format(date);
+        System.out.println(formatted);
+        if (formatted.equals("01") && testPaymentPeriod == false) {
+            testPaymentPeriod = true;
+            return true;
+        } else if (!formatted.equals("01")) {
+            testPaymentPeriod = false;
+        }
+        return false;
+    }
+
+    public void addOnPaymentPeriodListener(OnPaymentPeriodListener onPaymentPeriodListener) {
+        this.onPaymentPeriodListener = onPaymentPeriodListener;
+    }
+
     @Override
     public void run() {
         startTimestamp = System.currentTimeMillis() / 1000L;
         while (true) {
             calculateCurrentTimestamp();
+            if (checkForPaymentPeriod()) {
+                onPaymentPeriodListener.onPaymentPeriod();
+            }
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
