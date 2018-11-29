@@ -7,41 +7,49 @@ public class Service {
 
     private List<User> users = new ArrayList<>();
     private List<Distributor> distributors = new ArrayList<>();
-    private List<Product> products = new ArrayList<>();
+    private static List<Product> products = new ArrayList<>();
+    private static SimulationSettings simulationSettings = new SimulationSettings();
 
-    public void start() {
+    public Service() {
+        simulationSettings.setMultiplier(10);
+    }
+
+    public static List<Product> getProducts() {
+        return products;
+    }
+
+    public static SimulationSettings getSimulationSettings() {
+        return simulationSettings;
+    }
+
+    /**
+     * Initializing lists with some content -
+     * creating users and products
+     */
+    public void initialize() {
         for (int i = 0; i < 20; i++) {
             User user = new User(i);
             users.add(user);
         }
 
-        for (int i = 0; i < 3; i++) {
-            Distributor distributor = new Distributor(i);
-            distributors.add(distributor);
-        }
-
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             Product product = new Movie(i);
             products.add(product);
         }
+    }
 
-        for (User u : users) {
-            System.out.println(u.getName());
-            System.out.println(u.getCardNumber());
-        }
-
-        for (Distributor d : distributors) {
-            System.out.println(d.getName());
-        }
-
-        for (Product p : products) {
-            System.out.println(p.getTitle());
-            System.out.println(p.getDescription());
-        }
+    /**
+     * Running threads
+     */
+    public void start() {
+        Runnable runnable = users.get(0);
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 
     public static void main(String[] args) {
         Service service = new Service();
+        service.initialize();
         service.start();
     }
 }

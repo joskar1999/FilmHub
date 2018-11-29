@@ -125,7 +125,7 @@ public class User implements Runnable {
      * Simulated "buy" operation
      * Product is chosen of random from products base
      */
-    public void requestProduct() {
+    private void requestProduct() {
         int size = Service.getProducts().size();
         boolean test = false;
         if (size == products.size()) {
@@ -144,12 +144,24 @@ public class User implements Runnable {
         } while (test);
     }
 
+    /**
+     * Randomizing sleep time for thread
+     *
+     * @return time in millis
+     */
+    private int randomizeTimeToBuy() {
+        int d = random.nextInt(6) + 1;
+        int t = d * 24 * 1000;
+        t /= (int) Service.getSimulationSettings().getMultiplier();
+        return t;
+    }
+
     @Override
     public void run() {
         while (true) {
             requestProduct();
             try {
-                Thread.sleep(2000);
+                Thread.sleep(randomizeTimeToBuy());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
