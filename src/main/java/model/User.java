@@ -3,6 +3,8 @@ package main.java.model;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,11 +20,13 @@ public class User implements Runnable {
     private SubscriptionType subscriptionType;
     private List<Product> products;
     private Random random;
+    private BigDecimal payment;
 
     public User(int id) {
         createFromJSON(id);
         random = new Random();
         products = new ArrayList<>();
+        payment = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
     }
 
     public int getId() {
@@ -89,6 +93,14 @@ public class User implements Runnable {
         this.products = products;
     }
 
+    public BigDecimal getPayment() {
+        return payment;
+    }
+
+    public void setPayment(BigDecimal payment) {
+        this.payment = payment;
+    }
+
     /**
      * Creating random user, data will be chosen from fake file by given id
      *
@@ -136,7 +148,9 @@ public class User implements Runnable {
             Product p = Service.getProducts().get(id);
             if (!checkIfProductIsInList(p)) {
                 products.add(p);
+                payment = payment.add(p.getPrice());
                 System.out.println(p.getTitle());
+                System.out.println(getPayment());
                 test = false;
             } else {
                 test = true;
