@@ -27,6 +27,7 @@ public class User implements Runnable {
         random = new Random();
         products = new ArrayList<>();
         payment = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
+        subscriptionType = SubscriptionType.NONE;
     }
 
     public int getId() {
@@ -149,8 +150,6 @@ public class User implements Runnable {
             if (!checkIfProductIsInList(p)) {
                 products.add(p);
                 payment = payment.add(p.getPrice());
-                System.out.println(p.getTitle());
-                System.out.println(getPayment());
                 test = false;
             } else {
                 test = true;
@@ -168,6 +167,19 @@ public class User implements Runnable {
         int t = d * 24 * 1000;
         t /= (int) Service.getSimulationSettings().getMultiplier();
         return t;
+    }
+
+    private void randomizeSubscription() {
+        int i = random.nextInt(100);
+        if (i < 40) {
+            subscriptionType = SubscriptionType.NONE;
+        } else if (i < 70) {
+            subscriptionType = SubscriptionType.BASIC;
+        } else if (i < 90) {
+            subscriptionType = SubscriptionType.FAMILY;
+        } else {
+            subscriptionType = SubscriptionType.PREMIUM;
+        }
     }
 
     @Override

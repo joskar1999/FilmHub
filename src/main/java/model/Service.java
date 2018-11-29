@@ -43,12 +43,10 @@ public class Service {
      * Running threads
      */
     public void start() {
-        Runnable timeUtilsRunnable = timeUtils;
-        Thread timeUtilsThread = new Thread(timeUtilsRunnable);
+        Thread timeUtilsThread = new Thread(timeUtils);
         timeUtilsThread.start();
 
-//        Runnable runnable = users.get(0);
-//        Thread thread = new Thread(runnable);
+//        Thread thread = new Thread(users.get(0));
 //        thread.start();
     }
 
