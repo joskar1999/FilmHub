@@ -66,5 +66,6 @@ public class Movie extends IMDB {
         setDescription((String) movie.get("description"));
         setDuration(random.nextInt(60) + 120);
         setRating((random.nextInt(40) / 10.0) + 6.0);
+        setPrice(randomizePrice());
     }
 }

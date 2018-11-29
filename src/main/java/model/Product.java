@@ -1,5 +1,9 @@
 package main.java.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Random;
+
 public abstract class Product {
 
     private String title;
@@ -10,7 +14,8 @@ public abstract class Product {
     private String distributor;
     private String country;
     private double rating;
-    private double price;
+    private BigDecimal price;
+    private Random random = new Random();
 
     public String getTitle() {
         return title;
@@ -76,11 +81,22 @@ public abstract class Product {
         this.rating = rating;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    /**
+     * Randomizing price in financial mode
+     *
+     * @return random price
+     */
+    protected BigDecimal randomizePrice() {
+        double d = 20.0 + (100.0 - 20.0) * random.nextDouble();
+        BigDecimal bd = new BigDecimal(d).setScale(2, RoundingMode.HALF_EVEN);
+        return bd;
     }
 }
