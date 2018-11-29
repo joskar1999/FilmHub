@@ -9,7 +9,7 @@ public class Service {
     private List<Distributor> distributors = new ArrayList<>();
     private static List<Product> products = new ArrayList<>();
     private static SimulationSettings simulationSettings = new SimulationSettings();
-    private long startingUnixTimeStamp;
+    private static TimeUtils timeUtils = new TimeUtils();
 
     public Service() {
         simulationSettings.setMultiplier(10);
@@ -21,15 +21,6 @@ public class Service {
 
     public static SimulationSettings getSimulationSettings() {
         return simulationSettings;
-    }
-
-    /**
-     * Getting current unix timestamp
-     *
-     * @return timestamp in seconds (unix epoch)
-     */
-    private long getCurrentTimestamp() {
-        return System.currentTimeMillis() / 1000L;
     }
 
     /**
@@ -52,10 +43,13 @@ public class Service {
      * Running threads
      */
     public void start() {
-        startingUnixTimeStamp = getCurrentTimestamp();
-        Runnable runnable = users.get(0);
-        Thread thread = new Thread(runnable);
-        thread.start();
+        Runnable timeUtilsRunnable = timeUtils;
+        Thread timeUtilsThread = new Thread(timeUtilsRunnable);
+        timeUtilsThread.start();
+
+//        Runnable runnable = users.get(0);
+//        Thread thread = new Thread(runnable);
+//        thread.start();
     }
 
     public static void main(String[] args) {
