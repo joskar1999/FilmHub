@@ -2,11 +2,12 @@ package main.java.model;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class User {
+public class User implements Runnable {
 
     private int id;
     private String name;
@@ -16,9 +17,12 @@ public class User {
     private String cardNumber;
     private SubscriptionType subscriptionType;
     private List<Product> products;
+    private Random random;
 
     public User(int id) {
         createFromJSON(id);
+        random = new Random();
+        products = new ArrayList<>();
     }
 
     public int getId() {
@@ -100,5 +104,55 @@ public class User {
         this.email = (String) person.get("email");
         this.cardNumber = (String) person.get("cardNumber");
         this.dateOfBirth = (String) person.get("dateOfBirth");
+    }
+
+    /**
+     * Checking if object exists in list
+     *
+     * @param p tested object
+     * @return true if exists, false otherwise
+     */
+    private boolean checkIfProductIsInList(Product p) {
+        for (Product elem : products) {
+            if (p.equals(elem)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Simulated "buy" operation
+     * Product is chosen of random from products base
+     */
+    public void requestProduct() {
+        int size = Service.getProducts().size();
+        boolean test = false;
+        if (size == products.size()) {
+            return;
+        }
+        do {
+            int id = random.nextInt(size);
+            Product p = Service.getProducts().get(id);
+            if (!checkIfProductIsInList(p)) {
+                products.add(p);
+                System.out.println(p.getTitle());
+                test = false;
+            } else {
+                test = true;
+            }
+        } while (test);
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            requestProduct();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
