@@ -57,7 +57,6 @@ public class TimeUtils implements Runnable {
     private boolean checkForPaymentPeriod() {
         Date date = new Date(currentTimestamp * 1000L);
         String formatted = dayDateFormat.format(date);
-        System.out.println(formatted);
         if (formatted.equals("01") && testPaymentPeriod == false) {
             testPaymentPeriod = true;
             return true;
