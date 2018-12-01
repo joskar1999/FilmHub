@@ -13,7 +13,7 @@ public class Movie extends IMDB {
     private long timeToWatch;
     private Discount discount;
 
-    public Movie(int id) {
+    public Movie(int id) throws NoMoviesException {
         createFromJSON(id);
     }
 
@@ -54,8 +54,11 @@ public class Movie extends IMDB {
      *
      * @param id value between 0-6
      */
-    private void createFromJSON(int id) {
+    private void createFromJSON(int id) throws NoMoviesException {
         JSONArray array = Utils.readJSONArray("\\src\\main\\resources\\json\\movieList.json");
+        if (array.size() <= id) {
+            throw new NoMoviesException();
+        }
         JSONObject movie = (JSONObject) array.get(id);
         Random random = new Random();
 

@@ -3,20 +3,27 @@ package main.java.model;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 public class Service {
 
     private List<User> users = new ArrayList<>();
     private List<Distributor> distributors = new ArrayList<>();
     private static List<Product> products = new ArrayList<>();
+    private Map<String, Integer> productDistributorMapping = new HashMap<>();
     private static SimulationSettings simulationSettings = new SimulationSettings();
     private static TimeUtils timeUtils = new TimeUtils();
     private static Subscription subscription = new Subscription();
     private BigDecimal serviceBankAccount = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
+    private static int movieAmount = 0;
+    private Semaphore semaphore;
 
     public Service() {
         simulationSettings.setMultiplier(10);
+        semaphore = new Semaphore(1);
     }
 
     public static Subscription getSubscription() {
@@ -31,6 +38,10 @@ public class Service {
         return simulationSettings;
     }
 
+    public static int getMovieAmount() {
+        return movieAmount;
+    }
+
     /**
      * Sending money to distributor, increasing value of
      * Service 'bank account'
@@ -40,7 +51,7 @@ public class Service {
         for (Product p : products) {
             if (p.getTitle().equals(product)) {
                 serviceBankAccount = serviceBankAccount.add(p.getPrice());
-                System.out.println(serviceBankAccount);
+//                System.out.println(serviceBankAccount);
             }
         }
     }
@@ -56,7 +67,7 @@ public class Service {
             serviceBankAccount = serviceBankAccount.add(toPay);
             u.randomizeSubscription();
         }
-        System.out.println(serviceBankAccount);
+//        System.out.println(serviceBankAccount);
     }
 
     /**
@@ -65,7 +76,7 @@ public class Service {
      */
     public void initialize() {
         timeUtils.addOnPaymentPeriodListener(() -> {
-            System.out.println("Payment period");
+//            System.out.println("Payment period");
             collectSubscriptionFee();
         });
 
@@ -77,9 +88,15 @@ public class Service {
             users.add(user);
         }
 
-        for (int i = 0; i < 6; i++) {
-            Product product = new Movie(i);
-            products.add(product);
+        for (int i = 0; i < 5; i++) {
+            Distributor distributor = new Distributor(i, semaphore);
+            distributor.addOnProductReleaseListener((p, id) -> {
+                products.add(p);
+                productDistributorMapping.put(p.getTitle(), id);
+//                System.out.println(p.getTitle() + ", " + String.valueOf(id));
+                movieAmount++;
+            });
+            distributors.add(distributor);
         }
     }
 
@@ -92,6 +109,11 @@ public class Service {
 
         for (int i = 0; i < 5; i++) {
             Thread t = new Thread(users.get(i));
+            t.start();
+        }
+
+        for (int i = 0; i < distributors.size(); i++) {
+            Thread t = new Thread(distributors.get(i));
             t.start();
         }
     }
