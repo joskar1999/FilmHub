@@ -20,13 +20,14 @@ public class User implements Runnable {
     private SubscriptionType subscriptionType;
     private List<Product> products;
     private Random random;
-    private BigDecimal payment;
+    private BigDecimal subscriptionPayment;
+    private OnPaymentListener onPaymentListener;
 
     public User(int id) {
         createFromJSON(id);
         random = new Random();
         products = new ArrayList<>();
-        payment = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
+        subscriptionPayment = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
         subscriptionType = SubscriptionType.NONE;
     }
 
@@ -94,12 +95,16 @@ public class User implements Runnable {
         this.products = products;
     }
 
-    public BigDecimal getPayment() {
-        return payment;
+    public BigDecimal getSubscriptionPayment() {
+        return subscriptionPayment;
     }
 
-    public void setPayment(BigDecimal payment) {
-        this.payment = payment;
+    public void setSubscriptionPayment(BigDecimal subscriptionPayment) {
+        this.subscriptionPayment = subscriptionPayment;
+    }
+
+    public void addOnPaymentListener(OnPaymentListener onPaymentListener) {
+        this.onPaymentListener = onPaymentListener;
     }
 
     /**
@@ -149,7 +154,7 @@ public class User implements Runnable {
             Product p = Service.getProducts().get(id);
             if (!checkIfProductIsInList(p)) {
                 products.add(p);
-                payment = payment.add(p.getPrice());
+                onPaymentListener.onPayment(p.getTitle(), getId());
                 test = false;
             } else {
                 test = true;
@@ -169,23 +174,29 @@ public class User implements Runnable {
         return t;
     }
 
-    private void randomizeSubscription() {
+    public void randomizeSubscription() {
         int i = random.nextInt(100);
         if (i < 40) {
             subscriptionType = SubscriptionType.NONE;
+            setSubscriptionPayment(Service.getSubscription().getPriceMap().get(SubscriptionType.NONE));
         } else if (i < 70) {
             subscriptionType = SubscriptionType.BASIC;
+            setSubscriptionPayment(Service.getSubscription().getPriceMap().get(SubscriptionType.BASIC));
         } else if (i < 90) {
             subscriptionType = SubscriptionType.FAMILY;
+            setSubscriptionPayment(Service.getSubscription().getPriceMap().get(SubscriptionType.FAMILY));
         } else {
             subscriptionType = SubscriptionType.PREMIUM;
+            setSubscriptionPayment(Service.getSubscription().getPriceMap().get(SubscriptionType.PREMIUM));
         }
     }
 
     @Override
     public void run() {
         while (true) {
-            requestProduct();
+            if (subscriptionType.equals(SubscriptionType.NONE)) {
+                requestProduct();
+            }
             try {
                 Thread.sleep(randomizeTimeToBuy());
             } catch (InterruptedException e) {
