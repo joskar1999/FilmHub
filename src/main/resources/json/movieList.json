@@ -140,5 +140,438 @@
             "Crime",
             "Drama"
         ]
+    },
+    {
+        "description": "Emerytowany strażnik więzienny opowiada przyjaciółce o niezwykłym mężczyźnie, którego skazano na śmierć za zabójstwo dwóch 9-letnich dziewczynek",
+        "title": "The Green Mile",
+        "image": "the_green_mile.jpg",
+        "year": 1999,
+        "cast": [
+            "Tom Hanks",
+            "David Morse",
+            "Bonnie Hunt",
+            "Michael Clarke Duncan"
+        ],
+        "genres": [
+            "Drama"
+        ]
+    },
+    {
+        "description": "Dwunastu przysięgłych ma wydać wyrok w procesie o morderstwo. Jeden z nich ma wątpliwości dotyczące winy oskarżonego.",
+        "title": "12 Angry Men",
+        "image": "12_angry_men.jpg",
+        "year": 1957,
+        "cast": [
+            "Lee J. Cobb",
+            "Henry Fonda"
+        ],
+        "genres": [
+            "Drama"
+        ]
+    },
+    {
+        "description": "Historia przedsiębiorcy Oskara Schindlera, który podczas II wojny światowej uratował przed pobytem w obozach koncentracyjnych 1100 Żydów.",
+        "title": "Schindler's List",
+        "image": "schindlers_list.jpg",
+        "year": 1993,
+        "cast": [
+            "Liam Neeson",
+            "Ralph Fiennes",
+            "Ben Kingsley",
+            "Caroline Goodall",
+            "Jonathan Sagall",
+            "Embeth Davidtz"
+        ],
+        "genres": [
+            "Drama"
+        ]
+    },
+    {
+        "description": "Przemoc i odkupienie w opowieści o dwóch płatnych mordercach pracujących na zlecenie mafii, żonie gangstera, bokserze i parze okradającej ludzi w restauracji.",
+        "title": "Pulp Fiction",
+        "image": "pulp_fiction.jpg",
+        "year": 1994,
+        "cast": [
+            "John Travolta",
+            "Samuel L. Jackson",
+            "Bruce Willis",
+            "Uma Thurman",
+            "Ving Rhames",
+            "Harvey Keitel",
+            "Christopher Walken",
+            "Amanda Plummer",
+            "Tim Roth",
+            "Frank Whaley",
+            "Eric Stoltz"
+        ],
+        "genres": [
+            "Action",
+            "Comedy"
+        ]
+    },
+    {
+        "description": "Dwóch policjantów stara się złapać seryjnego mordercę wybierającego swoje ofiary wg specjalnego klucza.",
+        "title": "Seven",
+        "image": "seven.jpg",
+        "year": 1995,
+        "cast": [
+            "Brad Pitt",
+            "Morgan Freeman",
+            "Kevin Spacey",
+            "Gwyneth Paltrow"
+        ],
+        "genres": [
+            "Thriller"
+        ]
+    },
+    {
+        "description": "Kilkunastoletni Henry i Tommy DeVito trafiają pod opiekę potężnego gangstera. Obaj szybko uczą się panujących w mafii reguł.",
+        "title": "Goodfellas",
+        "image": "goodfellas.jpeg",
+        "year": 1990,
+        "cast": [
+            "Robert De Niro",
+            "Ray Liotta",
+            "Joe Pesci",
+            "Lorraine Bracco",
+            "Paul Sorvino",
+            "Frank Vincent",
+            "Michael Imperioli"
+        ],
+        "genres": [
+            "Crime",
+            "Drama"
+        ]
+    },
+    {
+        "description": "Geniusz matematyczny John Nash za wszelką cenę pragnie opracować teorię, dzięki której zostanie cenionym naukowcem. Przeszkodą staje się jego stopniowo rozwijająca choroba.",
+        "title": "A Beautiful Mind",
+        "image": "beautiful-mind.jpg",
+        "year": 2001,
+        "cast": [
+            "Russell Crowe",
+            "Jennifer Connelly",
+            "Ed Harris"
+        ],
+        "genres": [
+            "Biography",
+            "Drama"
+        ]
+    },
+    {
+        "description": "Łowca nagród Schultz i czarnoskóry niewolnik Django wyruszają w podróż, aby odbić żonę tego drugiego z rąk bezlitosnego Calvina Candie'ego.",
+        "title": "Django Unchained",
+        "image": "django.jpg",
+        "year": 2012,
+        "cast": [
+            "Jamie Foxx",
+            "Christoph Waltz",
+            "Leonardo DiCaprio",
+            "Kerry Washington",
+            "Samuel L. Jackson",
+            "Walton Goggins",
+            "Dennis Christopher",
+            "James Remar",
+            "Michael Parks",
+            "Don Johnson",
+            "Laura Cayouette",
+            "James Russo",
+            "Tom Wopat",
+            "Misty Upham",
+            "Rex Linn",
+            "Cooper Huckabee",
+            "Doc Duhame",
+            "M. C. Gainey",
+            "Bruce Dern",
+            "Ned Bellamy",
+            "Franco Nero",
+            "Jonah Hill",
+            "Robert Carradine",
+            "James Parks",
+            "Tom Savini",
+            "Quentin Tarantino"
+        ],
+        "genres": [
+            "Western"
+        ]
+    },
+    {
+        "description": "Kubański emigrant Tony Montana opuszcza ojczyznę i przybywa do Miami. Razem z przyjacielem, Mannym Riberą, zaczyna pracować dla mafii narkotykowej.",
+        "title": "Scarface",
+        "image": "scarface.jpg",
+        "year": 1932,
+        "cast": [
+            "Paul Muni",
+            "Ann Dvorak",
+            "George Raft"
+        ],
+        "genres": [
+            "Drama",
+            "Crime"
+        ]
+    },
+    {
+        "description": "Potężny Thanos zbiera Kamienie Nieskończoności w celu narzucenia swojej woli wszystkim istnieniom we wszechświecie. Tylko drużyna superbohaterów znanych jako Avengers może go powstrzymać.",
+        "title": "Avengers: Infinity War",
+        "image": "avengers.jpg",
+        "year": 2018,
+        "cast": [
+            "Robert Downey Jr.",
+            "Chris Hemsworth",
+            "Mark Ruffalo",
+            "Chris Evans",
+            "Scarlett Johansson",
+            "Benedict Cumberbatch",
+            "Don Cheadle",
+            "Tom Holland",
+            "Chadwick Boseman",
+            "Paul Bettany",
+            "Elizabeth Olsen",
+            "Anthony Mackie",
+            "Sebastian Stan",
+            "Danai Gurira",
+            "Letitia Wright",
+            "Dave Bautista",
+            "Zoe Saldana",
+            "Pom Klementieff",
+            "Karen Gillan",
+            "Benedict Wong",
+            "Idris Elba",
+            "Peter Dinklage",
+            "Tom Hiddleston",
+            "Vin Diesel",
+            "Bradley Cooper",
+            "Gwyneth Paltrow",
+            "Benicio del Toro",
+            "Josh Brolin",
+            "Chris Pratt"
+        ],
+        "genres": [
+            "Superhero",
+            "Action",
+            "Adventure"
+        ]
+    },
+    {
+        "description": "Dwaj młodzi iluzjoniści żyją w przyjaznych stosunkach. Gdy ginie żona jednego z nich, mężczyźni stają się śmiertelnymi wrogami.",
+        "title": "The Prestige",
+        "image": "the_prestige.jpg",
+        "year": 2006,
+        "cast": [
+            "Hugh Jackman",
+            "Christian Bale",
+            "Scarlett Johansson",
+            "Michael Caine",
+            "Rebecca Hall",
+            "David Bowie"
+        ],
+        "genres": [
+            "Crime",
+            "Drama"
+        ]
+    },
+    {
+        "description": "Adaptacja opowiadania Josepha Conrada Jądro ciemności. Przeniesiona w realia wojny wietnamskiej historia kapitana Willarda, który otrzymuje misję odnalezienia i zlikwidowania pułkownika Kurtza.",
+        "title": "Apocalypse Now",
+        "image": "apocalypse_now.jpg",
+        "year": 1979,
+        "cast": [
+            "Martin Sheen",
+            "Marlon Brando",
+            "Robert Duvall",
+            "Frederic Forrest",
+            "Sam Bottoms",
+            "Laurence Fishburne",
+            "Dennis Hopper",
+            "Albert Hall"
+        ],
+        "genres": [
+            "Drama",
+            "War"
+        ]
+    },
+    {
+        "description": "Film oparty na faktach. Chris, samotny ojciec pozbawiony domu, stara się mimo przeciwności losu o posadę w biurze maklerskim.",
+        "title": "The Pursuit of Happyness",
+        "image": "the-pursuit-of-happyness.jpg",
+        "year": 2006,
+        "cast": [
+            "Will Smith",
+            "Jaden Smith"
+        ],
+        "genres": [
+            "Biography"
+        ]
+    },
+    {
+        "description": "Batman, z pomocą porucznika Gordona oraz prokuratora Harveya Denta, występuje przeciwko przerażającemu i nieobliczalnemu Jokerowi, który chce pogrążyć Gotham City w chaosie.",
+        "title": "The Dark Knight",
+        "image": "dark_knight.jpg",
+        "year": 2008,
+        "cast": [
+            "Christian Bale",
+            "Michael Caine",
+            "Heath Ledger",
+            "Gary Oldman",
+            "Aaron Eckhart",
+            "Maggie Gyllenhaal",
+            "Morgan Freeman",
+            "Anthony Michael Hall",
+            "Eric Roberts"
+        ],
+        "genres": [
+            "Superhero"
+        ]
+    },
+    {
+        "description": "Tajny policjant w szeregach grupy przestępczej i informator mafii w bostońskiej jednostce dochodzeniowej toczą ze sobą śmiertelną rozgrywkę.",
+        "title": "The Departed",
+        "image": "the-departed.jpg",
+        "year": 2006,
+        "cast": [
+            "Leonardo DiCaprio",
+            "Matt Damon",
+            "Jack Nicholson",
+            "Mark Wahlberg",
+            "Alec Baldwin",
+            "Martin Sheen",
+            "Vera Farmiga",
+            "Anthony Anderson",
+            "Ray Winstone"
+        ],
+        "genres": [
+            "Crime",
+            "Drama"
+        ]
+    },
+    {
+        "description": "Mężczyzna przedstawiający się jako urzędnik podatkowy pojawia się w domach siedmiu śmiertelnie chorych dłużników, by sprawdzić jakimi są ludźmi. Ma dla nich niezwykły dar.",
+        "title": "Seven Pounds",
+        "image": "seven_pounds.jpg",
+        "year": 2008,
+        "cast": [
+            "Will Smith",
+            "Rosario Dawson",
+            "Woody Harrelson",
+            "Barry Pepper"
+        ],
+        "genres": [
+            "Drama"
+        ]
+    },
+    {
+        "description": "Byt ludzkości na Ziemi dobiega końca wskutek zmian klimatycznych. Grupa naukowców odkrywa tunel czasoprzestrzenny, który umożliwia poszukiwanie nowego domu.",
+        "title": "Interstellar",
+        "image": "interstellar.jpg",
+        "year": 2014,
+        "cast": [
+            "Anne Hathaway",
+            "Matthew McConaughey",
+            "Jessica Chastain",
+            "Michael Caine"
+        ],
+        "genres": [
+            "Science Fiction"
+        ]
+    },
+    {
+        "description": "Nastoletni Thomas zostaje uwięziony w tajemniczym labiryncie, z którego próbuje się wydostać.",
+        "title": "The Maze Runner",
+        "image": "maze_runner.jpg",
+        "year": 2014,
+        "cast": [
+            "Dylan O'Brien",
+            "Kaya Scodelario",
+            "Thomas Brodie-Sangster"
+        ],
+        "genres": [
+            "Science Fiction"
+        ]
+    },
+    {
+        "description": "Jack podejmuje pracę stróża odciętego od świata hotelu Overlook. Wkrótce idylla zamienia się w koszmar. ",
+        "title": "The Shining",
+        "image": "the-shining.jpg",
+        "year": 1980,
+        "cast": [
+            "Jack Nicholson",
+            "Shelley Duvall",
+            "Scatman Crothers",
+            "Danny Lloyd",
+            "Anne Jackson",
+            "Barry Nelson"
+        ],
+        "genres": [
+            "Horror"
+        ]
+    },
+    {
+        "description": "Evan, który potrafi podróżować w czasie, przekona się, że nawet najdrobniejsza zmiana w przeszłości ma kolosalny wpływ na teraźniejszość.",
+        "title": "The Butterfly Effect",
+        "image": "butterfly_effect.jpg",
+        "year": 2004,
+        "cast": [
+            "Ashton Kutcher",
+            "Amy Smart",
+            "Elden Henson",
+            "William Lee Scott",
+            "Melora Walters",
+            "Eric Stoltz",
+            "Ethan Suplee",
+            "Logan Lerman"
+        ],
+        "genres": [
+            "Science Fiction",
+            "Thriller"
+        ]
+    },
+    {
+        "description": "Chłopak zapewnia sobie sympatię i szacunek gangstera, nie wydając go policji. Powoli wchodzi w świat przestępczy, co nie podoba się jego ojcu. ",
+        "title": "A Bronx Tale",
+        "image": "bronx_tale.jpg",
+        "year": 1993,
+        "cast": [
+            "Chazz Palminteri",
+            "Robert De Niro",
+            "Lillo Brancato, Jr."
+        ],
+        "genres": [
+            "Drama"
+        ]
+    },
+    {
+        "description": "Historia Jordana Belforta, brokera, którego błyskawiczna droga na szczyt i rozrzutny styl życia wzbudziły zainteresowanie FBI.",
+        "title": "The Wolf of Wall Street",
+        "image": "wolf_of_wallstreat.jpg",
+        "year": 2013,
+        "cast": [
+            "Leonardo DiCaprio",
+            "Jonah Hill",
+            "Margot Robbie",
+            "Matthew McConaughey",
+            "Kyle Chandler",
+            "Rob Reiner",
+            "Jon Favreau",
+            "Jean Dujardin"
+        ],
+        "genres": [
+            "Comedy"
+        ]
+    },
+    {
+        "description": "Jason Bourne wpada na trop tajnego programu CIA Blackbriar, który ma związek z mroczną przeszłością agenta.",
+        "title": "The Bourne Ultimatum",
+        "image": "the-bourne-ultimatum.jpg",
+        "year": 2007,
+        "cast": [
+            "Matt Damon",
+            "Julia Stiles",
+            "David Strathairn",
+            "Scott Glenn",
+            "Joan Allen"
+        ],
+        "genres": [
+            "Action"
+        ]
     }
 ]
