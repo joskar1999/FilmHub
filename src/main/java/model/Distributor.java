@@ -12,6 +12,7 @@ public class Distributor implements Runnable {
     private String name;
     private Contract contract;
     private OnProductReleaseListener onProductReleaseListener;
+    private OnNegotiateListener onNegotiateListener;
     private Random random;
     private Semaphore semaphore;
 
@@ -41,6 +42,18 @@ public class Distributor implements Runnable {
         this.onProductReleaseListener = onProductReleaseListener;
     }
 
+    public void addOnNegotiateListener(OnNegotiateListener onNegotiateListener) {
+        this.onNegotiateListener = onNegotiateListener;
+    }
+
+    /**
+     * Renegotiating Contract, informing Service about it
+     */
+    private void negotiate() {
+        int percentages = random.nextInt(60) + 20;
+        onNegotiateListener.onNegotiate(percentages);
+    }
+
     /**
      * Creating random distributor, data chosen from fake file
      *
@@ -52,6 +65,9 @@ public class Distributor implements Runnable {
 
         this.id = id;
         this.name = (String) distributor.get("name");
+        Contract c = new Contract();
+        c.setPercentages(25);
+        this.contract = c;
     }
 
     /**
@@ -68,7 +84,7 @@ public class Distributor implements Runnable {
     }
 
     private int randomizeTimeToRelease() {
-        int d = random.nextInt(2) + 1;
+        int d = random.nextInt(20) + 10;
         int t = d * 24 * 1000;
         t /= (int) Service.getSimulationSettings().getMultiplier();
         return t;
@@ -83,6 +99,9 @@ public class Distributor implements Runnable {
                 e.printStackTrace();
             }
             release();
+            if (random.nextInt(5) == 2) {
+                negotiate();
+            }
             semaphore.release();
             try {
                 Thread.sleep(randomizeTimeToRelease());

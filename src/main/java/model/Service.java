@@ -2,10 +2,7 @@ package main.java.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Semaphore;
 
 public class Service {
@@ -20,6 +17,7 @@ public class Service {
     private BigDecimal serviceBankAccount = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
     private static int movieAmount = 0;
     private Semaphore semaphore;
+    private Random random = new Random();
 
     public Service() {
         simulationSettings.setMultiplier(10);
@@ -71,6 +69,24 @@ public class Service {
     }
 
     /**
+     * Negotiation between Service and Distributor
+     *
+     * @param distributor Distributor which negotiates
+     * @param p           value wanted by Distributor
+     */
+    private void negotiate(Distributor distributor, int p) {
+        int sp = random.nextInt(40);
+        Contract c = new Contract();
+        if (sp > p) {
+            c.setPercentages(p);
+        } else {
+            int m = (p + sp) / 2;
+            c.setPercentages(m);
+        }
+        distributor.setContract(c);
+    }
+
+    /**
      * Initializing lists with some content -
      * creating users and products
      */
@@ -90,12 +106,18 @@ public class Service {
 
         for (int i = 0; i < 5; i++) {
             Distributor distributor = new Distributor(i, semaphore);
+
             distributor.addOnProductReleaseListener((p, id) -> {
                 products.add(p);
                 productDistributorMapping.put(p.getTitle(), id);
-//                System.out.println(p.getTitle() + ", " + String.valueOf(id));
+                System.out.println(p.getTitle() + ", " + String.valueOf(id));
                 movieAmount++;
             });
+
+            distributor.addOnNegotiateListener((p) -> {
+                negotiate(distributor, p);
+            });
+
             distributors.add(distributor);
         }
     }
