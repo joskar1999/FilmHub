@@ -53,7 +53,7 @@
                   <Font name="Segoe UI" size="22.0" />
                </font>
             </Text>
-            <Text fill="#acabab" layoutX="1204.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rejestracja">
+            <Text fx:id="newDistributor" fill="#acabab" layoutX="1151.0" layoutY="49.0" onMouseClicked="#createNewDistributor" strokeType="OUTSIDE" strokeWidth="0.0" text="Nowy Dystrybutor">
                <font>
                   <Font name="Segoe UI" size="16.0" />
                </font>
@@ -71,6 +71,11 @@
                      </font></TextField>
                </children>
             </AnchorPane>
+            <Text fx:id="newUser" fill="#acabab" layoutX="978.0" layoutY="49.0" onMouseClicked="#createNewUser" strokeType="OUTSIDE" strokeWidth="0.0" text="Nowy Użytkownik">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
       <Text fill="WHITE" layoutX="35.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Najlepiej oceniane w Polsce">
@@ -249,7 +254,7 @@
             </HBox>
          </children>
       </VBox>
-      <ImageView fitHeight="239.0" fitWidth="287.0" layoutX="1057.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="239.0" fitWidth="287.0" layoutX="1069.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/reklama.png" />
          </image>

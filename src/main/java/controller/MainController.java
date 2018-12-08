@@ -2,11 +2,14 @@ package main.java.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import main.java.model.Product;
 import main.java.model.Service;
+import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.net.URL;
@@ -120,8 +123,34 @@ public class MainController implements Initializable {
         movieRatingThird.setText(String.valueOf(products.get(5).getRating()));
     }
 
+    @FXML
+    public void createNewDistributor() {
+        Service.createNewDistributor();
+        Notifications notifications = Notifications
+            .create()
+            .title("Filmhub")
+            .text("Nowy dystrybutor stworzony!")
+            .graphic(null)
+            .hideAfter(Duration.seconds(2))
+            .position(Pos.BASELINE_RIGHT);
+        notifications.showConfirm();
+    }
+
+    @FXML
+    public void createNewUser() {
+        Service.createNewUser();
+        Notifications notifications = Notifications
+            .create()
+            .title("Filmhub")
+            .text("Nowy użytkownik stworzony!")
+            .graphic(null)
+            .hideAfter(Duration.seconds(2))
+            .position(Pos.BASELINE_RIGHT);
+        notifications.showConfirm();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        refreshMainView();
     }
 }
