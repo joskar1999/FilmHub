@@ -115,6 +115,7 @@ public class Service {
             executePayment(p, id);
         });
         users.add(user);
+        runThread(user);
     }
 
     public static void createNewDistributor() {
@@ -132,6 +133,13 @@ public class Service {
         });
 
         distributors.add(distributor);
+        runThread(distributor);
+    }
+
+    private static void runThread(Runnable r) {
+        Thread t = new Thread(r);
+        t.setDaemon(true);
+        t.start();
     }
 
     /**
@@ -160,18 +168,6 @@ public class Service {
         Thread timeUtilsThread = new Thread(timeUtils);
         timeUtilsThread.setDaemon(true);
         timeUtilsThread.start();
-
-        for (int i = 0; i < usersAmount; i++) {
-            Thread t = new Thread(users.get(i));
-            t.setDaemon(true);
-            t.start();
-        }
-
-        for (int i = 0; i < distributorsAmount; i++) {
-            Thread t = new Thread(distributors.get(i));
-            t.setDaemon(true);
-            t.start();
-        }
     }
 
     public static void main(String[] args) {
