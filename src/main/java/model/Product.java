@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Random;
 
-public abstract class Product {
+public abstract class Product implements Comparable<Product> {
 
     private String title;
     private String image;
@@ -98,5 +98,10 @@ public abstract class Product {
         double d = 20.0 + (100.0 - 20.0) * random.nextDouble();
         BigDecimal bd = new BigDecimal(d).setScale(2, RoundingMode.HALF_EVEN);
         return bd;
+    }
+
+    @Override
+    public int compareTo(Product o) {
+        return Double.compare(o.getRating(), this.rating);
     }
 }

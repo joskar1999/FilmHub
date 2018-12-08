@@ -2,11 +2,7 @@ package main.java.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.Semaphore;
 
 public class Service {
@@ -91,6 +87,27 @@ public class Service {
     }
 
     /**
+     * Getting most popular products from Service, ordered by rating
+     *
+     * @param amount amount of products that method will return
+     * @return products list ordered by rating
+     */
+    public static List<Product> getMostPopular(int amount) {
+        List<Product> p = new ArrayList<>();
+        List<Product> popular = new ArrayList<>();
+        p = getProducts();
+        Collections.sort(p);
+        for (int i = 0; i < amount; i++) {
+            try {
+                popular.add(p.get(i));
+            } catch (Exception e) {
+                //
+            }
+        }
+        return (ArrayList<Product>) popular;
+    }
+
+    /**
      * Initializing lists with some content -
      * creating users and products
      */
@@ -108,7 +125,7 @@ public class Service {
             users.add(user);
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             Distributor distributor = new Distributor(i, semaphore);
 
             distributor.addOnProductReleaseListener((p, id) -> {
