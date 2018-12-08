@@ -7,17 +7,19 @@ import java.util.concurrent.Semaphore;
 
 public class Service {
 
-    private List<User> users = new ArrayList<>();
-    private List<Distributor> distributors = new ArrayList<>();
+    private static List<User> users = new ArrayList<>();
+    private static List<Distributor> distributors = new ArrayList<>();
     private static List<Product> products = new ArrayList<>();
-    private Map<String, Integer> productDistributorMapping = new HashMap<>();
+    private static Map<String, Integer> productDistributorMapping = new HashMap<>();
     private static SimulationSettings simulationSettings = new SimulationSettings();
     private static TimeUtils timeUtils = new TimeUtils();
     private static Subscription subscription = new Subscription();
-    private BigDecimal serviceBankAccount = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
+    private static BigDecimal serviceBankAccount = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
     private static int movieAmount = 0;
-    private Semaphore semaphore;
-    private Random random = new Random();
+    private static int usersAmount = 0;
+    private static int distributorsAmount = 0;
+    private static Semaphore semaphore;
+    private static Random random = new Random();
 
     public Service() {
         simulationSettings.setMultiplier(10);
@@ -44,7 +46,7 @@ public class Service {
      * Sending money to distributor, increasing value of
      * Service 'bank account'
      */
-    private synchronized void executePayment(String product, int userId) {
+    private static synchronized void executePayment(String product, int userId) {
         //TODO implement distributor salary
         for (Product p : products) {
             if (p.getTitle().equals(product)) {
@@ -74,7 +76,7 @@ public class Service {
      * @param distributor Distributor which negotiates
      * @param p           value wanted by Distributor
      */
-    private void negotiate(Distributor distributor, int p) {
+    private static void negotiate(Distributor distributor, int p) {
         int sp = random.nextInt(40);
         Contract c = new Contract();
         if (sp > p) {
@@ -107,6 +109,31 @@ public class Service {
         return (ArrayList<Product>) popular;
     }
 
+    public static void createNewUser() {
+        User user = new User(usersAmount++);
+        user.addOnPaymentListener((p, id) -> {
+            executePayment(p, id);
+        });
+        users.add(user);
+    }
+
+    public static void createNewDistributor() {
+        Distributor distributor = new Distributor(distributorsAmount++, semaphore);
+
+        distributor.addOnProductReleaseListener((p, id) -> {
+            products.add(p);
+            productDistributorMapping.put(p.getTitle(), id);
+            System.out.println(p.getTitle() + ", " + String.valueOf(id));
+            movieAmount++;
+        });
+
+        distributor.addOnNegotiateListener((p) -> {
+            negotiate(distributor, p);
+        });
+
+        distributors.add(distributor);
+    }
+
     /**
      * Initializing lists with some content -
      * creating users and products
@@ -118,28 +145,11 @@ public class Service {
         });
 
         for (int i = 0; i < 20; i++) {
-            User user = new User(i);
-            user.addOnPaymentListener((p, id) -> {
-                executePayment(p, id);
-            });
-            users.add(user);
+            createNewUser();
         }
 
         for (int i = 0; i < 6; i++) {
-            Distributor distributor = new Distributor(i, semaphore);
-
-            distributor.addOnProductReleaseListener((p, id) -> {
-                products.add(p);
-                productDistributorMapping.put(p.getTitle(), id);
-                System.out.println(p.getTitle() + ", " + String.valueOf(id));
-                movieAmount++;
-            });
-
-            distributor.addOnNegotiateListener((p) -> {
-                negotiate(distributor, p);
-            });
-
-            distributors.add(distributor);
+            createNewDistributor();
         }
     }
 
@@ -151,13 +161,13 @@ public class Service {
         timeUtilsThread.setDaemon(true);
         timeUtilsThread.start();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < usersAmount; i++) {
             Thread t = new Thread(users.get(i));
             t.setDaemon(true);
             t.start();
         }
 
-        for (int i = 0; i < distributors.size(); i++) {
+        for (int i = 0; i < distributorsAmount; i++) {
             Thread t = new Thread(distributors.get(i));
             t.setDaemon(true);
             t.start();
