@@ -1,10 +1,19 @@
 package main.java.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import main.java.model.Product;
+import main.java.model.Service;
 
-public class MainController {
+import java.io.File;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class MainController implements Initializable {
 
     @FXML
     private ImageView seriesImageFirst;
@@ -77,4 +86,42 @@ public class MainController {
 
     @FXML
     private Text movieViewsThird;
+
+    @FXML
+    public void refreshMainView() {
+        //TODO do refactor - extract method
+
+        List<Product> products = Service.getMostPopular(6);
+        seriesImageFirst.setImage(new Image(String.valueOf(new File(String.valueOf(
+            getClass().getResource("../../resources/images/" + products.get(0).getImage()))))));
+        seriesImageSecond.setImage(new Image(String.valueOf(new File(String.valueOf(
+            getClass().getResource("../../resources/images/" + products.get(1).getImage()))))));
+        seriesImageThird.setImage(new Image(String.valueOf(new File(String.valueOf(
+            getClass().getResource("../../resources/images/" + products.get(2).getImage()))))));
+        movieImageFirst.setImage(new Image(String.valueOf(new File(String.valueOf(
+            getClass().getResource("../../resources/images/" + products.get(3).getImage()))))));
+        movieImageSecond.setImage(new Image(String.valueOf(new File(String.valueOf(
+            getClass().getResource("../../resources/images/" + products.get(4).getImage()))))));
+        movieImageThird.setImage(new Image(String.valueOf(new File(String.valueOf(
+            getClass().getResource("../../resources/images/" + products.get(5).getImage()))))));
+
+        seriesTitleFirst.setText(products.get(0).getTitle());
+        seriesTitleSecond.setText(products.get(1).getTitle());
+        seriesTitleThird.setText(products.get(2).getTitle());
+        movieTitleFirst.setText(products.get(3).getTitle());
+        movieTitleSecond.setText(products.get(4).getTitle());
+        movieTitleThird.setText(products.get(5).getTitle());
+
+        seriesRatingFirst.setText(String.valueOf(products.get(0).getRating()));
+        seriesRatingSecond.setText(String.valueOf(products.get(1).getRating()));
+        seriesRatingThird.setText(String.valueOf(products.get(2).getRating()));
+        movieRatingFirst.setText(String.valueOf(products.get(3).getRating()));
+        movieRatingSecond.setText(String.valueOf(products.get(4).getRating()));
+        movieRatingThird.setText(String.valueOf(products.get(5).getRating()));
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 }
