@@ -148,15 +148,18 @@ public class Service {
      */
     public void start() {
         Thread timeUtilsThread = new Thread(timeUtils);
+        timeUtilsThread.setDaemon(true);
         timeUtilsThread.start();
 
         for (int i = 0; i < 5; i++) {
             Thread t = new Thread(users.get(i));
+            t.setDaemon(true);
             t.start();
         }
 
         for (int i = 0; i < distributors.size(); i++) {
             Thread t = new Thread(distributors.get(i));
+            t.setDaemon(true);
             t.start();
         }
     }
