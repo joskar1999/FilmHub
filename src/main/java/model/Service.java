@@ -2,21 +2,28 @@ package main.java.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.Semaphore;
 
 public class Service {
 
-    private List<User> users = new ArrayList<>();
-    private List<Distributor> distributors = new ArrayList<>();
+    private static List<User> users = new ArrayList<>();
+    private static List<Distributor> distributors = new ArrayList<>();
     private static List<Product> products = new ArrayList<>();
+    private static Map<String, Integer> productDistributorMapping = new HashMap<>();
     private static SimulationSettings simulationSettings = new SimulationSettings();
     private static TimeUtils timeUtils = new TimeUtils();
     private static Subscription subscription = new Subscription();
-    private BigDecimal serviceBankAccount = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
+    private static BigDecimal serviceBankAccount = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
+    private static int movieAmount = 0;
+    private static int usersAmount = 0;
+    private static int distributorsAmount = 0;
+    private static Semaphore semaphore;
+    private static Random random = new Random();
 
     public Service() {
         simulationSettings.setMultiplier(10);
+        semaphore = new Semaphore(1);
     }
 
     public static Subscription getSubscription() {
@@ -31,16 +38,20 @@ public class Service {
         return simulationSettings;
     }
 
+    public static int getMovieAmount() {
+        return movieAmount;
+    }
+
     /**
      * Sending money to distributor, increasing value of
      * Service 'bank account'
      */
-    private synchronized void executePayment(String product, int userId) {
+    private static synchronized void executePayment(String product, int userId) {
         //TODO implement distributor salary
         for (Product p : products) {
             if (p.getTitle().equals(product)) {
                 serviceBankAccount = serviceBankAccount.add(p.getPrice());
-                System.out.println(serviceBankAccount);
+//                System.out.println(serviceBankAccount);
             }
         }
     }
@@ -56,7 +67,79 @@ public class Service {
             serviceBankAccount = serviceBankAccount.add(toPay);
             u.randomizeSubscription();
         }
-        System.out.println(serviceBankAccount);
+//        System.out.println(serviceBankAccount);
+    }
+
+    /**
+     * Negotiation between Service and Distributor
+     *
+     * @param distributor Distributor which negotiates
+     * @param p           value wanted by Distributor
+     */
+    private static void negotiate(Distributor distributor, int p) {
+        int sp = random.nextInt(40);
+        Contract c = new Contract();
+        if (sp > p) {
+            c.setPercentages(p);
+        } else {
+            int m = (p + sp) / 2;
+            c.setPercentages(m);
+        }
+        distributor.setContract(c);
+    }
+
+    /**
+     * Getting most popular products from Service, ordered by rating
+     *
+     * @param amount amount of products that method will return
+     * @return products list ordered by rating
+     */
+    public static List<Product> getMostPopular(int amount) {
+        List<Product> p = new ArrayList<>();
+        List<Product> popular = new ArrayList<>();
+        p = getProducts();
+        Collections.sort(p);
+        for (int i = 0; i < amount; i++) {
+            try {
+                popular.add(p.get(i));
+            } catch (Exception e) {
+                //
+            }
+        }
+        return (ArrayList<Product>) popular;
+    }
+
+    public static void createNewUser() {
+        User user = new User(usersAmount++);
+        user.addOnPaymentListener((p, id) -> {
+            executePayment(p, id);
+        });
+        users.add(user);
+        runThread(user);
+    }
+
+    public static void createNewDistributor() {
+        Distributor distributor = new Distributor(distributorsAmount++, semaphore);
+
+        distributor.addOnProductReleaseListener((p, id) -> {
+            products.add(p);
+            productDistributorMapping.put(p.getTitle(), id);
+            System.out.println(p.getTitle() + ", " + String.valueOf(id));
+            movieAmount++;
+        });
+
+        distributor.addOnNegotiateListener((p) -> {
+            negotiate(distributor, p);
+        });
+
+        distributors.add(distributor);
+        runThread(distributor);
+    }
+
+    private static void runThread(Runnable r) {
+        Thread t = new Thread(r);
+        t.setDaemon(true);
+        t.start();
     }
 
     /**
@@ -65,21 +148,16 @@ public class Service {
      */
     public void initialize() {
         timeUtils.addOnPaymentPeriodListener(() -> {
-            System.out.println("Payment period");
+//            System.out.println("Payment period");
             collectSubscriptionFee();
         });
 
         for (int i = 0; i < 20; i++) {
-            User user = new User(i);
-            user.addOnPaymentListener((p, id) -> {
-                executePayment(p, id);
-            });
-            users.add(user);
+            createNewUser();
         }
 
         for (int i = 0; i < 6; i++) {
-            Product product = new Movie(i);
-            products.add(product);
+            createNewDistributor();
         }
     }
 
@@ -88,12 +166,8 @@ public class Service {
      */
     public void start() {
         Thread timeUtilsThread = new Thread(timeUtils);
+        timeUtilsThread.setDaemon(true);
         timeUtilsThread.start();
-
-        for (int i = 0; i < 5; i++) {
-            Thread t = new Thread(users.get(i));
-            t.start();
-        }
     }
 
     public static void main(String[] args) {
