@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="1000.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="imageView" fitHeight="160.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/altered_carbon.png" />
+         </image></ImageView>
+      <Text fx:id="title" fill="#f89921" layoutX="300.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Altered Carbon">
+         <font>
+            <Font name="Segoe UI" size="36.0" />
+         </font>
+      </Text>
+      <Text fx:id="rating" fill="WHITE" layoutX="300.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9.2">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="firstActor" fill="#f89921" layoutX="300.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joel Kinnaman">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="secondActor" fill="#f89921" layoutX="431.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="James Purefoy">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="thirdActor" fill="#f89921" layoutX="560.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Martha Higareda">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
