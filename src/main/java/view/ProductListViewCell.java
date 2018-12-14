@@ -42,10 +42,8 @@ public class ProductListViewCell extends ListCell<Product> {
         super.updateItem(item, empty);
 
         if (empty || item == null) {
-
             setText(null);
             setGraphic(null);
-
         } else {
             if (loader == null) {
                 loader = new FXMLLoader(getClass().getResource("../../resources/view/ListCell.fxml"));
@@ -56,7 +54,6 @@ public class ProductListViewCell extends ListCell<Product> {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
 
             title.setText(item.getTitle());
