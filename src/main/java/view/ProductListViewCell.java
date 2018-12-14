@@ -35,6 +35,7 @@ public class ProductListViewCell extends ListCell<Product> {
     private AnchorPane anchorPane;
 
     private FXMLLoader loader;
+    private ViewUtils utils = new ViewUtils();
 
     @Override
     protected void updateItem(Product item, boolean empty) {
@@ -61,7 +62,11 @@ public class ProductListViewCell extends ListCell<Product> {
             title.setText(item.getTitle());
             rating.setText(String.valueOf(item.getRating()));
             imageView.setImage(new Image(String.valueOf(getClass().getResource(
-                    "../../resources/images/" + item.getImage()))));
+                "../../resources/images/" + item.getImage()))));
+
+            title.setOnMouseClicked(e -> {
+                utils.search(item.getTitle());
+            });
 
             setText(null);
             setGraphic(anchorPane);

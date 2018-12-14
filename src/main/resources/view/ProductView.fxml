@@ -87,7 +87,7 @@
                 <Font name="Segoe UI" size="48.0" />
             </font>
         </Text>
-        <Text fx:id="rating" fill="#f89921" layoutX="993.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9.2">
+        <Text fx:id="rating" fill="#f89921" layoutX="631.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9.2">
             <font>
                 <Font name="Segoe UI" size="48.0" />
             </font>

@@ -78,6 +78,6 @@
                 </Text>
             </children>
         </AnchorPane>
-        <ListView fx:id="listView" layoutX="42.0" layoutY="174.0" prefHeight="560.0" prefWidth="1030.0" style="-fx-background-color: #000000;" />
+        <ListView fx:id="listView" layoutX="42.0" layoutY="174.0" prefHeight="560.0" prefWidth="1430.0" style="-fx-background-color: #000000;" />
     </children>
 </AnchorPane>
