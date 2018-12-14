@@ -38,7 +38,7 @@
                   <Font name="Segoe UI" size="22.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="267.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filmy">
+            <Text fx:id="moviesPage" fill="WHITE" layoutX="267.0" layoutY="113.0" onMouseClicked="#sendToMoviesPage" strokeType="OUTSIDE" strokeWidth="0.0" text="Filmy">
                <font>
                   <Font name="Segoe UI" size="22.0" />
                </font>

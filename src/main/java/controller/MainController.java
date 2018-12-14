@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import main.java.model.Product;
 import main.java.model.Service;
+import main.java.view.ViewUtils;
 import org.controlsfx.control.Notifications;
 
 import java.io.File;
@@ -90,6 +91,8 @@ public class MainController implements Initializable {
     @FXML
     private Text movieViewsThird;
 
+    private ViewUtils utils = new ViewUtils();
+
     @FXML
     public void refreshMainView() {
         //TODO do refactor - extract method
@@ -147,6 +150,11 @@ public class MainController implements Initializable {
             .hideAfter(Duration.seconds(2))
             .position(Pos.BASELINE_RIGHT);
         notifications.showConfirm();
+    }
+
+    @FXML
+    public void sendToMoviesPage() {
+        utils.switchScenes("MoviesView.fxml");
     }
 
     @Override

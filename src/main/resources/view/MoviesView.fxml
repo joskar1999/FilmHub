@@ -17,7 +17,7 @@
                         <Image url="@../images/logo.png" />
                     </image>
                 </ImageView>
-                <Text fx:id="mainPage" fill="WHITE" layoutX="96.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Główna">
+                <Text fx:id="mainPage" fill="WHITE" layoutX="96.0" layoutY="113.0" onMouseClicked="#sendToMainPage" strokeType="OUTSIDE" strokeWidth="0.0" text="Główna">
                     <font>
                         <Font name="Segoe UI" size="22.0" />
                     </font>

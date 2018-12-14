@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import main.java.model.Product;
 import main.java.model.Service;
 import main.java.view.ProductListViewCell;
+import main.java.view.ViewUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,6 +20,8 @@ public class MoviesController implements Initializable {
 
     private ObservableList<Product> products;
 
+    private ViewUtils utils = new ViewUtils();
+
     public MoviesController() {
         products = FXCollections.observableArrayList();
         products.addAll(Service.getProducts());
@@ -28,5 +31,10 @@ public class MoviesController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         listView.setItems(products);
         listView.setCellFactory(e -> new ProductListViewCell());
+    }
+
+    @FXML
+    public void sendToMainPage() {
+        utils.switchScenes("MainView.fxml");
     }
 }
