@@ -5,6 +5,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.java.Main;
+import main.java.controller.ProductController;
+import main.java.model.Product;
+import main.java.model.Service;
 
 import java.io.IOException;
 
@@ -20,5 +23,13 @@ public class ViewUtils {
             e.printStackTrace();
         }
         stage.setScene(new Scene(root, 1366, 768));
+    }
+
+    public void search(String title) {
+        Product product = Service.searchForProduct(title);
+        if (product != null) {
+            ProductController.setProduct(product);
+            switchScenes("ProductView.fxml");
+        }
     }
 }

@@ -143,6 +143,21 @@ public class Service {
     }
 
     /**
+     * Searching in products base for requested product
+     *
+     * @param title Searched product title
+     * @return Product, if is in products base, else null
+     */
+    public static Product searchForProduct(String title) {
+        for (Product p : products) {
+            if (p.getTitle().equals(title)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Initializing lists with some content -
      * creating users and products
      */

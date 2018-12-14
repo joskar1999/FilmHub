@@ -60,7 +60,7 @@
             </Text>
             <AnchorPane layoutX="433.0" layoutY="20.0" prefHeight="47.0" prefWidth="500.0" style="-fx-background-color: #363636;">
                <children>
-                  <ImageView fx:id="searchIcon" fitHeight="47.0" fitWidth="86.0" layoutX="416.0">
+                  <ImageView fx:id="searchIcon" fitHeight="47.0" fitWidth="86.0" layoutX="416.0" onMouseClicked="#searchForProduct">
                      <image>
                         <Image url="@../images/Search.png" />
                      </image>

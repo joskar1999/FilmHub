@@ -3,6 +3,7 @@ package main.java.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -91,6 +92,9 @@ public class MainController implements Initializable {
     @FXML
     private Text movieViewsThird;
 
+    @FXML
+    private TextField searchBar;
+
     private ViewUtils utils = new ViewUtils();
 
     @FXML
@@ -155,6 +159,12 @@ public class MainController implements Initializable {
     @FXML
     public void sendToMoviesPage() {
         utils.switchScenes("MoviesView.fxml");
+    }
+
+    @FXML
+    public void searchForProduct() {
+        String title = searchBar.getText();
+        utils.search(title);
     }
 
     @Override
