@@ -31,6 +31,10 @@ public class MoviesController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         listView.setItems(products);
         listView.setCellFactory(e -> new ProductListViewCell());
+
+        Service.addOnDatasetChangeListener((p) -> {
+            products.add(p);
+        });
     }
 
     @FXML

@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import main.java.model.OnDatasetChangeListener;
 import main.java.model.Product;
 import main.java.model.Service;
 import main.java.view.ViewUtils;
@@ -171,7 +170,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         refreshMainView();
-        Service.addOnDatasetChangeListener(() -> {
+        Service.addOnDatasetChangeListener((e) -> {
             refreshMainView();
         });
     }

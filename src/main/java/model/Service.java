@@ -131,8 +131,9 @@ public class Service {
             productDistributorMapping.put(p.getTitle(), id);
             System.out.println(p.getTitle() + ", " + String.valueOf(id));
             movieAmount++;
-            if (id >= 6) { //when id is lower that 6, MainController have not been created yet, so listener is null
-                onDatasetChangeListener.notifyDatasetChanged();
+
+            if (movieAmount >= 7) { //when id is lower that 7, MainController have not been created yet, so listener is null
+                onDatasetChangeListener.notifyDatasetChanged(p);
             }
         });
 
