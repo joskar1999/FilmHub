@@ -12,5 +12,8 @@
     <orderEntry type="library" name="json-simple-1.1" level="project" />
     <orderEntry type="library" name="controlsfx-9.0.0" level="project" />
     <orderEntry type="library" name="controlsfx-9.0.0" level="project" />
+    <orderEntry type="library" name="controlsfx-9.0.0" level="project" />
+    <orderEntry type="library" name="json-simple-1.1" level="project" />
+    <orderEntry type="library" name="javafx11" level="application" />
   </component>
 </module>

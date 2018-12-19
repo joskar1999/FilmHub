@@ -20,6 +20,7 @@ public class Service {
     private static int distributorsAmount = 0;
     private static Semaphore semaphore;
     private static Random random = new Random();
+    private static OnDatasetChangeListener onDatasetChangeListener;
 
     public Service() {
         simulationSettings.setMultiplier(10);
@@ -40,6 +41,10 @@ public class Service {
 
     public static int getMovieAmount() {
         return movieAmount;
+    }
+
+    public static void addOnDatasetChangeListener(OnDatasetChangeListener onDatasetChangeListener) {
+        Service.onDatasetChangeListener = onDatasetChangeListener;
     }
 
     /**
@@ -126,6 +131,9 @@ public class Service {
             productDistributorMapping.put(p.getTitle(), id);
             System.out.println(p.getTitle() + ", " + String.valueOf(id));
             movieAmount++;
+            if (id >= 6) { //when id is lower that 6, MainController have not been created yet, so listener is null
+                onDatasetChangeListener.notifyDatasetChanged();
+            }
         });
 
         distributor.addOnNegotiateListener((p) -> {
