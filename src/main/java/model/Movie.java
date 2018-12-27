@@ -3,7 +3,6 @@ package main.java.model;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Movie extends IMDB {
 
@@ -51,20 +50,12 @@ public class Movie extends IMDB {
     /**
      * Creating random movie from given id
      *
-     * @param id value between 0-6
+     * @param id movie identifier
      */
-    private void createFromJSON(int id) throws NoMoviesException {
+    @Override
+    protected void createFromJSON(int id) throws NoMoviesException {
+        super.createFromJSON(id);
         JSONObject movie = JSONUtils.getSingleMovieFromFile(id);
-        Random random = new Random();
-
-        setTitle((String) movie.get("title"));
-        setProductionDate(String.valueOf(movie.get("year")));
-        setCountry(JSONUtils.randCountry());
-        setImage((String) movie.get("image"));
-        setDescription((String) movie.get("description"));
-        setDuration(random.nextInt(60) + 120);
-        setRating((random.nextInt(40) / 10.0) + 6.0);
-        setPrice(randomizePrice());
         actors = JSONUtils.readactorsFromJSON(movie);
     }
 }
