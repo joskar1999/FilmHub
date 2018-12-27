@@ -5,7 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.java.Main;
-import main.java.controller.ProductController;
+import main.java.controller.ProductDataController;
 import main.java.model.Product;
 import main.java.model.Service;
 
@@ -28,8 +28,8 @@ public class ViewUtils {
     public void search(String title) {
         Product product = Service.searchForProduct(title);
         if (product != null) {
-            ProductController.setProduct(product);
-            switchScenes("ProductView.fxml");
+            ProductDataController.setProduct(product);
+            switchScenes("ProductDataView.fxml");
         }
     }
 }

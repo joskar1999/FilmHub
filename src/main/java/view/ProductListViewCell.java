@@ -60,9 +60,9 @@ public class ProductListViewCell extends ListCell<Product> {
             }
 
             title.setText(item.getTitle());
-            rating.setText(String.valueOf(item.getRating()));
             imageView.setImage(new Image(String.valueOf(getClass().getResource(
                 "../../resources/images/" + item.getImage()))));
+            rating.setText(String.valueOf(item.getRating()));
 
             title.setOnMouseClicked(e -> {
                 utils.search(item.getTitle());

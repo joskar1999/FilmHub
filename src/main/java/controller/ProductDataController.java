@@ -11,7 +11,7 @@ import main.java.view.ViewUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProductController implements Initializable {
+public class ProductDataController implements Initializable {
 
     @FXML
     private ImageView image;
@@ -35,7 +35,7 @@ public class ProductController implements Initializable {
     private ViewUtils utils = new ViewUtils();
 
     public static void setProduct(Product product) {
-        ProductController.product = product;
+        ProductDataController.product = product;
     }
 
     private void updateUI() {
