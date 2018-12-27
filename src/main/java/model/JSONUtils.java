@@ -8,9 +8,10 @@ import org.json.simple.parser.ParseException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
-public class Utils {
+public class JSONUtils {
 
     /**
      * Reading JSON file which contains JSONArray as main entity
@@ -59,5 +60,40 @@ public class Utils {
         JSONObject object = (JSONObject) array.get(id);
         String genre = (String) object.get("genre");
         return genre;
+    }
+
+    /**
+     * Reading movie from JSON file
+     *
+     * @param id movie identifier
+     * @return movie as JSONObject
+     * @throws NoMoviesException will be thrown when file does not contain movie with specific id
+     */
+    public static JSONObject getSingleMovieFromFile(int id) throws NoMoviesException {
+        JSONArray array = JSONUtils.readJSONArray("\\src\\main\\resources\\json\\movieList.json");
+        if (array.size() <= id) {
+            throw new NoMoviesException();
+        }
+        JSONObject movie = (JSONObject) array.get(id);
+        return movie;
+    }
+
+    /**
+     * This method extracts actors from JSON describing Movie
+     *
+     * @param video JSONObject from which actors will be extracted
+     * @return List with maximum 3 actors as String
+     */
+    public static ArrayList<String> readactorsFromJSON(JSONObject video) {
+        ArrayList<String> result = new ArrayList<>();
+        JSONArray actors = (JSONArray) video.get("cast");
+        for (int i = 0; i < 3; i++) {
+            try {
+                result.add((String) actors.get(i));
+            } catch (Exception e) {
+                result.add("");
+            }
+        }
+        return result;
     }
 }

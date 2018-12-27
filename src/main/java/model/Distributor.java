@@ -60,7 +60,7 @@ public class Distributor implements Runnable {
      * @param id random value between 0-99
      */
     private void createFromJSON(int id) {
-        JSONArray array = Utils.readJSONArray("\\src\\main\\resources\\json\\fakeDistributors.json");
+        JSONArray array = JSONUtils.readJSONArray("\\src\\main\\resources\\json\\fakeDistributors.json");
         JSONObject distributor = (JSONObject) array.get(id);
 
         this.id = id;

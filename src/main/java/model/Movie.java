@@ -1,6 +1,5 @@
 package main.java.model;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -55,40 +54,17 @@ public class Movie extends IMDB {
      * @param id value between 0-6
      */
     private void createFromJSON(int id) throws NoMoviesException {
-        JSONArray array = Utils.readJSONArray("\\src\\main\\resources\\json\\movieList.json");
-        if (array.size() <= id) {
-            throw new NoMoviesException();
-        }
-        JSONObject movie = (JSONObject) array.get(id);
+        JSONObject movie = JSONUtils.getSingleMovieFromFile(id);
         Random random = new Random();
 
         setTitle((String) movie.get("title"));
         setProductionDate(String.valueOf(movie.get("year")));
-        setCountry(Utils.randCountry());
+        setCountry(JSONUtils.randCountry());
         setImage((String) movie.get("image"));
         setDescription((String) movie.get("description"));
         setDuration(random.nextInt(60) + 120);
         setRating((random.nextInt(40) / 10.0) + 6.0);
         setPrice(randomizePrice());
-        actors = readActors(movie);
-    }
-
-    /**
-     * This method extracts actors from JSON describing Movie
-     *
-     * @param movie JSONObject from which actors will be extracted
-     * @return List with maximum 3 actors as String
-     */
-    private ArrayList<String> readActors(JSONObject movie) {
-        ArrayList<String> result = new ArrayList<>();
-        JSONArray actors = (JSONArray) movie.get("cast");
-        for (int i = 0; i < 3; i++) {
-            try {
-                result.add((String) actors.get(i));
-            } catch (Exception e) {
-                result.add("");
-            }
-        }
-        return result;
+        actors = JSONUtils.readactorsFromJSON(movie);
     }
 }
