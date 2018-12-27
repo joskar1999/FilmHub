@@ -75,8 +75,15 @@ public class Distributor implements Runnable {
      */
     private void release() {
         Product p = null;
+        int type = random.nextInt(3);
         try {
-            p = new Movie(Service.getMovieAmount());
+            if (type == 0) {
+                p = new Movie(Service.getMovieAmount());
+            } else if (type == 1) {
+                p = new Live(Service.getMovieAmount());
+            } else if (type == 2) {
+                p = new Movie(Service.getMovieAmount());
+            }
         } catch (NoMoviesException e) {
             return;
         }

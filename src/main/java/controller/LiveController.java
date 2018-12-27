@@ -13,7 +13,8 @@ import main.java.view.ViewUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MoviesController implements Initializable {
+//TODO make inheritance, a lot of in common with MoviesController
+public class LiveController implements Initializable {
 
     @FXML
     private ListView<Product> listView;
@@ -22,7 +23,7 @@ public class MoviesController implements Initializable {
 
     private ViewUtils utils = new ViewUtils();
 
-    public MoviesController() {
+    public LiveController() {
         products = FXCollections.observableArrayList();
         products.addAll(Service.getProducts());
     }
@@ -32,7 +33,7 @@ public class MoviesController implements Initializable {
         listView.setItems(products);
         listView.setCellFactory(e -> new ProductListViewCell());
 
-        Service.addOnDatasetChangeListener((p) -> {
+        Service.addOnDatasetChangeListener(p -> {
             products.add(p);
         });
     }
@@ -43,7 +44,7 @@ public class MoviesController implements Initializable {
     }
 
     @FXML
-    public void sendToLivePage() {
-        utils.switchScenes("LiveView.fxml");
+    public void sendToMoviesPage() {
+        utils.switchScenes("MoviesView.fxml");
     }
 }

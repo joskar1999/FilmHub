@@ -103,17 +103,17 @@ public class MainController implements Initializable {
 
         List<Product> products = Service.getMostPopular(6);
         seriesImageFirst.setImage(new Image(String.valueOf(new File(String.valueOf(
-                getClass().getResource("../../resources/images/" + products.get(0).getImage()))))));
+            getClass().getResource("../../resources/images/" + products.get(0).getImage()))))));
         seriesImageSecond.setImage(new Image(String.valueOf(new File(String.valueOf(
-                getClass().getResource("../../resources/images/" + products.get(1).getImage()))))));
+            getClass().getResource("../../resources/images/" + products.get(1).getImage()))))));
         seriesImageThird.setImage(new Image(String.valueOf(new File(String.valueOf(
-                getClass().getResource("../../resources/images/" + products.get(2).getImage()))))));
+            getClass().getResource("../../resources/images/" + products.get(2).getImage()))))));
         movieImageFirst.setImage(new Image(String.valueOf(new File(String.valueOf(
-                getClass().getResource("../../resources/images/" + products.get(3).getImage()))))));
+            getClass().getResource("../../resources/images/" + products.get(3).getImage()))))));
         movieImageSecond.setImage(new Image(String.valueOf(new File(String.valueOf(
-                getClass().getResource("../../resources/images/" + products.get(4).getImage()))))));
+            getClass().getResource("../../resources/images/" + products.get(4).getImage()))))));
         movieImageThird.setImage(new Image(String.valueOf(new File(String.valueOf(
-                getClass().getResource("../../resources/images/" + products.get(5).getImage()))))));
+            getClass().getResource("../../resources/images/" + products.get(5).getImage()))))));
 
         seriesTitleFirst.setText(products.get(0).getTitle());
         seriesTitleSecond.setText(products.get(1).getTitle());
@@ -134,12 +134,12 @@ public class MainController implements Initializable {
     public void createNewDistributor() {
         Service.createNewDistributor();
         Notifications notifications = Notifications
-                .create()
-                .title("Filmhub")
-                .text("Nowy dystrybutor stworzony!")
-                .graphic(null)
-                .hideAfter(Duration.seconds(2))
-                .position(Pos.BASELINE_RIGHT);
+            .create()
+            .title("Filmhub")
+            .text("Nowy dystrybutor stworzony!")
+            .graphic(null)
+            .hideAfter(Duration.seconds(2))
+            .position(Pos.BASELINE_RIGHT);
         notifications.showConfirm();
     }
 
@@ -147,18 +147,23 @@ public class MainController implements Initializable {
     public void createNewUser() {
         Service.createNewUser();
         Notifications notifications = Notifications
-                .create()
-                .title("Filmhub")
-                .text("Nowy użytkownik stworzony!")
-                .graphic(null)
-                .hideAfter(Duration.seconds(2))
-                .position(Pos.BASELINE_RIGHT);
+            .create()
+            .title("Filmhub")
+            .text("Nowy użytkownik stworzony!")
+            .graphic(null)
+            .hideAfter(Duration.seconds(2))
+            .position(Pos.BASELINE_RIGHT);
         notifications.showConfirm();
     }
 
     @FXML
     public void sendToMoviesPage() {
         utils.switchScenes("MoviesView.fxml");
+    }
+
+    @FXML
+    public void sendToLivePage() {
+        utils.switchScenes("LiveView.fxml");
     }
 
     @FXML

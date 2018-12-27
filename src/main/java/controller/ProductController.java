@@ -55,6 +55,11 @@ public class ProductController implements Initializable {
         utils.switchScenes("MoviesView.fxml");
     }
 
+    @FXML
+    public void sendToLivePage() {
+        utils.switchScenes("LiveView.fxml");
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateUI();

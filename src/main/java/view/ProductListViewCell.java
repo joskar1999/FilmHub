@@ -7,8 +7,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import main.java.model.Live;
 import main.java.model.Movie;
 import main.java.model.Product;
+import main.java.model.Series;
 
 import java.io.IOException;
 
@@ -60,7 +62,7 @@ public class ProductListViewCell extends ListCell<Product> {
             title.setText(item.getTitle());
             rating.setText(String.valueOf(item.getRating()));
             imageView.setImage(new Image(String.valueOf(getClass().getResource(
-                    "../../resources/images/" + item.getImage()))));
+                "../../resources/images/" + item.getImage()))));
 
             title.setOnMouseClicked(e -> {
                 utils.search(item.getTitle());
@@ -70,8 +72,15 @@ public class ProductListViewCell extends ListCell<Product> {
                 firstActor.setText(((Movie) item).getActors().get(0));
                 secondActor.setText(((Movie) item).getActors().get(1));
                 thirdActor.setText(((Movie) item).getActors().get(2));
+            } else if (item instanceof Live) {
+                firstActor.setText("l");
+                secondActor.setText("l");
+                thirdActor.setText("l");
+            } else if (item instanceof Series) {
+                firstActor.setText("s");
+                secondActor.setText("s");
+                thirdActor.setText("s");
             }
-
             setText(null);
             setGraphic(anchorPane);
         }
