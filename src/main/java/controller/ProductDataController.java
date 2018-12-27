@@ -11,7 +11,7 @@ import main.java.view.ViewUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProductDataController implements Initializable {
+public class ProductDataController extends Controller implements Initializable {
 
     @FXML
     private ImageView image;
@@ -43,21 +43,6 @@ public class ProductDataController implements Initializable {
         rating.setText(String.valueOf(product.getRating()));
         image.setImage(new Image(String.valueOf(getClass().getResource(
             "../../resources/images/" + product.getImage()))));
-    }
-
-    @FXML
-    public void sendToMainPage() {
-        utils.switchScenes("MainView.fxml");
-    }
-
-    @FXML
-    public void sendToMoviesPage() {
-        utils.switchScenes("MoviesView.fxml");
-    }
-
-    @FXML
-    public void sendToLivePage() {
-        utils.switchScenes("LiveView.fxml");
     }
 
     @Override

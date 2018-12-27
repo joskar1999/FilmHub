@@ -8,21 +8,18 @@ import javafx.scene.control.ListView;
 import main.java.model.Product;
 import main.java.model.Service;
 import main.java.view.ProductListViewCell;
-import main.java.view.ViewUtils;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ProductController implements Initializable {
+public class ProductController extends Controller implements Initializable {
 
     @FXML
     protected ListView<Product> listView;
 
     protected ObservableList<Product> products;
     protected List<Product> allProducts;
-
-    protected ViewUtils utils = new ViewUtils();
 
     public ProductController() {
         products = FXCollections.observableArrayList();
@@ -35,25 +32,5 @@ public class ProductController implements Initializable {
         listView.setCellFactory(e -> new ProductListViewCell());
         listView.getStylesheets().add(
             getClass().getResource("../../resources/css/styles.css").toExternalForm());
-    }
-
-    @FXML
-    public void sendToMainPage() {
-        utils.switchScenes("MainView.fxml");
-    }
-
-    @FXML
-    public void sendToMoviesPage() {
-        utils.switchScenes("MoviesView.fxml");
-    }
-
-    @FXML
-    public void sendToLivePage() {
-        utils.switchScenes("LiveView.fxml");
-    }
-
-    @FXML
-    public void sendToSeriesPage() {
-        utils.switchScenes("SeriesView.fxml");
     }
 }

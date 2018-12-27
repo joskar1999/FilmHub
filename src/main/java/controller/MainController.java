@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController extends Controller implements Initializable {
 
     @FXML
     private ImageView seriesImageFirst;
@@ -154,21 +154,6 @@ public class MainController implements Initializable {
             .hideAfter(Duration.seconds(2))
             .position(Pos.BASELINE_RIGHT);
         notifications.showConfirm();
-    }
-
-    @FXML
-    public void sendToMoviesPage() {
-        utils.switchScenes("MoviesView.fxml");
-    }
-
-    @FXML
-    public void sendToLivePage() {
-        utils.switchScenes("LiveView.fxml");
-    }
-
-    @FXML
-    public void sendToSeriesPage() {
-        utils.switchScenes("SeriesView.fxml");
     }
 
     @FXML
