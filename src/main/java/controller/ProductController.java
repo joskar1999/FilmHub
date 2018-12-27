@@ -33,6 +33,8 @@ public class ProductController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         listView.setItems(products);
         listView.setCellFactory(e -> new ProductListViewCell());
+        listView.getStylesheets().add(
+            getClass().getResource("../../resources/css/styles.css").toExternalForm());
     }
 
     @FXML
