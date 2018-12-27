@@ -65,6 +65,20 @@ public class JSONUtils {
     }
 
     /**
+     * Randomizing image
+     *
+     * @return String image
+     */
+    public static String randImage() {
+        Random random = new Random();
+        int id = random.nextInt(16);
+        JSONArray array = readJSONArray("\\src\\main\\resources\\json\\seriesImages.json");
+        JSONObject object = (JSONObject) array.get(id);
+        String image = (String) object.get("image");
+        return image;
+    }
+
+    /**
      * Reading movie from JSON file
      *
      * @param id movie identifier

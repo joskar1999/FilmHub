@@ -41,7 +41,7 @@ public class Series extends IMDB {
         setTitle((String) object.get("title"));
         setProductionDate(String.valueOf(object.get("year")));
         actors = JSONUtils.readActorsFromJSON(object);
-        setImage("emrata.jpeg");
+        setImage(JSONUtils.randImage());
         setPrice(randomizePrice());
         setRating((random.nextInt(40) / 10.0) + 6.0);
     }
