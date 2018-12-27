@@ -56,6 +56,6 @@ public class Movie extends IMDB {
     protected void createFromJSON(int id) throws NoMoviesException {
         super.createFromJSON(id);
         JSONObject movie = JSONUtils.getSingleMovieFromFile(id);
-        actors = JSONUtils.readactorsFromJSON(movie);
+        actors = JSONUtils.readActorsFromJSON(movie);
     }
 }

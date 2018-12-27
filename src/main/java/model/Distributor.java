@@ -82,7 +82,7 @@ public class Distributor implements Runnable {
             } else if (type == 1) {
                 p = new Live(Service.getMovieAmount());
             } else if (type == 2) {
-                p = new Movie(Service.getMovieAmount());
+                p = new Series();
             }
         } catch (NoMoviesException e) {
             return;

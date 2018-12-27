@@ -13,6 +13,8 @@ import java.util.Random;
 
 public class JSONUtils {
 
+    private static int currentId = 0;
+
     /**
      * Reading JSON file which contains JSONArray as main entity
      *
@@ -79,12 +81,25 @@ public class JSONUtils {
     }
 
     /**
+     * Retrieving products data from secondary JSON file
+     *
+     * @return product data as JSONObject
+     */
+    public static JSONObject getSecondaryProductData() {
+        JSONArray array = JSONUtils.readJSONArray("\\src\\main\\resources\\json\\secondaryMovies.json");
+        synchronized (JSONUtils.class) {
+            JSONObject item = (JSONObject) array.get(currentId++);
+            return item;
+        }
+    }
+
+    /**
      * This method extracts actors from JSON describing Movie
      *
      * @param video JSONObject from which actors will be extracted
      * @return List with maximum 3 actors as String
      */
-    public static ArrayList<String> readactorsFromJSON(JSONObject video) {
+    public static ArrayList<String> readActorsFromJSON(JSONObject video) {
         ArrayList<String> result = new ArrayList<>();
         JSONArray actors = (JSONArray) video.get("cast");
         for (int i = 0; i < 3; i++) {
