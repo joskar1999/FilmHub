@@ -73,13 +73,13 @@ public class ProductListViewCell extends ListCell<Product> {
                 secondActor.setText(((Movie) item).getActors().get(1));
                 thirdActor.setText(((Movie) item).getActors().get(2));
             } else if (item instanceof Live) {
-                firstActor.setText("l");
-                secondActor.setText("l");
-                thirdActor.setText("l");
+                firstActor.setText("");
+                secondActor.setText("");
+                thirdActor.setText("");
             } else if (item instanceof Series) {
-                firstActor.setText("s");
-                secondActor.setText("s");
-                thirdActor.setText("s");
+                firstActor.setText(((Series) item).getActors().get(0));
+                secondActor.setText(((Series) item).getActors().get(1));
+                thirdActor.setText(((Series) item).getActors().get(2));
             }
             setText(null);
             setGraphic(anchorPane);

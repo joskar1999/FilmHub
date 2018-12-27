@@ -51,4 +51,9 @@ public class ProductController implements Initializable {
     public void sendToLivePage() {
         utils.switchScenes("LiveView.fxml");
     }
+
+    @FXML
+    public void sendToSeriesPage() {
+        utils.switchScenes("SeriesView.fxml");
+    }
 }

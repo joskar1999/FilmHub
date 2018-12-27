@@ -167,6 +167,11 @@ public class MainController implements Initializable {
     }
 
     @FXML
+    public void sendToSeriesPage() {
+        utils.switchScenes("SeriesView.fxml");
+    }
+
+    @FXML
     public void searchForProduct() {
         String title = searchBar.getText();
         utils.search(title);
