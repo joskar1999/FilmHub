@@ -1,10 +1,12 @@
 package main.java.model;
 
+import java.math.BigDecimal;
+
 public class Discount {
 
     private long startTime;
     private long endTime;
-    private int percentages;
+    private BigDecimal percentages;
 
     public long getStartTime() {
         return startTime;
@@ -22,11 +24,11 @@ public class Discount {
         this.endTime = endTime;
     }
 
-    public int getPercentages() {
+    public BigDecimal getPercentages() {
         return percentages;
     }
 
-    public void setPercentages(int percentages) {
+    public void setPercentages(BigDecimal percentages) {
         this.percentages = percentages;
     }
 }

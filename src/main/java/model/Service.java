@@ -21,6 +21,8 @@ public class Service {
     private static Semaphore semaphore;
     private static Random random = new Random();
     private static OnDatasetChangeListener onDatasetChangeListener;
+    public static final int LIVE_DISCOUNT = 1;
+    public static final int MOVIE_DISCOUNT = 2;
 
     public Service() {
         simulationSettings.setMultiplier(10);
@@ -29,6 +31,10 @@ public class Service {
 
     public static Subscription getSubscription() {
         return subscription;
+    }
+
+    public static TimeUtils getTimeUtils() {
+        return timeUtils;
     }
 
     public static void setSubscriptionPrice(BigDecimal basic, BigDecimal family, BigDecimal premium) {
@@ -183,6 +189,22 @@ public class Service {
         //Product will be removed only from 'products'
         //because it may cause NullPointerException
         //in User object if it will be removed from other List
+    }
+
+    public static void addDiscount(String productTitle, Discount discount, int type) {
+        if (type == LIVE_DISCOUNT) {
+            for (Product p : products) {
+                if (p instanceof Live && p.getTitle().equals(productTitle)) {
+                    ((Live) p).setDiscount(discount);
+                }
+            }
+        } else if (type == MOVIE_DISCOUNT) {
+            for (Product p : products) {
+                if (p instanceof Movie && p.getTitle().equals(productTitle)) {
+                    ((Movie) p).setDiscount(discount);
+                }
+            }
+        }
     }
 
     /**
