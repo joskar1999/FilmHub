@@ -28,7 +28,7 @@
                   <Font name="Segoe UI" size="22.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="978.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Abonamenty">
+            <Text fill="WHITE" layoutX="978.0" layoutY="113.0" onMouseClicked="#sendToSubscriptionPage" strokeType="OUTSIDE" strokeWidth="0.0" text="Abonamenty">
                <font>
                   <Font name="Segoe UI" size="22.0" />
                </font>

@@ -26,4 +26,9 @@ public class Controller {
     public void sendToSeriesPage() {
         utils.switchScenes("SeriesView.fxml");
     }
+
+    @FXML
+    public void sendToSubscriptionPage() {
+        utils.switchScenes("SubscriptionView.fxml");
+    }
 }
