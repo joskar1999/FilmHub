@@ -113,7 +113,7 @@ public class User implements Runnable {
      * @param id user id 0-999
      */
     private void createFromJSON(int id) {
-        JSONArray array = Utils.readJSONArray("\\src\\main\\resources\\json\\fakeUsers.json");
+        JSONArray array = JSONUtils.readJSONArray("\\src\\main\\resources\\json\\fakeUsers.json");
         JSONObject person = (JSONObject) array.get(id);
 
         this.id = id;

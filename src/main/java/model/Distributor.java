@@ -60,7 +60,7 @@ public class Distributor implements Runnable {
      * @param id random value between 0-99
      */
     private void createFromJSON(int id) {
-        JSONArray array = Utils.readJSONArray("\\src\\main\\resources\\json\\fakeDistributors.json");
+        JSONArray array = JSONUtils.readJSONArray("\\src\\main\\resources\\json\\fakeDistributors.json");
         JSONObject distributor = (JSONObject) array.get(id);
 
         this.id = id;
@@ -75,8 +75,15 @@ public class Distributor implements Runnable {
      */
     private void release() {
         Product p = null;
+        int type = random.nextInt(3);
         try {
-            p = new Movie(Service.getMovieAmount());
+            if (type == 0) {
+                p = new Movie(Service.getMovieAmount());
+            } else if (type == 1) {
+                p = new Live(Service.getMovieAmount());
+            } else if (type == 2) {
+                p = new Series();
+            }
         } catch (NoMoviesException e) {
             return;
         }

@@ -3,12 +3,14 @@ package main.java.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import main.java.model.Product;
 import main.java.model.Service;
+import main.java.view.ViewUtils;
 import org.controlsfx.control.Notifications;
 
 import java.io.File;
@@ -16,7 +18,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController extends Controller implements Initializable {
 
     @FXML
     private ImageView seriesImageFirst;
@@ -91,6 +93,11 @@ public class MainController implements Initializable {
     private Text movieViewsThird;
 
     @FXML
+    private TextField searchBar;
+
+    private ViewUtils utils = new ViewUtils();
+
+    @FXML
     public void refreshMainView() {
         //TODO do refactor - extract method
 
@@ -149,8 +156,17 @@ public class MainController implements Initializable {
         notifications.showConfirm();
     }
 
+    @FXML
+    public void searchForProduct() {
+        String title = searchBar.getText();
+        utils.search(title);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         refreshMainView();
+        Service.addOnDatasetChangeListener((e) -> {
+            refreshMainView();
+        });
     }
 }

@@ -1,5 +1,7 @@
 package main.java.model;
 
+import org.json.simple.JSONObject;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Random;
@@ -98,6 +100,18 @@ public abstract class Product implements Comparable<Product> {
         double d = 20.0 + (100.0 - 20.0) * random.nextDouble();
         BigDecimal bd = new BigDecimal(d).setScale(2, RoundingMode.HALF_EVEN);
         return bd;
+    }
+
+    protected void createFromJSON(int id) throws NoMoviesException {
+        JSONObject movie = JSONUtils.getSingleMovieFromFile(id);
+        setTitle((String) movie.get("title"));
+        setProductionDate(String.valueOf(movie.get("year")));
+        setCountry(JSONUtils.randCountry());
+        setImage((String) movie.get("image"));
+        setDescription((String) movie.get("description"));
+        setDuration(random.nextInt(60) + 120);
+        setRating((random.nextInt(40) / 10.0) + 6.0);
+        setPrice(randomizePrice());
     }
 
     @Override
