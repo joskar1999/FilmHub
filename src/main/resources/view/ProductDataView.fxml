@@ -51,14 +51,14 @@
                         <Font name="Segoe UI" size="22.0" />
                     </font>
                 </Text>
-                <Text fx:id="newDistributor" fill="#acabab" layoutX="1151.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nowy Dystrybutor">
+                <Text fx:id="newDistributor" fill="#acabab" layoutX="1151.0" layoutY="49.0" onMouseClicked="#createNewDistributor" strokeType="OUTSIDE" strokeWidth="0.0" text="Nowy Dystrybutor">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>
                 </Text>
                 <AnchorPane layoutX="433.0" layoutY="20.0" prefHeight="47.0" prefWidth="500.0" style="-fx-background-color: #363636;">
                     <children>
-                        <ImageView fx:id="searchIcon" fitHeight="47.0" fitWidth="86.0" layoutX="416.0">
+                        <ImageView fx:id="searchIcon" fitHeight="47.0" fitWidth="86.0" layoutX="416.0" onMouseClicked="#searchForProduct">
                             <image>
                                 <Image url="@../images/Search.png" />
                             </image>
@@ -70,7 +70,7 @@
                         </TextField>
                     </children>
                 </AnchorPane>
-                <Text fx:id="newUser" fill="#acabab" layoutX="978.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nowy Użytkownik">
+                <Text fx:id="newUser" fill="#acabab" layoutX="978.0" layoutY="49.0" onMouseClicked="#createNewUser" strokeType="OUTSIDE" strokeWidth="0.0" text="Nowy Użytkownik">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>
