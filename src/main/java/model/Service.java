@@ -31,6 +31,18 @@ public class Service {
         return subscription;
     }
 
+    public static void setSubscriptionPrice(BigDecimal basic, BigDecimal family, BigDecimal premium) {
+        if (basic != null) {
+            subscription.updateBasicPrice(basic);
+        }
+        if (family != null) {
+            subscription.updateFamilyPrice(family);
+        }
+        if (premium != null) {
+            subscription.updatePremiumPrice(premium);
+        }
+    }
+
     public static List<Product> getProducts() {
         return products;
     }

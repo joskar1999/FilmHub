@@ -45,4 +45,16 @@ public class Subscription {
     public void setResolutionMap(Map<SubscriptionType, Integer> resolutionMap) {
         this.resolutionMap = resolutionMap;
     }
+
+    public void updateBasicPrice(BigDecimal price) {
+        priceMap.replace(SubscriptionType.BASIC, price);
+    }
+
+    public void updateFamilyPrice(BigDecimal price) {
+        priceMap.replace(SubscriptionType.FAMILY, price);
+    }
+
+    public void updatePremiumPrice(BigDecimal price) {
+        priceMap.replace(SubscriptionType.PREMIUM, price);
+    }
 }
