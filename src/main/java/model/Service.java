@@ -178,6 +178,13 @@ public class Service {
         return null;
     }
 
+    public static void removeProduct(String title) {
+        products.removeIf(p -> p.getTitle().equals(title));
+        //Product will be removed only from 'products'
+        //because it may cause NullPointerException
+        //in User object if it will be removed from other List
+    }
+
     /**
      * Initializing lists with some content -
      * creating users and products

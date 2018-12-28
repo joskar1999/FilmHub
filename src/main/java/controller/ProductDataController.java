@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import main.java.model.Product;
+import main.java.model.Service;
 import main.java.view.ViewUtils;
 
 import java.net.URL;
@@ -43,6 +44,17 @@ public class ProductDataController extends Controller implements Initializable {
         rating.setText(String.valueOf(product.getRating()));
         image.setImage(new Image(String.valueOf(getClass().getResource(
             "../../resources/images/" + product.getImage()))));
+    }
+
+    @FXML
+    public void removeProduct() {
+        if (Service.getProducts().size() > 6) {
+            Service.removeProduct(product.getTitle());
+            showNotification("FilmHub", "Produkt usunięty");
+            sendToMainPage();
+        } else {
+            showNotification("FilmHub", "Nie usuwaj wszystkiego! Coś musi zostać!");
+        }
     }
 
     @Override
