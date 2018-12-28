@@ -133,27 +133,13 @@ public class MainController extends Controller implements Initializable {
     @FXML
     public void createNewDistributor() {
         Service.createNewDistributor();
-        Notifications notifications = Notifications
-            .create()
-            .title("Filmhub")
-            .text("Nowy dystrybutor stworzony!")
-            .graphic(null)
-            .hideAfter(Duration.seconds(2))
-            .position(Pos.BASELINE_RIGHT);
-        notifications.showConfirm();
+        showNotification("Filmhub", "Nowy dystrybutor stworzony!");
     }
 
     @FXML
     public void createNewUser() {
         Service.createNewUser();
-        Notifications notifications = Notifications
-            .create()
-            .title("Filmhub")
-            .text("Nowy użytkownik stworzony!")
-            .graphic(null)
-            .hideAfter(Duration.seconds(2))
-            .position(Pos.BASELINE_RIGHT);
-        notifications.showConfirm();
+        showNotification("Filmhub", "Nowy użytkownik stworzony!");
     }
 
     @FXML
