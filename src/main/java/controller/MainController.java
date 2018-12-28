@@ -2,16 +2,12 @@ package main.java.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import main.java.model.Product;
 import main.java.model.Service;
 import main.java.view.ViewUtils;
-import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.net.URL;
@@ -92,9 +88,6 @@ public class MainController extends Controller implements Initializable {
     @FXML
     private Text movieViewsThird;
 
-    @FXML
-    private TextField searchBar;
-
     private ViewUtils utils = new ViewUtils();
 
     @FXML
@@ -128,24 +121,6 @@ public class MainController extends Controller implements Initializable {
         movieRatingFirst.setText(String.valueOf(products.get(3).getRating()));
         movieRatingSecond.setText(String.valueOf(products.get(4).getRating()));
         movieRatingThird.setText(String.valueOf(products.get(5).getRating()));
-    }
-
-    @FXML
-    public void createNewDistributor() {
-        Service.createNewDistributor();
-        showNotification("Filmhub", "Nowy dystrybutor stworzony!");
-    }
-
-    @FXML
-    public void createNewUser() {
-        Service.createNewUser();
-        showNotification("Filmhub", "Nowy użytkownik stworzony!");
-    }
-
-    @FXML
-    public void searchForProduct() {
-        String title = searchBar.getText();
-        utils.search(title);
     }
 
     @Override
