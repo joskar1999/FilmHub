@@ -16,9 +16,10 @@ public class Distributor implements Runnable {
     private Random random;
     private Semaphore semaphore;
     private boolean shouldStop;
+    private static int currentId = 0;
 
-    public Distributor(int id, Semaphore semaphore) {
-        createFromJSON(id);
+    public Distributor(Semaphore semaphore) {
+        createFromJSON();
         random = new Random();
         this.semaphore = semaphore;
         this.shouldStop = false;
@@ -62,14 +63,12 @@ public class Distributor implements Runnable {
 
     /**
      * Creating random distributor, data chosen from fake file
-     *
-     * @param id random value between 0-99
      */
-    private void createFromJSON(int id) {
+    private void createFromJSON() {
         JSONArray array = JSONUtils.readJSONArray("\\src\\main\\resources\\json\\fakeDistributors.json");
-        JSONObject distributor = (JSONObject) array.get(id);
+        JSONObject distributor = (JSONObject) array.get(currentId);
 
-        this.id = id;
+        this.id = currentId++;
         this.name = (String) distributor.get("name");
         Contract c = new Contract();
         c.setPercentages(25);

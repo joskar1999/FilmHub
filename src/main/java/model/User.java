@@ -23,9 +23,10 @@ public class User implements Runnable {
     private BigDecimal subscriptionPayment;
     private OnPaymentListener onPaymentListener;
     private boolean shouldStop;
+    private static int currentId = 0;
 
-    public User(int id) {
-        createFromJSON(id);
+    public User() {
+        createFromJSON();
         random = new Random();
         products = new ArrayList<>();
         subscriptionPayment = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
@@ -115,14 +116,12 @@ public class User implements Runnable {
 
     /**
      * Creating random user, data will be chosen from fake file by given id
-     *
-     * @param id user id 0-999
      */
-    private void createFromJSON(int id) {
+    private void createFromJSON() {
         JSONArray array = JSONUtils.readJSONArray("\\src\\main\\resources\\json\\fakeUsers.json");
-        JSONObject person = (JSONObject) array.get(id);
+        JSONObject person = (JSONObject) array.get(currentId);
 
-        this.id = id;
+        this.id = currentId++;
         this.name = (String) person.get("name");
         this.surname = (String) person.get("surname");
         this.email = (String) person.get("email");

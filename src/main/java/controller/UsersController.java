@@ -43,5 +43,6 @@ public class UsersController extends Controller implements Initializable {
                 users.remove(user);
             }
         });
+        Service.isUsersViewCreated = true;
     }
 }

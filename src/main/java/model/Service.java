@@ -23,7 +23,8 @@ public class Service {
     private static OnDatasetChangeListener onDatasetChangeListener;
     private static OnUsersSetChangeListener onUsersSetChangeListener;
     private static OnDistributorsSetChangeListener onDistributorsSetChangeListener;
-    private static boolean isStartingDataCreated = false;
+    public static boolean isUsersViewCreated = false;
+    public static boolean isDistributorsViewCreated = false;
     public static final int NO_DISCOUNT = 0;
     public static final int LIVE_DISCOUNT = 1;
     public static final int MOVIE_DISCOUNT = 2;
@@ -175,19 +176,21 @@ public class Service {
     }
 
     public static void createNewUser() {
-        User user = new User(usersAmount++);
+        User user = new User();
+        usersAmount++;
         user.addOnPaymentListener((p, id, t) -> {
             executePayment(p, id, t);
         });
         users.add(user);
         runThread(user);
-        if (isStartingDataCreated) {
+        if (isUsersViewCreated) {
             onUsersSetChangeListener.onUserCreated(user);
         }
     }
 
     public static void createNewDistributor() {
-        Distributor distributor = new Distributor(distributorsAmount++, semaphore);
+        Distributor distributor = new Distributor(semaphore);
+        distributorsAmount++;
 
         distributor.addOnProductReleaseListener((p, id) -> {
             products.add(p);
@@ -206,7 +209,7 @@ public class Service {
 
         distributors.add(distributor);
         runThread(distributor);
-        if (isStartingDataCreated) {
+        if (isDistributorsViewCreated) {
             onDistributorsSetChangeListener.onDistributorCreated(distributor);
         }
     }
@@ -293,7 +296,6 @@ public class Service {
         for (int i = 0; i < 6; i++) {
             createNewDistributor();
         }
-        isStartingDataCreated = true;
     }
 
     /**

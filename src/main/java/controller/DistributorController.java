@@ -43,5 +43,6 @@ public class DistributorController extends Controller implements Initializable {
                 distributors.remove(distributor);
             }
         });
+        Service.isDistributorsViewCreated = true;
     }
 }
