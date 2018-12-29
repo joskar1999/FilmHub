@@ -223,11 +223,23 @@ public class Service {
     }
 
     public static void removeUser(String email) {
-        //TODO implement: remove user
+        for (int i = 0; i < usersAmount; i++) {
+            if (users.get(i).getEmail().equals(email)) {
+                users.get(i).kill();
+                users.remove(i);
+                usersAmount--;
+            }
+        }
     }
 
     public static void removeDistributor(String name) {
-        //TODO implement: remove distributor
+        for (int i = 0; i < distributorsAmount; i++) {
+            if (distributors.get(i).getName().equals(name)) {
+                distributors.get(i).kill();
+                distributors.remove(i);
+                distributorsAmount--;
+            }
+        }
     }
 
     public static void addDiscount(String productTitle, Discount discount, int type) {

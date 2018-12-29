@@ -22,6 +22,7 @@ public class User implements Runnable {
     private Random random;
     private BigDecimal subscriptionPayment;
     private OnPaymentListener onPaymentListener;
+    private boolean shouldStop;
 
     public User(int id) {
         createFromJSON(id);
@@ -29,6 +30,7 @@ public class User implements Runnable {
         products = new ArrayList<>();
         subscriptionPayment = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
         subscriptionType = SubscriptionType.NONE;
+        shouldStop = false;
     }
 
     public int getId() {
@@ -105,6 +107,10 @@ public class User implements Runnable {
 
     public void addOnPaymentListener(OnPaymentListener onPaymentListener) {
         this.onPaymentListener = onPaymentListener;
+    }
+
+    public void kill() {
+        this.shouldStop = true;
     }
 
     /**
@@ -201,7 +207,7 @@ public class User implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (!shouldStop) {
             if (subscriptionType.equals(SubscriptionType.NONE)) {
                 requestProduct();
             }

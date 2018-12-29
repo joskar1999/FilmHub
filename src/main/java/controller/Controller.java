@@ -68,7 +68,7 @@ public class Controller {
         showNotification("Filmhub", "Nowy użytkownik stworzony!");
     }
 
-    protected void showNotification(String title, String message) {
+    public static void showNotification(String title, String message) {
         Notifications notifications = Notifications
             .create()
             .title(title)

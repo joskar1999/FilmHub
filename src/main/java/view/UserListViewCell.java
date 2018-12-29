@@ -6,6 +6,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import main.java.controller.Controller;
 import main.java.model.Service;
 import main.java.model.User;
 
@@ -50,6 +51,7 @@ public class UserListViewCell extends ListCell<User> {
             email.setText(item.getEmail());
             removeUserButton.setOnMouseClicked(e -> {
                 Service.removeUser(item.getEmail());
+                Controller.showNotification("FilmHub", "Użytkownik usunięty");
             });
 
             setText(null);

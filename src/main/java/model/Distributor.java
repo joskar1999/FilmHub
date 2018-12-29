@@ -15,11 +15,13 @@ public class Distributor implements Runnable {
     private OnNegotiateListener onNegotiateListener;
     private Random random;
     private Semaphore semaphore;
+    private boolean shouldStop;
 
     public Distributor(int id, Semaphore semaphore) {
         createFromJSON(id);
         random = new Random();
         this.semaphore = semaphore;
+        this.shouldStop = false;
     }
 
     public String getName() {
@@ -44,6 +46,10 @@ public class Distributor implements Runnable {
 
     public void addOnNegotiateListener(OnNegotiateListener onNegotiateListener) {
         this.onNegotiateListener = onNegotiateListener;
+    }
+
+    public void kill() {
+        this.shouldStop = true;
     }
 
     /**
@@ -99,7 +105,7 @@ public class Distributor implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (!shouldStop) {
             try {
                 semaphore.acquire();
             } catch (InterruptedException e) {
