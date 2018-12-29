@@ -11,7 +11,7 @@ public interface OnDistributorsSetChangeListener {
     void onDistributorCreated(Distributor distributor);
 
     /**
-     * Method should be called when user is deleted
+     * Method should be called when distributor is deleted
      * from service and view should be updated
      *
      * @param distributor removed distributor
