@@ -23,7 +23,7 @@
                   <Font name="Segoe UI" size="22.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="1188.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Promocje">
+            <Text fill="WHITE" layoutX="1188.0" layoutY="113.0" onMouseClicked="#sendToDistributorsPage" strokeType="OUTSIDE" strokeWidth="0.0" text="Dystrybutorzy">
                <font>
                   <Font name="Segoe UI" size="22.0" />
                </font>
@@ -33,7 +33,7 @@
                   <Font name="Segoe UI" size="22.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="823.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktorzy">
+            <Text fill="WHITE" layoutX="823.0" layoutY="112.0" onMouseClicked="#sendToClientsPage" strokeType="OUTSIDE" strokeWidth="0.0" text="Klienci">
                <font>
                   <Font name="Segoe UI" size="22.0" />
                </font>

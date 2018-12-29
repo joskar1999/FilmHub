@@ -54,6 +54,14 @@ public class Service {
         return products;
     }
 
+    public static List<User> getUsers() {
+        return users;
+    }
+
+    public static List<Distributor> getDistributors() {
+        return distributors;
+    }
+
     public static SimulationSettings getSimulationSettings() {
         return simulationSettings;
     }
@@ -212,6 +220,14 @@ public class Service {
         //Product will be removed only from 'products'
         //because it may cause NullPointerException
         //in User object if it will be removed from other List
+    }
+
+    public static void removeUser(String email) {
+        //TODO implement: remove user
+    }
+
+    public static void removeDistributor(String name) {
+        //TODO implement: remove distributor
     }
 
     public static void addDiscount(String productTitle, Discount discount, int type) {

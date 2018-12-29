@@ -41,6 +41,16 @@ public class Controller {
     }
 
     @FXML
+    protected void sendToClientsPage() {
+        utils.switchScenes("UsersView.fxml");
+    }
+
+    @FXML
+    protected void sendToDistributorsPage() {
+        utils.switchScenes("DistributorView.fxml");
+    }
+
+    @FXML
     public void searchForProduct() {
         String title = searchBar.getText();
         utils.search(title);
