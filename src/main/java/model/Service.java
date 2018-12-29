@@ -111,6 +111,7 @@ public class Service {
                 }
                 amountToPay = amountToPay.subtract(discountValue);
                 serviceBankAccount = serviceBankAccount.add(amountToPay);
+                sendMoneyToDistributor(p.getTitle(), amountToPay);
             }
         }
     }
@@ -120,6 +121,20 @@ public class Service {
         discountValue = discountValue.multiply(percentages).setScale(2, RoundingMode.HALF_EVEN);
         discountValue = discountValue.divide(new BigDecimal("100"), RoundingMode.HALF_EVEN);
         return discountValue;
+    }
+
+    private static void sendMoneyToDistributor(String title, BigDecimal amountToPay) {
+        int distributorId = productDistributorMapping.get(title);
+        BigDecimal price = amountToPay;
+        for (Distributor d : distributors) {
+            if (d.getId() == distributorId) {
+                int percentages = d.getContract().getPercentages();
+                price = price.multiply(BigDecimal.valueOf(percentages)).setScale(2, RoundingMode.HALF_EVEN);
+                price = price.divide(new BigDecimal(100), RoundingMode.HALF_EVEN).setScale(2, RoundingMode.HALF_EVEN);
+                d.addSalary(price);
+                serviceBankAccount = serviceBankAccount.subtract(price).setScale(2, RoundingMode.HALF_EVEN);
+            }
+        }
     }
 
     /**
@@ -142,14 +157,16 @@ public class Service {
      * @param distributor Distributor which negotiates
      * @param p           value wanted by Distributor
      */
-    private static void negotiate(Distributor distributor, int p) {
+    private static void negotiate(Distributor distributor, int p, int w) {
         int sp = random.nextInt(40);
         Contract c = new Contract();
         if (sp > p) {
             c.setPercentages(p);
+            c.setPricePerWatch(w);
         } else {
             int m = (p + sp) / 2;
             c.setPercentages(m);
+            c.setPricePerWatch(w);
         }
         distributor.setContract(c);
     }
@@ -203,8 +220,8 @@ public class Service {
             }
         });
 
-        distributor.addOnNegotiateListener((p) -> {
-            negotiate(distributor, p);
+        distributor.addOnNegotiateListener((p, w) -> {
+            negotiate(distributor, p, w);
         });
 
         distributors.add(distributor);

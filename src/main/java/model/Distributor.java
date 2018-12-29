@@ -3,6 +3,8 @@ package main.java.model;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
@@ -17,12 +19,18 @@ public class Distributor implements Runnable {
     private Semaphore semaphore;
     private boolean shouldStop;
     private static int currentId = 0;
+    private BigDecimal account;
 
     public Distributor(Semaphore semaphore) {
         createFromJSON();
         random = new Random();
         this.semaphore = semaphore;
         this.shouldStop = false;
+        account = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -53,12 +61,17 @@ public class Distributor implements Runnable {
         this.shouldStop = true;
     }
 
+    public void addSalary(BigDecimal salary) {
+        account = account.add(salary).setScale(2, RoundingMode.HALF_EVEN);
+    }
+
     /**
      * Renegotiating Contract, informing Service about it
      */
     private void negotiate() {
         int percentages = random.nextInt(60) + 20;
-        onNegotiateListener.onNegotiate(percentages);
+        int pricePerWatch = random.nextInt(5) + 4;
+        onNegotiateListener.onNegotiate(percentages, pricePerWatch);
     }
 
     /**
