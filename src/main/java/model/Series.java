@@ -1,7 +1,5 @@
 package main.java.model;
 
-import org.json.simple.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -36,13 +34,6 @@ public class Series extends IMDB {
         for (int i = 0; i < numberOfSeasons; i++) {
             seasons.add(new Season());
         }
-        //TODO do refactor
-        JSONObject object = JSONUtils.getSecondaryProductData();
-        setTitle((String) object.get("title"));
-        setProductionDate(String.valueOf(object.get("year")));
-        actors = JSONUtils.readActorsFromJSON(object);
-        setImage(JSONUtils.randImage());
-        setPrice(randomizePrice());
-        setRating((random.nextInt(40) / 10.0) + 6.0);
+        actors = createFromSecondaryJSON();
     }
 }

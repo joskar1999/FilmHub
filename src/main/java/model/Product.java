@@ -4,6 +4,7 @@ import org.json.simple.JSONObject;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Product implements Comparable<Product> {
@@ -112,6 +113,22 @@ public abstract class Product implements Comparable<Product> {
         setDuration(random.nextInt(60) + 120);
         setRating((random.nextInt(40) / 10.0) + 6.0);
         setPrice(randomizePrice());
+    }
+
+    /**
+     * Creating random product from secondary JSON file
+     *
+     * @return method will return ArrayList containing actors in order to use it in derived class
+     */
+    protected ArrayList<String> createFromSecondaryJSON() {
+        JSONObject object = JSONUtils.getSecondaryProductData();
+        setTitle((String) object.get("title"));
+        setProductionDate(String.valueOf(object.get("year")));
+        ArrayList<String> actors = JSONUtils.readActorsFromJSON(object);
+        setImage(JSONUtils.randImage());
+        setPrice(randomizePrice());
+        setRating((random.nextInt(40) / 10.0) + 6.0);
+        return actors;
     }
 
     @Override
