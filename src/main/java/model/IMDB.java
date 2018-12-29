@@ -1,9 +1,16 @@
 package main.java.model;
 
+import java.util.Random;
+
 public abstract class IMDB extends Product {
 
     private Genre genre;
     private int viewsAmount;
+    private Random random = new Random();
+
+    public IMDB() {
+        randGenre();
+    }
 
     public Genre getGenre() {
         return genre;
@@ -19,5 +26,29 @@ public abstract class IMDB extends Product {
 
     public void setViewsAmount(int viewsAmount) {
         this.viewsAmount = viewsAmount;
+    }
+
+    private void randGenre() {
+        int choice = random.nextInt(6);
+        switch (choice) {
+            case 0:
+                genre = Genre.ACTION;
+                break;
+            case 1:
+                genre = Genre.CARTOON;
+                break;
+            case 2:
+                genre = Genre.COMEDY;
+                break;
+            case 3:
+                genre = Genre.DOCUMENT;
+                break;
+            case 4:
+                genre = Genre.DRAMA;
+                break;
+            case 5:
+                genre = Genre.THRILLER;
+                break;
+        }
     }
 }
