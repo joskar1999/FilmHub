@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import main.java.model.Distributor;
+import main.java.model.OnDistributorsSetChangeListener;
 import main.java.model.Service;
 import main.java.view.DistributorListViewCell;
 
@@ -31,6 +32,16 @@ public class DistributorController extends Controller implements Initializable {
         listView.getStylesheets().add(
             getClass().getResource("../../resources/css/styles.css").toExternalForm());
 
-        //TODO add listener for new distributor
+        Service.addOnDistributorsSetChangeListener(new OnDistributorsSetChangeListener() {
+            @Override
+            public void onDistributorCreated(Distributor distributor) {
+                distributors.add(distributor);
+            }
+
+            @Override
+            public void onDistributorRemoved(Distributor distributor) {
+                distributors.remove(distributor);
+            }
+        });
     }
 }

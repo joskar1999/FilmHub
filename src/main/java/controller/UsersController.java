@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import main.java.model.OnUsersSetChangeListener;
 import main.java.model.Service;
 import main.java.model.User;
 import main.java.view.UserListViewCell;
@@ -31,6 +32,16 @@ public class UsersController extends Controller implements Initializable {
         listView.getStylesheets().add(
             getClass().getResource("../../resources/css/styles.css").toExternalForm());
 
-        //TODO add listener for new user
+        Service.addOnUsersSetChangeListener(new OnUsersSetChangeListener() {
+            @Override
+            public void onUserCreated(User user) {
+                users.add(user);
+            }
+
+            @Override
+            public void onUserRemoved(User user) {
+                users.remove(user);
+            }
+        });
     }
 }

@@ -21,6 +21,9 @@ public class Service {
     private static Semaphore semaphore;
     private static Random random = new Random();
     private static OnDatasetChangeListener onDatasetChangeListener;
+    private static OnUsersSetChangeListener onUsersSetChangeListener;
+    private static OnDistributorsSetChangeListener onDistributorsSetChangeListener;
+    private static boolean isStartingDataCreated = false;
     public static final int NO_DISCOUNT = 0;
     public static final int LIVE_DISCOUNT = 1;
     public static final int MOVIE_DISCOUNT = 2;
@@ -72,6 +75,14 @@ public class Service {
 
     public static void addOnDatasetChangeListener(OnDatasetChangeListener onDatasetChangeListener) {
         Service.onDatasetChangeListener = onDatasetChangeListener;
+    }
+
+    public static void addOnUsersSetChangeListener(OnUsersSetChangeListener onUsersSetChangeListener) {
+        Service.onUsersSetChangeListener = onUsersSetChangeListener;
+    }
+
+    public static void addOnDistributorsSetChangeListener(OnDistributorsSetChangeListener onDistributorsSetChangeListener) {
+        Service.onDistributorsSetChangeListener = onDistributorsSetChangeListener;
     }
 
     /**
@@ -170,6 +181,9 @@ public class Service {
         });
         users.add(user);
         runThread(user);
+        if (isStartingDataCreated) {
+            onUsersSetChangeListener.onUserCreated(user);
+        }
     }
 
     public static void createNewDistributor() {
@@ -192,6 +206,9 @@ public class Service {
 
         distributors.add(distributor);
         runThread(distributor);
+        if (isStartingDataCreated) {
+            onDistributorsSetChangeListener.onDistributorCreated(distributor);
+        }
     }
 
     private static void runThread(Runnable r) {
@@ -226,6 +243,7 @@ public class Service {
         for (int i = 0; i < usersAmount; i++) {
             if (users.get(i).getEmail().equals(email)) {
                 users.get(i).kill();
+                onUsersSetChangeListener.onUserRemoved(users.get(i));
                 users.remove(i);
                 usersAmount--;
             }
@@ -236,6 +254,7 @@ public class Service {
         for (int i = 0; i < distributorsAmount; i++) {
             if (distributors.get(i).getName().equals(name)) {
                 distributors.get(i).kill();
+                onDistributorsSetChangeListener.onDistributorRemoved(distributors.get(i));
                 distributors.remove(i);
                 distributorsAmount--;
             }
@@ -264,7 +283,6 @@ public class Service {
      */
     public void initialize() {
         timeUtils.addOnPaymentPeriodListener(() -> {
-//            System.out.println("Payment period");
             collectSubscriptionFee();
         });
 
@@ -275,6 +293,7 @@ public class Service {
         for (int i = 0; i < 6; i++) {
             createNewDistributor();
         }
+        isStartingDataCreated = true;
     }
 
     /**
