@@ -21,6 +21,7 @@ public class Service {
     private static Semaphore semaphore;
     private static Random random = new Random();
     private static OnDatasetChangeListener onDatasetChangeListener;
+    public static final int NO_DISCOUNT = 0;
     public static final int LIVE_DISCOUNT = 1;
     public static final int MOVIE_DISCOUNT = 2;
 
@@ -67,16 +68,38 @@ public class Service {
 
     /**
      * Sending money to distributor, increasing value of
-     * Service 'bank account'
+     * Service 'bank account'; Calculating discount
      */
-    private static synchronized void executePayment(String product, int userId) {
-        //TODO implement distributor salary
+    private static synchronized void executePayment(String product, int userId, final int discountType) {
         for (Product p : products) {
             if (p.getTitle().equals(product)) {
-                serviceBankAccount = serviceBankAccount.add(p.getPrice());
-//                System.out.println(serviceBankAccount);
+                BigDecimal discountValue = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
+                BigDecimal amountToPay = p.getPrice().setScale(2, RoundingMode.HALF_EVEN);
+                switch (discountType) {
+                    case NO_DISCOUNT:
+                        break;
+                    case LIVE_DISCOUNT:
+                        if (((Live) p).getDiscount().getEndTime() > timeUtils.getCurrentTimestamp()) {
+                            discountValue = calculateDiscount(p.getPrice(), ((Live) p).getDiscount().getPercentages());
+                        }
+                        break;
+                    case MOVIE_DISCOUNT:
+                        if (((Movie) p).getDiscount().getEndTime() > timeUtils.getCurrentTimestamp()) {
+                            discountValue = calculateDiscount(p.getPrice(), ((Movie) p).getDiscount().getPercentages());
+                        }
+                        break;
+                }
+                amountToPay = amountToPay.subtract(discountValue);
+                serviceBankAccount = serviceBankAccount.add(amountToPay);
             }
         }
+    }
+
+    private static BigDecimal calculateDiscount(BigDecimal price, BigDecimal percentages) {
+        BigDecimal discountValue = price.setScale(2, RoundingMode.HALF_EVEN);
+        discountValue = discountValue.multiply(percentages).setScale(2, RoundingMode.HALF_EVEN);
+        discountValue = discountValue.divide(new BigDecimal("100"), RoundingMode.HALF_EVEN);
+        return discountValue;
     }
 
     /**
@@ -134,8 +157,8 @@ public class Service {
 
     public static void createNewUser() {
         User user = new User(usersAmount++);
-        user.addOnPaymentListener((p, id) -> {
-            executePayment(p, id);
+        user.addOnPaymentListener((p, id, t) -> {
+            executePayment(p, id, t);
         });
         users.add(user);
         runThread(user);

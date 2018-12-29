@@ -1,12 +1,19 @@
 package main.java.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Discount {
 
     private long startTime;
     private long endTime;
     private BigDecimal percentages;
+
+    public Discount() {
+        this.startTime = 0;
+        this.endTime = 0;
+        this.percentages = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
+    }
 
     public long getStartTime() {
         return startTime;

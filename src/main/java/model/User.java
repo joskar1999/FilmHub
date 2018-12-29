@@ -154,7 +154,15 @@ public class User implements Runnable {
             Product p = Service.getProducts().get(id);
             if (!checkIfProductIsInList(p)) {
                 products.add(p);
-                onPaymentListener.onPayment(p.getTitle(), getId());
+                int discountType;
+                if (p instanceof Live) {
+                    discountType = Service.LIVE_DISCOUNT;
+                } else if (p instanceof Movie) {
+                    discountType = Service.MOVIE_DISCOUNT;
+                } else {
+                    discountType = Service.NO_DISCOUNT;
+                }
+                onPaymentListener.onPayment(p.getTitle(), getId(), discountType);
                 test = false;
             } else {
                 test = true;

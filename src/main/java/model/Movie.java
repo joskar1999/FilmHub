@@ -13,6 +13,7 @@ public class Movie extends IMDB {
 
     public Movie(int id) throws NoMoviesException {
         createFromJSON(id);
+        discount = new Discount();
     }
 
     public ArrayList<String> getTrailers() {

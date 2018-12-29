@@ -7,6 +7,7 @@ public class Live extends Product {
 
     public Live(int id) throws NoMoviesException {
         createFromJSON(id);
+        discount = new Discount();
     }
 
     public long getStartTime() {
