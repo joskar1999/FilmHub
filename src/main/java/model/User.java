@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static main.java.model.SimulationSettings.WATCH_TO_BUY_RATIO;
+
 public class User implements Runnable {
 
     private int id;
@@ -238,7 +240,7 @@ public class User implements Runnable {
             if (subscriptionType.equals(SubscriptionType.NONE)) {
                 requestProduct();
             }
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < WATCH_TO_BUY_RATIO; i++) {
                 watchRandomProduct();
             }
             try {

@@ -7,6 +7,9 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static main.java.model.SimulationSettings.PRODUCT_PRICE_LOWER_BOUND;
+import static main.java.model.SimulationSettings.PRODUCT_PRICE_UPPER_BOUND;
+
 public abstract class Product implements Comparable<Product> {
 
     private String title;
@@ -98,7 +101,7 @@ public abstract class Product implements Comparable<Product> {
      * @return random price
      */
     protected BigDecimal randomizePrice() {
-        double d = 20.0 + (100.0 - 20.0) * random.nextDouble();
+        double d = PRODUCT_PRICE_LOWER_BOUND + (PRODUCT_PRICE_UPPER_BOUND - PRODUCT_PRICE_LOWER_BOUND) * random.nextDouble();
         BigDecimal bd = new BigDecimal(d).setScale(2, RoundingMode.HALF_EVEN);
         return bd;
     }

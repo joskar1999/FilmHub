@@ -5,6 +5,9 @@ import java.math.RoundingMode;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
+import static main.java.model.SimulationSettings.STARTING_DISTRIBUTORS_AMOUNT;
+import static main.java.model.SimulationSettings.STARTING_USERS_AMOUNT;
+
 public class Service {
 
     private static List<User> users = new ArrayList<>();
@@ -323,11 +326,11 @@ public class Service {
             collectSubscriptionFee();
         });
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < STARTING_USERS_AMOUNT; i++) {
             createNewUser();
         }
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < STARTING_DISTRIBUTORS_AMOUNT; i++) {
             createNewDistributor();
         }
     }

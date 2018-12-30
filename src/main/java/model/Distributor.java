@@ -8,6 +8,9 @@ import java.math.RoundingMode;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
+import static main.java.model.SimulationSettings.STARTING_PERCENTAGES;
+import static main.java.model.SimulationSettings.STARTING_PRICE_PER_WATCH;
+
 public class Distributor implements Runnable {
 
     private int id;
@@ -84,8 +87,8 @@ public class Distributor implements Runnable {
         this.id = currentId++;
         this.name = (String) distributor.get("name");
         Contract c = new Contract();
-        c.setPercentages(25);
-        c.setPricePerWatch(4);
+        c.setPercentages(STARTING_PERCENTAGES);
+        c.setPricePerWatch(STARTING_PRICE_PER_WATCH);
         this.contract = c;
     }
 
