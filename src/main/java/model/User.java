@@ -22,6 +22,7 @@ public class User implements Runnable {
     private Random random;
     private BigDecimal subscriptionPayment;
     private OnPaymentListener onPaymentListener;
+    private OnWatchListener onWatchListener;
     private boolean shouldStop;
     private static int currentId = 0;
 
@@ -110,6 +111,10 @@ public class User implements Runnable {
         this.onPaymentListener = onPaymentListener;
     }
 
+    public void addOnWatchListener(OnWatchListener onWatchListener) {
+        this.onWatchListener = onWatchListener;
+    }
+
     public void kill() {
         this.shouldStop = true;
     }
@@ -187,6 +192,29 @@ public class User implements Runnable {
         return t;
     }
 
+    /**
+     * Watching product by user, notifying service about it
+     */
+    private void watchRandomProduct() {
+        boolean isOnlyLives = true;
+        boolean isCorrectChoice = false;
+        for (Product p : products) {
+            if (p instanceof Movie || p instanceof Series) {
+                isOnlyLives = false;
+                break;
+            }
+        }
+        if (!isOnlyLives) {
+            while (!isCorrectChoice) {
+                int choice = random.nextInt(products.size());
+                if (products.get(choice) instanceof Movie || products.get(choice) instanceof Series) {
+                    isCorrectChoice = true;
+                    onWatchListener.onWatch(products.get(choice).getTitle());
+                }
+            }
+        }
+    }
+
     public void randomizeSubscription() {
         int i = random.nextInt(100);
         if (i < 40) {
@@ -209,6 +237,9 @@ public class User implements Runnable {
         while (!shouldStop) {
             if (subscriptionType.equals(SubscriptionType.NONE)) {
                 requestProduct();
+            }
+            for (int i = 0; i < 2; i++) {
+                watchRandomProduct();
             }
             try {
                 Thread.sleep(randomizeTimeToBuy());

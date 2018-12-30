@@ -198,6 +198,9 @@ public class Service {
         user.addOnPaymentListener((p, id, t) -> {
             executePayment(p, id, t);
         });
+        user.addOnWatchListener((p) -> {
+            //TODO do payment
+        });
         users.add(user);
         runThread(user);
         if (isUsersViewCreated) {
