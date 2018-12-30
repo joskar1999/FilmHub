@@ -79,6 +79,10 @@ public class Service {
         return simulationSettings;
     }
 
+    public static Map<String, Integer> getGeneralWatchesAmountMap() {
+        return generalWatchesAmountMap;
+    }
+
     public static int getMovieAmount() {
         return movieAmount;
     }

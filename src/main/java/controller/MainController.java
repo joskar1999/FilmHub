@@ -121,6 +121,13 @@ public class MainController extends Controller implements Initializable {
         movieRatingFirst.setText(String.valueOf(products.get(3).getRating()));
         movieRatingSecond.setText(String.valueOf(products.get(4).getRating()));
         movieRatingThird.setText(String.valueOf(products.get(5).getRating()));
+
+        seriesViewsFirst.setText(String.valueOf(Service.getGeneralWatchesAmountMap().get(products.get(0).getTitle())) + " Odsłon");
+        seriesViewsSecond.setText(String.valueOf(Service.getGeneralWatchesAmountMap().get(products.get(1).getTitle())) + " Odsłon");
+        seriesViewsThird.setText(String.valueOf(Service.getGeneralWatchesAmountMap().get(products.get(2).getTitle())) + " Odsłon");
+        movieViewsFirst.setText(String.valueOf(Service.getGeneralWatchesAmountMap().get(products.get(3).getTitle())) + " Odsłon");
+        movieViewsSecond.setText(String.valueOf(Service.getGeneralWatchesAmountMap().get(products.get(4).getTitle())) + " Odsłon");
+        movieViewsThird.setText(String.valueOf(Service.getGeneralWatchesAmountMap().get(products.get(5).getTitle())) + " Odsłon");
     }
 
     @Override
