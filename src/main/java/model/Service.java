@@ -16,6 +16,9 @@ public class Service {
     private static List<Distributor> distributors = new ArrayList<>();
     private static List<Product> products = new ArrayList<>();
     private static Map<String, Integer> productDistributorMapping = new HashMap<>();
+    private static Map<String, Integer> monthlyWatchesAmountMap = new HashMap<>();
+    private static Map<String, Integer> generalWatchesAmountMap = new HashMap<>();
+    private static Map<String, ArrayList<Integer>> productsWatchesAmountMap = new HashMap<>();
     private static SimulationSettings simulationSettings = new SimulationSettings();
     private static TimeUtils timeUtils = new TimeUtils();
     private static Subscription subscription = new Subscription();
@@ -139,7 +142,7 @@ public class Service {
                 price = price.divide(new BigDecimal(100), RoundingMode.HALF_EVEN).setScale(2, RoundingMode.HALF_EVEN);
                 d.addSalary(price);
                 serviceBankAccount = serviceBankAccount.subtract(price).setScale(2, RoundingMode.HALF_EVEN);
-                System.out.println("Konto: " + serviceBankAccount);
+//                System.out.println("Konto: " + serviceBankAccount);
             }
         }
     }
@@ -152,7 +155,7 @@ public class Service {
                 BigDecimal price = new BigDecimal(pricePerWatch).setScale(2, RoundingMode.HALF_EVEN);
                 d.addSalary(price);
                 serviceBankAccount = serviceBankAccount.subtract(price);
-                System.out.println("Konto: " + serviceBankAccount);
+//                System.out.println("Konto: " + serviceBankAccount);
             }
         }
     }
@@ -220,6 +223,10 @@ public class Service {
         });
         user.addOnWatchListener((p) -> {
             sendMoneyPerWatchToDistributor(p);
+            int current = monthlyWatchesAmountMap.get(p) + 1;
+            monthlyWatchesAmountMap.replace(p, current);
+            current = generalWatchesAmountMap.get(p) + 1;
+            generalWatchesAmountMap.replace(p, current);
         });
         users.add(user);
         runThread(user);
@@ -235,6 +242,9 @@ public class Service {
         distributor.addOnProductReleaseListener((p, id) -> {
             products.add(p);
             productDistributorMapping.put(p.getTitle(), id);
+            monthlyWatchesAmountMap.put(p.getTitle(), 0);
+            generalWatchesAmountMap.put(p.getTitle(), 0);
+            productsWatchesAmountMap.put(p.getTitle(), new ArrayList<>());
             System.out.println(p.getTitle() + ", " + String.valueOf(id));
             movieAmount++;
 
@@ -332,12 +342,24 @@ public class Service {
     private void checkIncomes() {
         if (serviceBankAccount.compareTo(new BigDecimal(0)) < 0) {
             negativeIncomes++;
+            System.out.println("Negative income");
         } else {
             negativeIncomes = 0;
+            System.out.println("Positive income");
         }
         if (negativeIncomes == 3) {
             killAllThreads();
             Controller.forbidAllActions();
+        }
+    }
+
+    private void resetMonthlyWatchesAmount() {
+        for (Product p : products) {
+            int currentAmount = monthlyWatchesAmountMap.get(p.getTitle());
+            ArrayList<Integer> generalAmount = productsWatchesAmountMap.get(p.getTitle());
+            generalAmount.add(currentAmount);
+            productsWatchesAmountMap.replace(p.getTitle(), generalAmount);
+            monthlyWatchesAmountMap.replace(p.getTitle(), 0);
         }
     }
 
@@ -349,6 +371,7 @@ public class Service {
         timeUtils.addOnPaymentPeriodListener(() -> {
             collectSubscriptionFee();
             checkIncomes();
+            resetMonthlyWatchesAmount();
         });
 
         for (int i = 0; i < STARTING_USERS_AMOUNT; i++) {
