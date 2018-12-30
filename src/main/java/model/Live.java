@@ -28,6 +28,10 @@ public class Live extends Product {
 
     @Override
     protected void createFromJSON(int id) throws NoMoviesException {
-        super.createFromJSON(id);
+        try {
+            super.createFromJSON(id);
+        } catch (NoMoviesException e) {
+            createFromSecondaryJSON();
+        }
     }
 }

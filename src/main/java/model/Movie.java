@@ -55,8 +55,13 @@ public class Movie extends IMDB {
      */
     @Override
     protected void createFromJSON(int id) throws NoMoviesException {
-        super.createFromJSON(id);
-        JSONObject movie = JSONUtils.getSingleMovieFromFile(id);
-        actors = JSONUtils.readActorsFromJSON(movie);
+        JSONObject movie = null;
+        try {
+            super.createFromJSON(id);
+            movie = JSONUtils.getSingleMovieFromFile(id);
+            actors = JSONUtils.readActorsFromJSON(movie);
+        } catch (NoMoviesException e) {
+            actors = createFromSecondaryJSON();
+        }
     }
 }
