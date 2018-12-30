@@ -85,6 +85,7 @@ public class Distributor implements Runnable {
         this.name = (String) distributor.get("name");
         Contract c = new Contract();
         c.setPercentages(25);
+        c.setPricePerWatch(4);
         this.contract = c;
     }
 

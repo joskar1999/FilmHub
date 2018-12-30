@@ -133,6 +133,20 @@ public class Service {
                 price = price.divide(new BigDecimal(100), RoundingMode.HALF_EVEN).setScale(2, RoundingMode.HALF_EVEN);
                 d.addSalary(price);
                 serviceBankAccount = serviceBankAccount.subtract(price).setScale(2, RoundingMode.HALF_EVEN);
+                System.out.println("Konto: " + serviceBankAccount);
+            }
+        }
+    }
+
+    private static void sendMoneyPerWatchToDistributor(String title) {
+        int distributorId = productDistributorMapping.get(title);
+        for (Distributor d : distributors) {
+            if (d.getId() == distributorId) {
+                int pricePerWatch = d.getContract().getPricePerWatch();
+                BigDecimal price = new BigDecimal(pricePerWatch).setScale(2, RoundingMode.HALF_EVEN);
+                d.addSalary(price);
+                serviceBankAccount = serviceBankAccount.subtract(price);
+                System.out.println("Konto: " + serviceBankAccount);
             }
         }
     }
@@ -199,7 +213,7 @@ public class Service {
             executePayment(p, id, t);
         });
         user.addOnWatchListener((p) -> {
-            //TODO do payment
+            sendMoneyPerWatchToDistributor(p);
         });
         users.add(user);
         runThread(user);
