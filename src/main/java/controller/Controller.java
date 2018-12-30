@@ -14,6 +14,7 @@ public class Controller {
     private TextField searchBar;
 
     protected ViewUtils utils = new ViewUtils();
+    private static boolean isActionAllowed = true;
 
     @FXML
     protected void sendToMainPage() {
@@ -58,14 +59,18 @@ public class Controller {
 
     @FXML
     public void createNewDistributor() {
-        Service.createNewDistributor();
-        showNotification("Filmhub", "Nowy dystrybutor stworzony!");
+        if (isActionAllowed) {
+            Service.createNewDistributor();
+            showNotification("Filmhub", "Nowy dystrybutor stworzony!");
+        }
     }
 
     @FXML
     public void createNewUser() {
-        Service.createNewUser();
-        showNotification("Filmhub", "Nowy użytkownik stworzony!");
+        if (isActionAllowed) {
+            Service.createNewUser();
+            showNotification("Filmhub", "Nowy użytkownik stworzony!");
+        }
     }
 
     public static void showNotification(String title, String message) {
@@ -77,5 +82,10 @@ public class Controller {
             .hideAfter(Duration.seconds(2))
             .position(Pos.BASELINE_RIGHT);
         notifications.showConfirm();
+    }
+
+    public static void forbidAllActions() {
+        isActionAllowed = false;
+        //TODO show popup informing about simulation end
     }
 }

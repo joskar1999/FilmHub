@@ -1,5 +1,7 @@
 package main.java.model;
 
+import main.java.controller.Controller;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -31,9 +33,10 @@ public class Service {
     public static final int NO_DISCOUNT = 0;
     public static final int LIVE_DISCOUNT = 1;
     public static final int MOVIE_DISCOUNT = 2;
+    private static int negativeIncomes = 0;
 
     public Service() {
-        simulationSettings.setMultiplier(10);
+        simulationSettings.setMultiplier(20);
         semaphore = new Semaphore(1);
     }
 
@@ -317,6 +320,27 @@ public class Service {
         }
     }
 
+    private void killAllThreads() {
+        for (User u : users) {
+            u.kill();
+        }
+        for (Distributor d : distributors) {
+            d.kill();
+        }
+    }
+
+    private void checkIncomes() {
+        if (serviceBankAccount.compareTo(new BigDecimal(0)) < 0) {
+            negativeIncomes++;
+        } else {
+            negativeIncomes = 0;
+        }
+        if (negativeIncomes == 3) {
+            killAllThreads();
+            Controller.forbidAllActions();
+        }
+    }
+
     /**
      * Initializing lists with some content -
      * creating users and products
@@ -324,6 +348,7 @@ public class Service {
     public void initialize() {
         timeUtils.addOnPaymentPeriodListener(() -> {
             collectSubscriptionFee();
+            checkIncomes();
         });
 
         for (int i = 0; i < STARTING_USERS_AMOUNT; i++) {
