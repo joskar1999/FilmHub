@@ -115,6 +115,7 @@ public class Service {
                         if (((Live) p).getDiscount().getEndTime() > timeUtils.getCurrentTimestamp()) {
                             discountValue = calculateDiscount(p.getPrice(), ((Live) p).getDiscount().getPercentages());
                         }
+                        generalWatchesAmountMap.replace(product, generalWatchesAmountMap.get(product) + 1);
                         break;
                     case MOVIE_DISCOUNT:
                         if (((Movie) p).getDiscount().getEndTime() > timeUtils.getCurrentTimestamp()) {
