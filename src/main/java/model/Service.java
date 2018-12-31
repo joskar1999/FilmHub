@@ -334,6 +334,12 @@ public class Service {
         }
     }
 
+    public static void setNewPrice(String title, BigDecimal price) {
+        products.stream()
+                .filter(p -> p.getTitle().equals(title))
+                .forEach(p -> p.setPrice(price));
+    }
+
     private void killAllThreads() {
         for (User u : users) {
             u.kill();

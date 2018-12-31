@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.ProductDataController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.ProductDataController">
     <children>
         <AnchorPane prefHeight="134.0" prefWidth="1366.0" style="-fx-background-color: #1B1B1B;">
             <children>
@@ -164,5 +164,19 @@
             <Image url="@../images/discount.png" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="durationAnchor1" layoutX="631.0" layoutY="326.0" prefHeight="47.0" prefWidth="132.0" style="-fx-background-color: #363636;">
+         <children>
+            <TextField fx:id="priceTextField" layoutX="14.0" layoutY="8.0" prefHeight="31.0" prefWidth="143.0" promptText="Nowa cena" style="-fx-background-color: transparent; -fx-text-fill: #ACABAB;">
+               <font>
+                  <Font name="Segoe UI Italic" size="16.0" />
+               </font>
+            </TextField>
+         </children>
+      </AnchorPane>
+      <Text fill="#f89921" layoutX="813.0" layoutY="359.0" onMouseClicked="#setNewPrice" strokeType="OUTSIDE" strokeWidth="0.0" text="Zastosuj">
+         <font>
+            <Font name="Segoe UI" size="24.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

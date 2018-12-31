@@ -56,6 +56,9 @@ public class ProductDataController extends Controller implements Initializable {
     @FXML
     private ImageView startDiscountButton;
 
+    @FXML
+    private TextField priceTextField;
+
     private static Product product;
     private ViewUtils utils = new ViewUtils();
 
@@ -67,7 +70,8 @@ public class ProductDataController extends Controller implements Initializable {
         title.setText(product.getTitle());
         rating.setText(String.valueOf(product.getRating()));
         image.setImage(new Image(String.valueOf(getClass().getResource(
-            "../../resources/images/" + product.getImage()))));
+                "../../resources/images/" + product.getImage()))));
+        priceTextField.setPromptText(product.getPrice() + " PLN");
         if (product instanceof Movie) {
             firstActor.setText(((Movie) product).getActors().get(0));
             thirdActor.setText(((Movie) product).getActors().get(2));
@@ -121,7 +125,7 @@ public class ProductDataController extends Controller implements Initializable {
     public void makeDiscount() {
         Discount discount = new Discount();
         if (validateDuration(discountDuration.getText()) != 0
-            && validatePercentages(discountPercentages.getText()) != null) {
+                && validatePercentages(discountPercentages.getText()) != null) {
             int d = validateDuration(discountDuration.getText());
             double p = Double.valueOf(validatePercentages(discountPercentages.getText()));
             discount.setPercentages(new BigDecimal(p).setScale(2, RoundingMode.HALF_EVEN));
@@ -133,6 +137,19 @@ public class ProductDataController extends Controller implements Initializable {
                 Service.addDiscount(product.getTitle(), discount, Service.MOVIE_DISCOUNT);
             }
             showNotification("FilmHub", "Promocja utworzona");
+        }
+    }
+
+    @FXML
+    public void setNewPrice() {
+        String input = priceTextField.getText();
+        input = input.replace(',', '.');
+        input = input.replaceAll("\\s+", "");
+        input = input.replaceAll("[A-Za-z]+", "");
+        if (input.matches("-?\\d+(\\.\\d+)?")) {
+            BigDecimal newPrice = new BigDecimal(Double.valueOf(input)).setScale(2, RoundingMode.HALF_EVEN);
+            Service.setNewPrice(product.getTitle(), newPrice);
+            showNotification("FilmHub", "Nowa cena ustawiona");
         }
     }
 
