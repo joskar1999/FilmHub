@@ -6,8 +6,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import main.java.SimulationAPI;
 import main.java.controller.Controller;
-import main.java.model.Service;
 import main.java.model.User;
 
 import java.io.IOException;
@@ -50,7 +50,7 @@ public class UserListViewCell extends ListCell<User> {
             name.setText(item.getName() + " " + item.getSurname());
             email.setText(item.getEmail());
             removeUserButton.setOnMouseClicked(e -> {
-                Service.removeUser(item.getEmail());
+                SimulationAPI.removeUser(item.getEmail());
                 Controller.showNotification("FilmHub", "Użytkownik usunięty");
             });
 

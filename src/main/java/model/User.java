@@ -1,5 +1,6 @@
 package main.java.model;
 
+import main.java.SimulationAPI;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -156,14 +157,14 @@ public class User implements Runnable {
      * Product is chosen of random from products base
      */
     private void requestProduct() {
-        int size = Service.getProducts().size();
+        int size = SimulationAPI.getProducts().size();
         boolean test = false;
         if (size == products.size()) {
             return;
         }
         do {
             int id = random.nextInt(size);
-            Product p = Service.getProducts().get(id);
+            Product p = SimulationAPI.getProducts().get(id);
             if (!checkIfProductIsInList(p)) {
                 products.add(p);
                 int discountType;
@@ -190,7 +191,7 @@ public class User implements Runnable {
     private int randomizeTimeToBuy() {
         int d = random.nextInt(6) + 1;
         int t = d * 24 * 1000;
-        t /= (int) Service.getSimulationSettings().getMultiplier();
+        t /= (int) SimulationAPI.getSimulationSettings().getMultiplier();
         return t;
     }
 
@@ -221,16 +222,16 @@ public class User implements Runnable {
         int i = random.nextInt(100);
         if (i < 40) {
             subscriptionType = SubscriptionType.NONE;
-            setSubscriptionPayment(Service.getSubscription().getPriceMap().get(SubscriptionType.NONE));
+            setSubscriptionPayment(SimulationAPI.getSubscription().getPriceMap().get(SubscriptionType.NONE));
         } else if (i < 70) {
             subscriptionType = SubscriptionType.BASIC;
-            setSubscriptionPayment(Service.getSubscription().getPriceMap().get(SubscriptionType.BASIC));
+            setSubscriptionPayment(SimulationAPI.getSubscription().getPriceMap().get(SubscriptionType.BASIC));
         } else if (i < 90) {
             subscriptionType = SubscriptionType.FAMILY;
-            setSubscriptionPayment(Service.getSubscription().getPriceMap().get(SubscriptionType.FAMILY));
+            setSubscriptionPayment(SimulationAPI.getSubscription().getPriceMap().get(SubscriptionType.FAMILY));
         } else {
             subscriptionType = SubscriptionType.PREMIUM;
-            setSubscriptionPayment(Service.getSubscription().getPriceMap().get(SubscriptionType.PREMIUM));
+            setSubscriptionPayment(SimulationAPI.getSubscription().getPriceMap().get(SubscriptionType.PREMIUM));
         }
     }
 

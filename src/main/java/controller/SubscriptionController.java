@@ -3,7 +3,7 @@ package main.java.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import main.java.model.Service;
+import main.java.SimulationAPI;
 import main.java.model.SubscriptionType;
 
 import java.math.BigDecimal;
@@ -34,24 +34,24 @@ public class SubscriptionController extends Controller implements Initializable 
         boolean isChange = false;
 
         if (basicPriceInput.getText() != null && !basicPriceInput.getText().trim().isEmpty()
-            && validateInput(basicPrice) != null) {
+                && validateInput(basicPrice) != null) {
             BigDecimal price = new BigDecimal(Double.valueOf(validateInput(basicPrice)))
-                .setScale(2, RoundingMode.HALF_EVEN);
-            Service.setSubscriptionPrice(price, null, null);
+                    .setScale(2, RoundingMode.HALF_EVEN);
+            SimulationAPI.setSubscriptionPrice(price, null, null);
             isChange = true;
         }
         if (familyPriceInput.getText() != null && !familyPriceInput.getText().trim().isEmpty()
-            && validateInput(familyPrice) != null) {
+                && validateInput(familyPrice) != null) {
             BigDecimal price = new BigDecimal(Double.valueOf(validateInput(familyPrice)))
-                .setScale(2, RoundingMode.HALF_EVEN);
-            Service.setSubscriptionPrice(null, price, null);
+                    .setScale(2, RoundingMode.HALF_EVEN);
+            SimulationAPI.setSubscriptionPrice(null, price, null);
             isChange = true;
         }
         if (premiumPriceInput.getText() != null && !premiumPriceInput.getText().trim().isEmpty()
-            && validateInput(premiumPrice) != null) {
+                && validateInput(premiumPrice) != null) {
             BigDecimal price = new BigDecimal(Double.valueOf(validateInput(premiumPrice)))
-                .setScale(2, RoundingMode.HALF_EVEN);
-            Service.setSubscriptionPrice(null, null, price);
+                    .setScale(2, RoundingMode.HALF_EVEN);
+            SimulationAPI.setSubscriptionPrice(null, null, price);
             isChange = true;
         }
         if (isChange) {
@@ -77,11 +77,11 @@ public class SubscriptionController extends Controller implements Initializable 
 
     private void updateUI() {
         basicPriceInput.setPromptText(String.valueOf(
-            Service.getSubscription().getPriceMap().get(SubscriptionType.BASIC) + " PLN"));
+                SimulationAPI.getSubscription().getPriceMap().get(SubscriptionType.BASIC) + " PLN"));
         familyPriceInput.setPromptText(String.valueOf(
-            Service.getSubscription().getPriceMap().get(SubscriptionType.FAMILY) + " PLN"));
+                SimulationAPI.getSubscription().getPriceMap().get(SubscriptionType.FAMILY) + " PLN"));
         premiumPriceInput.setPromptText(String.valueOf(
-            Service.getSubscription().getPriceMap().get(SubscriptionType.PREMIUM) + " PLN"));
+                SimulationAPI.getSubscription().getPriceMap().get(SubscriptionType.PREMIUM) + " PLN"));
     }
 
     @Override

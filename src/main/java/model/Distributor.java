@@ -1,5 +1,6 @@
 package main.java.model;
 
+import main.java.SimulationAPI;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -100,9 +101,9 @@ public class Distributor implements Runnable {
         int type = random.nextInt(3);
         try {
             if (type == 0) {
-                p = new Movie(Service.getMovieAmount());
+                p = new Movie(SimulationAPI.getMovieAmount());
             } else if (type == 1) {
-                p = new Live(Service.getMovieAmount());
+                p = new Live(SimulationAPI.getMovieAmount());
             } else if (type == 2) {
                 p = new Series();
             }
@@ -115,7 +116,7 @@ public class Distributor implements Runnable {
     private int randomizeTimeToRelease() {
         int d = random.nextInt(20) + 10;
         int t = d * 24 * 1000;
-        t /= (int) Service.getSimulationSettings().getMultiplier();
+        t /= (int) SimulationAPI.getSimulationSettings().getMultiplier();
         return t;
     }
 
