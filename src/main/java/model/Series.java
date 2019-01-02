@@ -7,7 +7,7 @@ public class Series extends IMDB {
 
     private ArrayList<Season> seasons = new ArrayList<>();
     private ArrayList<String> actors;
-    private Random random = new Random();
+    private static Random random = new Random();
 
     public Series() {
         createSeries();
