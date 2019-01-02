@@ -1,9 +1,10 @@
 package main.java.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Season {
+public class Season implements Serializable {
 
     private ArrayList<Episode> episodes = new ArrayList<>();
     private int seasonDuration;

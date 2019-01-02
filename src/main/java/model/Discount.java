@@ -1,9 +1,10 @@
 package main.java.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Discount {
+public class Discount implements Serializable {
 
     private long startTime;
     private long endTime;

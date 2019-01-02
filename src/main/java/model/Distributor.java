@@ -4,6 +4,7 @@ import main.java.SimulationAPI;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Random;
@@ -12,7 +13,7 @@ import java.util.concurrent.Semaphore;
 import static main.java.model.SimulationSettings.STARTING_PERCENTAGES;
 import static main.java.model.SimulationSettings.STARTING_PRICE_PER_WATCH;
 
-public class Distributor implements Runnable {
+public class Distributor implements Runnable, Serializable {
 
     private int id;
     private String name;

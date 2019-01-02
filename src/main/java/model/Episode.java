@@ -3,14 +3,15 @@ package main.java.model;
 import main.java.SimulationAPI;
 import org.json.simple.JSONObject;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Episode {
+public class Episode implements Serializable {
 
     private String name;
     private int duration;
     private String premiere;
-    private Random random = new Random();
+    private static Random random = new Random();
 
     public Episode() {
         if (SimulationAPI.getMovieAmount() > 6) {

@@ -1,8 +1,9 @@
 package main.java.model;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public abstract class IMDB extends Product {
+public abstract class IMDB extends Product implements Serializable {
 
     private Genre genre;
     private int viewsAmount;

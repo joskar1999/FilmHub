@@ -2,9 +2,10 @@ package main.java.model;
 
 import org.json.simple.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Movie extends IMDB {
+public class Movie extends IMDB implements Serializable {
 
     private ArrayList<String> trailers;
     private ArrayList<String> actors;

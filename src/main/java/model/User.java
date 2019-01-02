@@ -4,6 +4,7 @@ import main.java.SimulationAPI;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Random;
 
 import static main.java.model.SimulationSettings.WATCH_TO_BUY_RATIO;
 
-public class User implements Runnable {
+public class User implements Runnable, Serializable {
 
     private int id;
     private String name;

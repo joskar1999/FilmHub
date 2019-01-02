@@ -2,6 +2,7 @@ package main.java.model;
 
 import org.json.simple.JSONObject;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.Random;
 import static main.java.model.SimulationSettings.PRODUCT_PRICE_LOWER_BOUND;
 import static main.java.model.SimulationSettings.PRODUCT_PRICE_UPPER_BOUND;
 
-public abstract class Product implements Comparable<Product> {
+public abstract class Product implements Comparable<Product>, Serializable {
 
     private String title;
     private String image;
@@ -22,6 +23,9 @@ public abstract class Product implements Comparable<Product> {
     private double rating;
     private BigDecimal price;
     private static Random random = new Random();
+
+    public Product() {
+    }
 
     public String getTitle() {
         return title;

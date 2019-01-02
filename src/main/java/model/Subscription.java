@@ -1,11 +1,12 @@
 package main.java.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Subscription {
+public class Subscription implements Serializable {
 
     private Map<SubscriptionType, BigDecimal> priceMap = new HashMap<>();
     private Map<SubscriptionType, Integer> devicesAmountMap;

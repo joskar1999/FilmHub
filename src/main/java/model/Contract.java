@@ -1,6 +1,8 @@
 package main.java.model;
 
-public class Contract {
+import java.io.Serializable;
+
+public class Contract implements Serializable {
 
     private long startDate;
     private long duration;

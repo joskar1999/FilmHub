@@ -1,8 +1,8 @@
 package main.java.model;
 
-import com.google.gson.Gson;
 import main.java.controller.Controller;
 
+import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -11,7 +11,7 @@ import java.util.concurrent.Semaphore;
 import static main.java.model.SimulationSettings.STARTING_DISTRIBUTORS_AMOUNT;
 import static main.java.model.SimulationSettings.STARTING_USERS_AMOUNT;
 
-public class Service {
+public class Service implements Serializable {
 
     private List<User> users = new ArrayList<>();
     private List<Distributor> distributors = new ArrayList<>();
@@ -21,7 +21,7 @@ public class Service {
     private Map<String, Integer> generalWatchesAmountMap = new HashMap<>();
     private Map<String, ArrayList<Integer>> productsWatchesAmountMap = new HashMap<>();
     private SimulationSettings simulationSettings = new SimulationSettings();
-    private TimeUtils timeUtils = new TimeUtils();
+    private transient TimeUtils timeUtils = new TimeUtils();
     private Subscription subscription = new Subscription();
     private BigDecimal serviceBankAccount = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
     private int movieAmount = 0;
@@ -338,8 +338,8 @@ public class Service {
 
     public void setNewPrice(String title, BigDecimal price) {
         products.stream()
-                .filter(p -> p.getTitle().equals(title))
-                .forEach(p -> p.setPrice(price));
+            .filter(p -> p.getTitle().equals(title))
+            .forEach(p -> p.setPrice(price));
     }
 
     private void killAllThreads() {
@@ -363,6 +363,34 @@ public class Service {
             killAllThreads();
             Controller.forbidAllActions();
         }
+    }
+
+    private void serializeObject(String fileName, Object object) {
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(
+                new BufferedOutputStream(
+                    new FileOutputStream("src/main/resources/serialized/" + fileName)));
+            out.writeObject(object);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Object deserializeObject(String fileName) {
+        try {
+            ObjectInputStream in = new ObjectInputStream(
+                new BufferedInputStream(
+                    new FileInputStream("src/main/resources/serialized/" + fileName)));
+            Object o = in.readObject();
+            in.close();
+            return o;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+
+        }
+        return null;
     }
 
     private void resetMonthlyWatchesAmount() {

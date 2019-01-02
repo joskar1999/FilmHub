@@ -1,9 +1,10 @@
 package main.java.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Series extends IMDB {
+public class Series extends IMDB implements Serializable {
 
     private ArrayList<Season> seasons = new ArrayList<>();
     private ArrayList<String> actors;

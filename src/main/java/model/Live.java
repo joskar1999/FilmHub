@@ -1,6 +1,8 @@
 package main.java.model;
 
-public class Live extends Product {
+import java.io.Serializable;
+
+public class Live extends Product implements Serializable {
 
     private long startTime;
     private Discount discount;
