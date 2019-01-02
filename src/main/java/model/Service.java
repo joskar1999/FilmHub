@@ -224,16 +224,7 @@ public class Service implements Serializable {
     public void createNewUser() {
         User user = new User();
         usersAmount++;
-        user.addOnPaymentListener((p, id, t) -> {
-            executePayment(p, id, t);
-        });
-        user.addOnWatchListener((p) -> {
-            sendMoneyPerWatchToDistributor(p);
-            int current = monthlyWatchesAmountMap.get(p) + 1;
-            monthlyWatchesAmountMap.replace(p, current);
-            current = generalWatchesAmountMap.get(p) + 1;
-            generalWatchesAmountMap.replace(p, current);
-        });
+        addUsersListeners(user);
         users.add(user);
         runThread(user);
         if (isUsersViewCreated) {
@@ -245,23 +236,7 @@ public class Service implements Serializable {
         Distributor distributor = new Distributor(semaphore);
         distributorsAmount++;
 
-        distributor.addOnProductReleaseListener((p, id) -> {
-            products.add(p);
-            productDistributorMapping.put(p.getTitle(), id);
-            monthlyWatchesAmountMap.put(p.getTitle(), 0);
-            generalWatchesAmountMap.put(p.getTitle(), 0);
-            productsWatchesAmountMap.put(p.getTitle(), new ArrayList<>());
-            System.out.println(p.getTitle() + ", " + String.valueOf(id));
-            movieAmount++;
-
-            if (movieAmount >= 7) { //when id is lower that 7, MainController have not been created yet, so listener is null
-                onDatasetChangeListener.notifyDatasetChanged(p);
-            }
-        });
-
-        distributor.addOnNegotiateListener((p, w) -> {
-            negotiate(distributor, p, w);
-        });
+        addDistributorsListeners(distributor);
 
         distributors.add(distributor);
         runThread(distributor);
@@ -351,6 +326,54 @@ public class Service implements Serializable {
         }
     }
 
+    /**
+     * This method should be used to restore simulation
+     * after loading previous save
+     */
+    private void runAllThreads() {
+        for (User u : users) {
+            addUsersListeners(u);
+            runThread(u);
+        }
+        for (Distributor d : distributors) {
+            addDistributorsListeners(d);
+            runThread(d);
+        }
+    }
+
+    private void addDistributorsListeners(Distributor d) {
+        d.addOnProductReleaseListener((p, id) -> {
+            products.add(p);
+            productDistributorMapping.put(p.getTitle(), id);
+            monthlyWatchesAmountMap.put(p.getTitle(), 0);
+            generalWatchesAmountMap.put(p.getTitle(), 0);
+            productsWatchesAmountMap.put(p.getTitle(), new ArrayList<>());
+            System.out.println(p.getTitle() + ", " + String.valueOf(id));
+            movieAmount++;
+
+            if (movieAmount >= 7) { //when id is lower that 7, MainController have not been created yet, so listener is null
+                onDatasetChangeListener.notifyDatasetChanged(p);
+            }
+        });
+
+        d.addOnNegotiateListener((p, w) -> {
+            negotiate(d, p, w);
+        });
+    }
+
+    private void addUsersListeners(User u) {
+        u.addOnPaymentListener((p, id, t) -> {
+            executePayment(p, id, t);
+        });
+        u.addOnWatchListener((p) -> {
+            sendMoneyPerWatchToDistributor(p);
+            int current = monthlyWatchesAmountMap.get(p) + 1;
+            monthlyWatchesAmountMap.replace(p, current);
+            current = generalWatchesAmountMap.get(p) + 1;
+            generalWatchesAmountMap.replace(p, current);
+        });
+    }
+
     private void checkIncomes() {
         if (serviceBankAccount.compareTo(new BigDecimal(0)) < 0) {
             negativeIncomes++;
@@ -363,6 +386,40 @@ public class Service implements Serializable {
             killAllThreads();
             Controller.forbidAllActions();
         }
+    }
+
+    public void serialize() {
+        serializeObject("users.ser", users);
+        serializeObject("distributors.ser", distributors);
+        serializeObject("products.ser", products);
+        serializeObject("generalWatchesAmountMap.ser", generalWatchesAmountMap);
+        serializeObject("monthlyWatchesAmountMap.ser", monthlyWatchesAmountMap);
+        serializeObject("productsWatchesAmountMap.ser", productsWatchesAmountMap);
+        serializeObject("productDistributorMapping.ser", productDistributorMapping);
+        serializeObject("subscription.ser", subscription);
+        serializeObject("movieAmount.ser", movieAmount);
+        serializeObject("usersAmount.ser", usersAmount);
+        serializeObject("distributorsAmount.ser", distributorsAmount);
+        serializeObject("serviceBankAccount.ser", serviceBankAccount);
+        serializeObject("negativeIncomes.ser", negativeIncomes);
+    }
+
+    public void deserialize() {
+        killAllThreads();
+        users = (List<User>) deserializeObject("users.ser");
+        distributors = (List<Distributor>) deserializeObject("distributors.ser");
+        products = (List<Product>) deserializeObject("products.ser");
+        generalWatchesAmountMap = (Map<String, Integer>) deserializeObject("generalWatchesAmountMap.ser");
+        monthlyWatchesAmountMap = (Map<String, Integer>) deserializeObject("monthlyWatchesAmountMap.ser");
+        productsWatchesAmountMap = (Map<String, ArrayList<Integer>>) deserializeObject("productsWatchesAmountMap.ser");
+        productDistributorMapping = (Map<String, Integer>) deserializeObject("productDistributorMapping.ser");
+        subscription = (Subscription) deserializeObject("subscription.ser");
+        movieAmount = (int) deserializeObject("movieAmount.ser");
+        usersAmount = (int) deserializeObject("usersAmount.ser");
+        distributorsAmount = (int) deserializeObject("distributorsAmount.ser");
+        serviceBankAccount = (BigDecimal) deserializeObject("serviceBankAccount.ser");
+        negativeIncomes = (int) deserializeObject("negativeIncomes.ser");
+        runAllThreads();
     }
 
     private void serializeObject(String fileName, Object object) {

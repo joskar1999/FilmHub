@@ -87,6 +87,14 @@ public class SimulationAPI {
         service.setNewPrice(title, price);
     }
 
+    public static void serialize() {
+        service.serialize();
+    }
+
+    public static void deserialize() {
+        service.deserialize();
+    }
+
     public void initialize() {
         service.initialize();
     }

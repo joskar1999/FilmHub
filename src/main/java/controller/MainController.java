@@ -97,17 +97,17 @@ public class MainController extends Controller implements Initializable {
 
         List<Product> products = SimulationAPI.getMostPopular(6);
         seriesImageFirst.setImage(new Image(String.valueOf(new File(String.valueOf(
-                getClass().getResource("../../resources/images/" + products.get(0).getImage()))))));
+            getClass().getResource("../../resources/images/" + products.get(0).getImage()))))));
         seriesImageSecond.setImage(new Image(String.valueOf(new File(String.valueOf(
-                getClass().getResource("../../resources/images/" + products.get(1).getImage()))))));
+            getClass().getResource("../../resources/images/" + products.get(1).getImage()))))));
         seriesImageThird.setImage(new Image(String.valueOf(new File(String.valueOf(
-                getClass().getResource("../../resources/images/" + products.get(2).getImage()))))));
+            getClass().getResource("../../resources/images/" + products.get(2).getImage()))))));
         movieImageFirst.setImage(new Image(String.valueOf(new File(String.valueOf(
-                getClass().getResource("../../resources/images/" + products.get(3).getImage()))))));
+            getClass().getResource("../../resources/images/" + products.get(3).getImage()))))));
         movieImageSecond.setImage(new Image(String.valueOf(new File(String.valueOf(
-                getClass().getResource("../../resources/images/" + products.get(4).getImage()))))));
+            getClass().getResource("../../resources/images/" + products.get(4).getImage()))))));
         movieImageThird.setImage(new Image(String.valueOf(new File(String.valueOf(
-                getClass().getResource("../../resources/images/" + products.get(5).getImage()))))));
+            getClass().getResource("../../resources/images/" + products.get(5).getImage()))))));
 
         seriesTitleFirst.setText(products.get(0).getTitle());
         seriesTitleSecond.setText(products.get(1).getTitle());
@@ -129,6 +129,19 @@ public class MainController extends Controller implements Initializable {
         movieViewsFirst.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(3).getTitle())) + " Odsłon");
         movieViewsSecond.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(4).getTitle())) + " Odsłon");
         movieViewsThird.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(5).getTitle())) + " Odsłon");
+    }
+
+    @FXML
+    public void makeSave() {
+        SimulationAPI.serialize();
+        showNotification("FilmHub", "Zrobiono sejwa");
+    }
+
+    @FXML
+    public void loadSave() {
+        SimulationAPI.deserialize();
+        showNotification("FilmHub", "Wgrano sejwa");
+        refreshMainView();
     }
 
     @Override

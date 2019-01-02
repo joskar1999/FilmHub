@@ -88,12 +88,12 @@
             <Image url="@../images/flaga.jpeg" />
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="504.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nie masz abonamentu?">
+      <Text fill="WHITE" layoutX="472.0" layoutY="169.0" onMouseClicked="#loadSave" strokeType="OUTSIDE" strokeWidth="0.0" text="Wczytaj ostatniego sejwa!">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="#f89921" layoutX="697.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kup go teraz!">
+      <Text fill="#f89921" layoutX="687.0" layoutY="169.0" onMouseClicked="#makeSave" strokeType="OUTSIDE" strokeWidth="0.0" text="Zrób sejwa teraz!">
          <font>
             <Font size="18.0" />
          </font>
