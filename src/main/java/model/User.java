@@ -22,10 +22,10 @@ public class User implements Runnable {
     private String cardNumber;
     private SubscriptionType subscriptionType;
     private List<Product> products;
-    private Random random;
+    private static Random random;
     private BigDecimal subscriptionPayment;
-    private OnPaymentListener onPaymentListener;
-    private OnWatchListener onWatchListener;
+    private transient OnPaymentListener onPaymentListener;
+    private transient OnWatchListener onWatchListener;
     private boolean shouldStop;
     private static int currentId = 0;
 

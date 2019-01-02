@@ -1,5 +1,6 @@
 package main.java.model;
 
+import com.google.gson.Gson;
 import main.java.controller.Controller;
 
 import java.math.BigDecimal;
@@ -26,7 +27,7 @@ public class Service {
     private int movieAmount = 0;
     private int usersAmount = 0;
     private int distributorsAmount = 0;
-    private Semaphore semaphore;
+    private transient Semaphore semaphore;
     private static Random random = new Random();
     private static OnDatasetChangeListener onDatasetChangeListener;
     private static OnUsersSetChangeListener onUsersSetChangeListener;

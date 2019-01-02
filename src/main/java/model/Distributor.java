@@ -17,9 +17,9 @@ public class Distributor implements Runnable {
     private int id;
     private String name;
     private Contract contract;
-    private OnProductReleaseListener onProductReleaseListener;
-    private OnNegotiateListener onNegotiateListener;
-    private Random random;
+    private transient OnProductReleaseListener onProductReleaseListener;
+    private transient OnNegotiateListener onNegotiateListener;
+    private static Random random;
     private Semaphore semaphore;
     private boolean shouldStop;
     private static int currentId = 0;

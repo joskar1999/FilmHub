@@ -21,7 +21,7 @@ public abstract class Product implements Comparable<Product> {
     private String country;
     private double rating;
     private BigDecimal price;
-    private Random random = new Random();
+    private static Random random = new Random();
 
     public String getTitle() {
         return title;
