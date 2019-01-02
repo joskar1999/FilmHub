@@ -12,21 +12,21 @@ import static main.java.model.SimulationSettings.STARTING_USERS_AMOUNT;
 
 public class Service {
 
-    private static List<User> users = new ArrayList<>();
-    private static List<Distributor> distributors = new ArrayList<>();
-    private static List<Product> products = new ArrayList<>();
-    private static Map<String, Integer> productDistributorMapping = new HashMap<>();
-    private static Map<String, Integer> monthlyWatchesAmountMap = new HashMap<>();
-    private static Map<String, Integer> generalWatchesAmountMap = new HashMap<>();
-    private static Map<String, ArrayList<Integer>> productsWatchesAmountMap = new HashMap<>();
-    private static SimulationSettings simulationSettings = new SimulationSettings();
-    private static TimeUtils timeUtils = new TimeUtils();
-    private static Subscription subscription = new Subscription();
-    private static BigDecimal serviceBankAccount = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
-    private static int movieAmount = 0;
-    private static int usersAmount = 0;
-    private static int distributorsAmount = 0;
-    private static Semaphore semaphore;
+    private List<User> users = new ArrayList<>();
+    private List<Distributor> distributors = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
+    private Map<String, Integer> productDistributorMapping = new HashMap<>();
+    private Map<String, Integer> monthlyWatchesAmountMap = new HashMap<>();
+    private Map<String, Integer> generalWatchesAmountMap = new HashMap<>();
+    private Map<String, ArrayList<Integer>> productsWatchesAmountMap = new HashMap<>();
+    private SimulationSettings simulationSettings = new SimulationSettings();
+    private TimeUtils timeUtils = new TimeUtils();
+    private Subscription subscription = new Subscription();
+    private BigDecimal serviceBankAccount = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
+    private int movieAmount = 0;
+    private int usersAmount = 0;
+    private int distributorsAmount = 0;
+    private Semaphore semaphore;
     private static Random random = new Random();
     private static OnDatasetChangeListener onDatasetChangeListener;
     private static OnUsersSetChangeListener onUsersSetChangeListener;
@@ -36,22 +36,22 @@ public class Service {
     public static final int NO_DISCOUNT = 0;
     public static final int LIVE_DISCOUNT = 1;
     public static final int MOVIE_DISCOUNT = 2;
-    private static int negativeIncomes = 0;
+    private int negativeIncomes = 0;
 
     public Service() {
         simulationSettings.setMultiplier(20);
         semaphore = new Semaphore(1);
     }
 
-    public static Subscription getSubscription() {
+    public Subscription getSubscription() {
         return subscription;
     }
 
-    public static TimeUtils getTimeUtils() {
+    public TimeUtils getTimeUtils() {
         return timeUtils;
     }
 
-    public static void setSubscriptionPrice(BigDecimal basic, BigDecimal family, BigDecimal premium) {
+    public void setSubscriptionPrice(BigDecimal basic, BigDecimal family, BigDecimal premium) {
         if (basic != null) {
             subscription.updateBasicPrice(basic);
         }
@@ -63,27 +63,27 @@ public class Service {
         }
     }
 
-    public static List<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public static List<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public static List<Distributor> getDistributors() {
+    public List<Distributor> getDistributors() {
         return distributors;
     }
 
-    public static SimulationSettings getSimulationSettings() {
+    public SimulationSettings getSimulationSettings() {
         return simulationSettings;
     }
 
-    public static Map<String, Integer> getGeneralWatchesAmountMap() {
+    public Map<String, Integer> getGeneralWatchesAmountMap() {
         return generalWatchesAmountMap;
     }
 
-    public static int getMovieAmount() {
+    public int getMovieAmount() {
         return movieAmount;
     }
 
@@ -103,7 +103,7 @@ public class Service {
      * Sending money to distributor, increasing value of
      * Service 'bank account'; Calculating discount
      */
-    private static synchronized void executePayment(String product, int userId, final int discountType) {
+    private synchronized void executePayment(String product, int userId, final int discountType) {
         for (Product p : products) {
             if (p.getTitle().equals(product)) {
                 BigDecimal discountValue = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
@@ -130,14 +130,14 @@ public class Service {
         }
     }
 
-    private static BigDecimal calculateDiscount(BigDecimal price, BigDecimal percentages) {
+    private BigDecimal calculateDiscount(BigDecimal price, BigDecimal percentages) {
         BigDecimal discountValue = price.setScale(2, RoundingMode.HALF_EVEN);
         discountValue = discountValue.multiply(percentages).setScale(2, RoundingMode.HALF_EVEN);
         discountValue = discountValue.divide(new BigDecimal("100"), RoundingMode.HALF_EVEN);
         return discountValue;
     }
 
-    private static void sendMoneyToDistributor(String title, BigDecimal amountToPay) {
+    private void sendMoneyToDistributor(String title, BigDecimal amountToPay) {
         int distributorId = productDistributorMapping.get(title);
         BigDecimal price = amountToPay;
         for (Distributor d : distributors) {
@@ -152,7 +152,7 @@ public class Service {
         }
     }
 
-    private static void sendMoneyPerWatchToDistributor(String title) {
+    private void sendMoneyPerWatchToDistributor(String title) {
         int distributorId = productDistributorMapping.get(title);
         for (Distributor d : distributors) {
             if (d.getId() == distributorId) {
@@ -185,7 +185,7 @@ public class Service {
      * @param distributor Distributor which negotiates
      * @param p           value wanted by Distributor
      */
-    private static void negotiate(Distributor distributor, int p, int w) {
+    private void negotiate(Distributor distributor, int p, int w) {
         int sp = random.nextInt(40);
         Contract c = new Contract();
         if (sp > p) {
@@ -205,7 +205,7 @@ public class Service {
      * @param amount amount of products that method will return
      * @return products list ordered by rating
      */
-    public static List<Product> getMostPopular(int amount) {
+    public List<Product> getMostPopular(int amount) {
         List<Product> p = new ArrayList<>();
         List<Product> popular = new ArrayList<>();
         p = getProducts();
@@ -220,7 +220,7 @@ public class Service {
         return (ArrayList<Product>) popular;
     }
 
-    public static void createNewUser() {
+    public void createNewUser() {
         User user = new User();
         usersAmount++;
         user.addOnPaymentListener((p, id, t) -> {
@@ -240,7 +240,7 @@ public class Service {
         }
     }
 
-    public static void createNewDistributor() {
+    public void createNewDistributor() {
         Distributor distributor = new Distributor(semaphore);
         distributorsAmount++;
 
@@ -269,7 +269,7 @@ public class Service {
         }
     }
 
-    private static void runThread(Runnable r) {
+    private void runThread(Runnable r) {
         Thread t = new Thread(r);
         t.setDaemon(true);
         t.start();
@@ -281,7 +281,7 @@ public class Service {
      * @param title Searched product title
      * @return Product, if is in products base, else null
      */
-    public static Product searchForProduct(String title) {
+    public Product searchForProduct(String title) {
         for (Product p : products) {
             if (p.getTitle().equals(title)) {
                 return p;
@@ -290,14 +290,14 @@ public class Service {
         return null;
     }
 
-    public static void removeProduct(String title) {
+    public void removeProduct(String title) {
         products.removeIf(p -> p.getTitle().equals(title));
         //Product will be removed only from 'products'
         //because it may cause NullPointerException
         //in User object if it will be removed from other List
     }
 
-    public static void removeUser(String email) {
+    public void removeUser(String email) {
         for (int i = 0; i < usersAmount; i++) {
             if (users.get(i).getEmail().equals(email)) {
                 users.get(i).kill();
@@ -308,7 +308,7 @@ public class Service {
         }
     }
 
-    public static void removeDistributor(String name) {
+    public void removeDistributor(String name) {
         for (int i = 0; i < distributorsAmount; i++) {
             if (distributors.get(i).getName().equals(name)) {
                 distributors.get(i).kill();
@@ -319,7 +319,7 @@ public class Service {
         }
     }
 
-    public static void addDiscount(String productTitle, Discount discount, int type) {
+    public void addDiscount(String productTitle, Discount discount, int type) {
         if (type == LIVE_DISCOUNT) {
             for (Product p : products) {
                 if (p instanceof Live && p.getTitle().equals(productTitle)) {
@@ -335,7 +335,7 @@ public class Service {
         }
     }
 
-    public static void setNewPrice(String title, BigDecimal price) {
+    public void setNewPrice(String title, BigDecimal price) {
         products.stream()
                 .filter(p -> p.getTitle().equals(title))
                 .forEach(p -> p.setPrice(price));
@@ -401,11 +401,5 @@ public class Service {
         Thread timeUtilsThread = new Thread(timeUtils);
         timeUtilsThread.setDaemon(true);
         timeUtilsThread.start();
-    }
-
-    public static void main(String[] args) {
-        Service service = new Service();
-        service.initialize();
-        service.start();
     }
 }

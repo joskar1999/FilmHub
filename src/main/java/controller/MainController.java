@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import main.java.SimulationAPI;
 import main.java.model.Product;
 import main.java.model.Service;
 import main.java.view.ViewUtils;
@@ -94,19 +95,19 @@ public class MainController extends Controller implements Initializable {
     public void refreshMainView() {
         //TODO do refactor - extract method
 
-        List<Product> products = Service.getMostPopular(6);
+        List<Product> products = SimulationAPI.getMostPopular(6);
         seriesImageFirst.setImage(new Image(String.valueOf(new File(String.valueOf(
-            getClass().getResource("../../resources/images/" + products.get(0).getImage()))))));
+                getClass().getResource("../../resources/images/" + products.get(0).getImage()))))));
         seriesImageSecond.setImage(new Image(String.valueOf(new File(String.valueOf(
-            getClass().getResource("../../resources/images/" + products.get(1).getImage()))))));
+                getClass().getResource("../../resources/images/" + products.get(1).getImage()))))));
         seriesImageThird.setImage(new Image(String.valueOf(new File(String.valueOf(
-            getClass().getResource("../../resources/images/" + products.get(2).getImage()))))));
+                getClass().getResource("../../resources/images/" + products.get(2).getImage()))))));
         movieImageFirst.setImage(new Image(String.valueOf(new File(String.valueOf(
-            getClass().getResource("../../resources/images/" + products.get(3).getImage()))))));
+                getClass().getResource("../../resources/images/" + products.get(3).getImage()))))));
         movieImageSecond.setImage(new Image(String.valueOf(new File(String.valueOf(
-            getClass().getResource("../../resources/images/" + products.get(4).getImage()))))));
+                getClass().getResource("../../resources/images/" + products.get(4).getImage()))))));
         movieImageThird.setImage(new Image(String.valueOf(new File(String.valueOf(
-            getClass().getResource("../../resources/images/" + products.get(5).getImage()))))));
+                getClass().getResource("../../resources/images/" + products.get(5).getImage()))))));
 
         seriesTitleFirst.setText(products.get(0).getTitle());
         seriesTitleSecond.setText(products.get(1).getTitle());
@@ -122,12 +123,12 @@ public class MainController extends Controller implements Initializable {
         movieRatingSecond.setText(String.valueOf(products.get(4).getRating()));
         movieRatingThird.setText(String.valueOf(products.get(5).getRating()));
 
-        seriesViewsFirst.setText(String.valueOf(Service.getGeneralWatchesAmountMap().get(products.get(0).getTitle())) + " Odsłon");
-        seriesViewsSecond.setText(String.valueOf(Service.getGeneralWatchesAmountMap().get(products.get(1).getTitle())) + " Odsłon");
-        seriesViewsThird.setText(String.valueOf(Service.getGeneralWatchesAmountMap().get(products.get(2).getTitle())) + " Odsłon");
-        movieViewsFirst.setText(String.valueOf(Service.getGeneralWatchesAmountMap().get(products.get(3).getTitle())) + " Odsłon");
-        movieViewsSecond.setText(String.valueOf(Service.getGeneralWatchesAmountMap().get(products.get(4).getTitle())) + " Odsłon");
-        movieViewsThird.setText(String.valueOf(Service.getGeneralWatchesAmountMap().get(products.get(5).getTitle())) + " Odsłon");
+        seriesViewsFirst.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(0).getTitle())) + " Odsłon");
+        seriesViewsSecond.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(1).getTitle())) + " Odsłon");
+        seriesViewsThird.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(2).getTitle())) + " Odsłon");
+        movieViewsFirst.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(3).getTitle())) + " Odsłon");
+        movieViewsSecond.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(4).getTitle())) + " Odsłon");
+        movieViewsThird.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(5).getTitle())) + " Odsłon");
     }
 
     @Override

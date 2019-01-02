@@ -1,5 +1,7 @@
 package main.java.model;
 
+import main.java.SimulationAPI;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,8 +34,8 @@ public class TimeUtils implements Runnable {
 
     private void calculateCurrentTimestamp() {
         long diff = (System.currentTimeMillis() / 1000L) - startTimestamp;
-        diff *= Service.getSimulationSettings().getMultiplier();
-        diff *= Service.getSimulationSettings().getBasicMultiplier();
+        diff *= SimulationAPI.getSimulationSettings().getMultiplier();
+        diff *= SimulationAPI.getSimulationSettings().getBasicMultiplier();
         this.currentTimestamp = diff + startTimestamp;
     }
 

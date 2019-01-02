@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import main.java.SimulationAPI;
 import main.java.model.Distributor;
 import main.java.model.OnDistributorsSetChangeListener;
 import main.java.model.Service;
@@ -22,7 +23,7 @@ public class DistributorController extends Controller implements Initializable {
 
     public DistributorController() {
         distributors = FXCollections.observableArrayList();
-        distributors.addAll(Service.getDistributors());
+        distributors.addAll(SimulationAPI.getDistributors());
     }
 
     @Override
@@ -30,7 +31,7 @@ public class DistributorController extends Controller implements Initializable {
         listView.setItems(distributors);
         listView.setCellFactory(e -> new DistributorListViewCell());
         listView.getStylesheets().add(
-            getClass().getResource("../../resources/css/styles.css").toExternalForm());
+                getClass().getResource("../../resources/css/styles.css").toExternalForm());
 
         Service.addOnDistributorsSetChangeListener(new OnDistributorsSetChangeListener() {
             @Override

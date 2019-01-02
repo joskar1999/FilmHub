@@ -1,5 +1,6 @@
 package main.java.controller;
 
+import main.java.SimulationAPI;
 import main.java.model.Series;
 import main.java.model.Service;
 
@@ -11,9 +12,9 @@ public class SeriesController extends ProductController {
     public SeriesController() {
         super();
         allProducts
-            .stream()
-            .filter(p -> p instanceof Series)
-            .forEach(p -> products.add(p));
+                .stream()
+                .filter(p -> p instanceof Series)
+                .forEach(p -> products.add(p));
     }
 
     @Override

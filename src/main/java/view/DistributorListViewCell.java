@@ -6,9 +6,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import main.java.SimulationAPI;
 import main.java.controller.Controller;
 import main.java.model.Distributor;
-import main.java.model.Service;
 
 import java.io.IOException;
 
@@ -50,7 +50,7 @@ public class DistributorListViewCell extends ListCell<Distributor> {
             name.setText(item.getName());
             percentages.setText(String.valueOf(item.getContract().getPercentages()) + "%");
             removeDistributorButton.setOnMouseClicked(e -> {
-                Service.removeDistributor(item.getName());
+                SimulationAPI.removeDistributor(item.getName());
                 Controller.showNotification("FilmHub", "Dystrybutor usunięty");
             });
 

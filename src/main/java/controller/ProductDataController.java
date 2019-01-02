@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import main.java.SimulationAPI;
 import main.java.model.*;
 import main.java.view.ViewUtils;
 
@@ -112,8 +113,8 @@ public class ProductDataController extends Controller implements Initializable {
 
     @FXML
     public void removeProduct() {
-        if (Service.getProducts().size() > 6) {
-            Service.removeProduct(product.getTitle());
+        if (SimulationAPI.getProducts().size() > 6) {
+            SimulationAPI.removeProduct(product.getTitle());
             showNotification("FilmHub", "Produkt usunięty");
             sendToMainPage();
         } else {
@@ -129,12 +130,12 @@ public class ProductDataController extends Controller implements Initializable {
             int d = validateDuration(discountDuration.getText());
             double p = Double.valueOf(validatePercentages(discountPercentages.getText()));
             discount.setPercentages(new BigDecimal(p).setScale(2, RoundingMode.HALF_EVEN));
-            discount.setStartTime(Service.getTimeUtils().getCurrentTimestamp());
-            discount.setEndTime(Service.getTimeUtils().getCurrentTimestamp() + d * 24 * 3600);
+            discount.setStartTime(SimulationAPI.getTimeUtils().getCurrentTimestamp());
+            discount.setEndTime(SimulationAPI.getTimeUtils().getCurrentTimestamp() + d * 24 * 3600);
             if (product instanceof Live) {
-                Service.addDiscount(product.getTitle(), discount, Service.LIVE_DISCOUNT);
+                SimulationAPI.addDiscount(product.getTitle(), discount, Service.LIVE_DISCOUNT);
             } else if (product instanceof Movie) {
-                Service.addDiscount(product.getTitle(), discount, Service.MOVIE_DISCOUNT);
+                SimulationAPI.addDiscount(product.getTitle(), discount, Service.MOVIE_DISCOUNT);
             }
             showNotification("FilmHub", "Promocja utworzona");
         }
@@ -148,7 +149,7 @@ public class ProductDataController extends Controller implements Initializable {
         input = input.replaceAll("[A-Za-z]+", "");
         if (input.matches("-?\\d+(\\.\\d+)?")) {
             BigDecimal newPrice = new BigDecimal(Double.valueOf(input)).setScale(2, RoundingMode.HALF_EVEN);
-            Service.setNewPrice(product.getTitle(), newPrice);
+            SimulationAPI.setNewPrice(product.getTitle(), newPrice);
             showNotification("FilmHub", "Nowa cena ustawiona");
         }
     }

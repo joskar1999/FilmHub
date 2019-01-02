@@ -1,5 +1,6 @@
 package main.java.controller;
 
+import main.java.SimulationAPI;
 import main.java.model.Movie;
 import main.java.model.Service;
 
@@ -11,9 +12,9 @@ public class MoviesController extends ProductController {
     public MoviesController() {
         super();
         allProducts
-            .stream()
-            .filter(p -> p instanceof Movie)
-            .forEach(p -> products.add(p));
+                .stream()
+                .filter(p -> p instanceof Movie)
+                .forEach(p -> products.add(p));
     }
 
     @Override

@@ -5,8 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import main.java.SimulationAPI;
 import main.java.model.Product;
-import main.java.model.Service;
 import main.java.view.ProductListViewCell;
 
 import java.net.URL;
@@ -23,7 +23,7 @@ public class ProductController extends Controller implements Initializable {
 
     public ProductController() {
         products = FXCollections.observableArrayList();
-        allProducts = Service.getProducts();
+        allProducts = SimulationAPI.getProducts();
     }
 
     @Override
@@ -31,6 +31,6 @@ public class ProductController extends Controller implements Initializable {
         listView.setItems(products);
         listView.setCellFactory(e -> new ProductListViewCell());
         listView.getStylesheets().add(
-            getClass().getResource("../../resources/css/styles.css").toExternalForm());
+                getClass().getResource("../../resources/css/styles.css").toExternalForm());
     }
 }

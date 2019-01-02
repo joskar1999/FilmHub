@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import main.java.SimulationAPI;
 import main.java.model.OnUsersSetChangeListener;
 import main.java.model.Service;
 import main.java.model.User;
@@ -22,7 +23,7 @@ public class UsersController extends Controller implements Initializable {
 
     public UsersController() {
         users = FXCollections.observableArrayList();
-        users.addAll(Service.getUsers());
+        users.addAll(SimulationAPI.getUsers());
     }
 
     @Override

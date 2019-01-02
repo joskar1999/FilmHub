@@ -1,5 +1,6 @@
 package main.java.model;
 
+import main.java.SimulationAPI;
 import org.json.simple.JSONObject;
 
 import java.util.Random;
@@ -12,7 +13,7 @@ public class Episode {
     private Random random = new Random();
 
     public Episode() {
-        if (Service.getMovieAmount() > 6) {
+        if (SimulationAPI.getMovieAmount() > 6) {
             createFromJSON();
         }
     }

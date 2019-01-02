@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
-import main.java.model.Service;
+import main.java.SimulationAPI;
 import main.java.view.ViewUtils;
 import org.controlsfx.control.Notifications;
 
@@ -60,7 +60,7 @@ public class Controller {
     @FXML
     public void createNewDistributor() {
         if (isActionAllowed) {
-            Service.createNewDistributor();
+            SimulationAPI.createNewDistributor();
             showNotification("Filmhub", "Nowy dystrybutor stworzony!");
         }
     }
@@ -68,19 +68,19 @@ public class Controller {
     @FXML
     public void createNewUser() {
         if (isActionAllowed) {
-            Service.createNewUser();
+            SimulationAPI.createNewUser();
             showNotification("Filmhub", "Nowy użytkownik stworzony!");
         }
     }
 
     public static void showNotification(String title, String message) {
         Notifications notifications = Notifications
-            .create()
-            .title(title)
-            .text(message)
-            .graphic(null)
-            .hideAfter(Duration.seconds(2))
-            .position(Pos.BASELINE_RIGHT);
+                .create()
+                .title(title)
+                .text(message)
+                .graphic(null)
+                .hideAfter(Duration.seconds(2))
+                .position(Pos.BASELINE_RIGHT);
         notifications.showConfirm();
     }
 
