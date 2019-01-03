@@ -2,6 +2,7 @@ package main.java.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.*;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -60,6 +61,9 @@ public class ProductDataController extends Controller implements Initializable {
     @FXML
     private TextField priceTextField;
 
+    @FXML
+    private LineChart<?, ?> chart;
+
     private static Product product;
     private ViewUtils utils = new ViewUtils();
 
@@ -71,7 +75,7 @@ public class ProductDataController extends Controller implements Initializable {
         title.setText(product.getTitle());
         rating.setText(String.valueOf(product.getRating()));
         image.setImage(new Image(String.valueOf(getClass().getResource(
-                "../../resources/images/" + product.getImage()))));
+            "../../resources/images/" + product.getImage()))));
         priceTextField.setPromptText(product.getPrice() + " PLN");
         if (product instanceof Movie) {
             firstActor.setText(((Movie) product).getActors().get(0));
@@ -111,6 +115,16 @@ public class ProductDataController extends Controller implements Initializable {
         return Integer.valueOf(input);
     }
 
+    private XYChart.Series prepareChartData() {
+        XYChart.Series series = new XYChart.Series<>();
+        var generalData = SimulationAPI.getProductsWatchesAmountMap();
+        var data = generalData.get(product.getTitle());
+        for (int i = 0; i < data.size(); i++) {
+            series.getData().add(new XYChart.Data(String.valueOf(i + 1), data.get(i)));
+        }
+        return series;
+    }
+
     @FXML
     public void removeProduct() {
         if (SimulationAPI.getProducts().size() > 6) {
@@ -126,7 +140,7 @@ public class ProductDataController extends Controller implements Initializable {
     public void makeDiscount() {
         Discount discount = new Discount();
         if (validateDuration(discountDuration.getText()) != 0
-                && validatePercentages(discountPercentages.getText()) != null) {
+            && validatePercentages(discountPercentages.getText()) != null) {
             int d = validateDuration(discountDuration.getText());
             double p = Double.valueOf(validatePercentages(discountPercentages.getText()));
             discount.setPercentages(new BigDecimal(p).setScale(2, RoundingMode.HALF_EVEN));
@@ -164,6 +178,13 @@ public class ProductDataController extends Controller implements Initializable {
             durationAnchor.setVisible(false);
             percentagesText.setVisible(false);
             durationText.setVisible(false);
+        }
+        chart.getData().addAll(prepareChartData());
+        chart.setLegendVisible(false);
+        chart.getStylesheets().add(
+            getClass().getResource("../../resources/css/charts.css").toExternalForm());
+        if (product instanceof Live) {
+            chart.setVisible(false);
         }
     }
 }

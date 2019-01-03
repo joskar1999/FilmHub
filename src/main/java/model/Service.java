@@ -85,6 +85,10 @@ public class Service implements Serializable {
         return generalWatchesAmountMap;
     }
 
+    public Map<String, ArrayList<Integer>> getProductsWatchesAmountMap() {
+        return productsWatchesAmountMap;
+    }
+
     public int getMovieAmount() {
         return movieAmount;
     }
