@@ -254,7 +254,7 @@
             </HBox>
          </children>
       </VBox>
-      <ImageView fitHeight="239.0" fitWidth="287.0" layoutX="1069.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="239.0" fitWidth="287.0" layoutX="1069.0" layoutY="201.0" onMouseClicked="#openXKomInBrowser" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/reklama.png" />
          </image>

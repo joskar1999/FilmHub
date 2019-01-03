@@ -10,7 +10,11 @@ import main.java.model.Product;
 import main.java.model.Service;
 import main.java.view.ViewUtils;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -142,6 +146,18 @@ public class MainController extends Controller implements Initializable {
         SimulationAPI.deserialize();
         showNotification("FilmHub", "Wgrano sejwa");
         refreshMainView();
+    }
+
+    @FXML
+    public void openXKomInBrowser() {
+        try {
+            Desktop desktop = Desktop.getDesktop();
+            desktop.browse(new URI("https://www.x-kom.pl/g-6/c/31-myszki.html"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
