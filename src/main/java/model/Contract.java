@@ -1,10 +1,13 @@
 package main.java.model;
 
-public class Contract {
+import java.io.Serializable;
+
+public class Contract implements Serializable {
 
     private long startDate;
     private long duration;
     private int percentages;
+    private int pricePerWatch;
 
     public long getStartDate() {
         return startDate;
@@ -28,5 +31,13 @@ public class Contract {
 
     public void setPercentages(int percentages) {
         this.percentages = percentages;
+    }
+
+    public int getPricePerWatch() {
+        return pricePerWatch;
+    }
+
+    public void setPricePerWatch(int pricePerWatch) {
+        this.pricePerWatch = pricePerWatch;
     }
 }

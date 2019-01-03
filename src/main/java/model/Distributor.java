@@ -1,25 +1,41 @@
 package main.java.model;
 
+import main.java.SimulationAPI;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
-public class Distributor implements Runnable {
+import static main.java.model.SimulationSettings.STARTING_PERCENTAGES;
+import static main.java.model.SimulationSettings.STARTING_PRICE_PER_WATCH;
+
+public class Distributor implements Runnable, Serializable {
 
     private int id;
     private String name;
     private Contract contract;
-    private OnProductReleaseListener onProductReleaseListener;
-    private OnNegotiateListener onNegotiateListener;
-    private Random random;
+    private transient OnProductReleaseListener onProductReleaseListener;
+    private transient OnNegotiateListener onNegotiateListener;
+    private static Random random;
     private Semaphore semaphore;
+    private boolean shouldStop;
+    private static int currentId = 0;
+    private BigDecimal account;
 
-    public Distributor(int id, Semaphore semaphore) {
-        createFromJSON(id);
+    public Distributor(Semaphore semaphore) {
+        createFromJSON();
         random = new Random();
         this.semaphore = semaphore;
+        this.shouldStop = false;
+        account = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -46,27 +62,35 @@ public class Distributor implements Runnable {
         this.onNegotiateListener = onNegotiateListener;
     }
 
+    public void kill() {
+        this.shouldStop = true;
+    }
+
+    public void addSalary(BigDecimal salary) {
+        account = account.add(salary).setScale(2, RoundingMode.HALF_EVEN);
+    }
+
     /**
      * Renegotiating Contract, informing Service about it
      */
     private void negotiate() {
         int percentages = random.nextInt(60) + 20;
-        onNegotiateListener.onNegotiate(percentages);
+        int pricePerWatch = random.nextInt(5) + 4;
+        onNegotiateListener.onNegotiate(percentages, pricePerWatch);
     }
 
     /**
      * Creating random distributor, data chosen from fake file
-     *
-     * @param id random value between 0-99
      */
-    private void createFromJSON(int id) {
+    private void createFromJSON() {
         JSONArray array = JSONUtils.readJSONArray("\\src\\main\\resources\\json\\fakeDistributors.json");
-        JSONObject distributor = (JSONObject) array.get(id);
+        JSONObject distributor = (JSONObject) array.get(currentId);
 
-        this.id = id;
+        this.id = currentId++;
         this.name = (String) distributor.get("name");
         Contract c = new Contract();
-        c.setPercentages(25);
+        c.setPercentages(STARTING_PERCENTAGES);
+        c.setPricePerWatch(STARTING_PRICE_PER_WATCH);
         this.contract = c;
     }
 
@@ -78,9 +102,9 @@ public class Distributor implements Runnable {
         int type = random.nextInt(3);
         try {
             if (type == 0) {
-                p = new Movie(Service.getMovieAmount());
+                p = new Movie(SimulationAPI.getMovieAmount());
             } else if (type == 1) {
-                p = new Live(Service.getMovieAmount());
+                p = new Live(SimulationAPI.getMovieAmount());
             } else if (type == 2) {
                 p = new Series();
             }
@@ -93,13 +117,13 @@ public class Distributor implements Runnable {
     private int randomizeTimeToRelease() {
         int d = random.nextInt(20) + 10;
         int t = d * 24 * 1000;
-        t /= (int) Service.getSimulationSettings().getMultiplier();
+        t /= (int) SimulationAPI.getSimulationSettings().getMultiplier();
         return t;
     }
 
     @Override
     public void run() {
-        while (true) {
+        while (!shouldStop) {
             try {
                 semaphore.acquire();
             } catch (InterruptedException e) {

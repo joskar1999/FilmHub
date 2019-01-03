@@ -1,5 +1,7 @@
 package main.java.model;
 
+import main.java.SimulationAPI;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -11,6 +13,7 @@ public class TimeUtils implements Runnable {
     private SimpleDateFormat dayDateFormat;
     private OnPaymentPeriodListener onPaymentPeriodListener;
     private boolean testPaymentPeriod;
+    private boolean shouldStop = false;
 
     public TimeUtils() {
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -32,8 +35,8 @@ public class TimeUtils implements Runnable {
 
     private void calculateCurrentTimestamp() {
         long diff = (System.currentTimeMillis() / 1000L) - startTimestamp;
-        diff *= Service.getSimulationSettings().getMultiplier();
-        diff *= Service.getSimulationSettings().getBasicMultiplier();
+        diff *= SimulationAPI.getSimulationSettings().getMultiplier();
+        diff *= SimulationAPI.getSimulationSettings().getBasicMultiplier();
         this.currentTimestamp = diff + startTimestamp;
     }
 
@@ -66,6 +69,10 @@ public class TimeUtils implements Runnable {
         return false;
     }
 
+    public void kill() {
+        this.shouldStop = true;
+    }
+
     public void addOnPaymentPeriodListener(OnPaymentPeriodListener onPaymentPeriodListener) {
         this.onPaymentPeriodListener = onPaymentPeriodListener;
     }
@@ -73,7 +80,7 @@ public class TimeUtils implements Runnable {
     @Override
     public void run() {
         startTimestamp = System.currentTimeMillis() / 1000L;
-        while (true) {
+        while (!shouldStop) {
             calculateCurrentTimestamp();
             if (checkForPaymentPeriod()) {
                 onPaymentPeriodListener.onPaymentPeriod();

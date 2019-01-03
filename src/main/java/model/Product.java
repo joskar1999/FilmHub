@@ -2,11 +2,16 @@ package main.java.model;
 
 import org.json.simple.JSONObject;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class Product implements Comparable<Product> {
+import static main.java.model.SimulationSettings.PRODUCT_PRICE_LOWER_BOUND;
+import static main.java.model.SimulationSettings.PRODUCT_PRICE_UPPER_BOUND;
+
+public abstract class Product implements Comparable<Product>, Serializable {
 
     private String title;
     private String image;
@@ -17,7 +22,10 @@ public abstract class Product implements Comparable<Product> {
     private String country;
     private double rating;
     private BigDecimal price;
-    private Random random = new Random();
+    private static Random random = new Random();
+
+    public Product() {
+    }
 
     public String getTitle() {
         return title;
@@ -97,7 +105,7 @@ public abstract class Product implements Comparable<Product> {
      * @return random price
      */
     protected BigDecimal randomizePrice() {
-        double d = 20.0 + (100.0 - 20.0) * random.nextDouble();
+        double d = PRODUCT_PRICE_LOWER_BOUND + (PRODUCT_PRICE_UPPER_BOUND - PRODUCT_PRICE_LOWER_BOUND) * random.nextDouble();
         BigDecimal bd = new BigDecimal(d).setScale(2, RoundingMode.HALF_EVEN);
         return bd;
     }
@@ -112,6 +120,22 @@ public abstract class Product implements Comparable<Product> {
         setDuration(random.nextInt(60) + 120);
         setRating((random.nextInt(40) / 10.0) + 6.0);
         setPrice(randomizePrice());
+    }
+
+    /**
+     * Creating random product from secondary JSON file
+     *
+     * @return method will return ArrayList containing actors in order to use it in derived class
+     */
+    protected ArrayList<String> createFromSecondaryJSON() {
+        JSONObject object = JSONUtils.getSecondaryProductData();
+        setTitle((String) object.get("title"));
+        setProductionDate(String.valueOf(object.get("year")));
+        ArrayList<String> actors = JSONUtils.readActorsFromJSON(object);
+        setImage(JSONUtils.randImage());
+        setPrice(randomizePrice());
+        setRating((random.nextInt(40) / 10.0) + 6.0);
+        return actors;
     }
 
     @Override

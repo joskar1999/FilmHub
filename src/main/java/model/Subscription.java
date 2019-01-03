@@ -1,11 +1,12 @@
 package main.java.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Subscription {
+public class Subscription implements Serializable {
 
     private Map<SubscriptionType, BigDecimal> priceMap = new HashMap<>();
     private Map<SubscriptionType, Integer> devicesAmountMap;
@@ -44,5 +45,17 @@ public class Subscription {
 
     public void setResolutionMap(Map<SubscriptionType, Integer> resolutionMap) {
         this.resolutionMap = resolutionMap;
+    }
+
+    public void updateBasicPrice(BigDecimal price) {
+        priceMap.replace(SubscriptionType.BASIC, price);
+    }
+
+    public void updateFamilyPrice(BigDecimal price) {
+        priceMap.replace(SubscriptionType.FAMILY, price);
+    }
+
+    public void updatePremiumPrice(BigDecimal price) {
+        priceMap.replace(SubscriptionType.PREMIUM, price);
     }
 }

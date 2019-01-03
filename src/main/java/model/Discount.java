@@ -1,10 +1,20 @@
 package main.java.model;
 
-public class Discount {
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+public class Discount implements Serializable {
 
     private long startTime;
     private long endTime;
-    private int percentages;
+    private BigDecimal percentages;
+
+    public Discount() {
+        this.startTime = 0;
+        this.endTime = 0;
+        this.percentages = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
+    }
 
     public long getStartTime() {
         return startTime;
@@ -22,11 +32,11 @@ public class Discount {
         this.endTime = endTime;
     }
 
-    public int getPercentages() {
+    public BigDecimal getPercentages() {
         return percentages;
     }
 
-    public void setPercentages(int percentages) {
+    public void setPercentages(BigDecimal percentages) {
         this.percentages = percentages;
     }
 }

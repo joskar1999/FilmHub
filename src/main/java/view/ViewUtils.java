@@ -5,9 +5,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.java.Main;
+import main.java.SimulationAPI;
 import main.java.controller.ProductDataController;
 import main.java.model.Product;
-import main.java.model.Service;
 
 import java.io.IOException;
 
@@ -26,7 +26,7 @@ public class ViewUtils {
     }
 
     public void search(String title) {
-        Product product = Service.searchForProduct(title);
+        Product product = SimulationAPI.searchForProduct(title);
         if (product != null) {
             ProductDataController.setProduct(product);
             switchScenes("ProductDataView.fxml");

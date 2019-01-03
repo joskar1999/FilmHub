@@ -2,18 +2,19 @@ package main.java.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
+import main.java.SimulationAPI;
 import main.java.model.Product;
 import main.java.model.Service;
 import main.java.view.ViewUtils;
-import org.controlsfx.control.Notifications;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -92,16 +93,13 @@ public class MainController extends Controller implements Initializable {
     @FXML
     private Text movieViewsThird;
 
-    @FXML
-    private TextField searchBar;
-
     private ViewUtils utils = new ViewUtils();
 
     @FXML
     public void refreshMainView() {
         //TODO do refactor - extract method
 
-        List<Product> products = Service.getMostPopular(6);
+        List<Product> products = SimulationAPI.getMostPopular(6);
         seriesImageFirst.setImage(new Image(String.valueOf(new File(String.valueOf(
             getClass().getResource("../../resources/images/" + products.get(0).getImage()))))));
         seriesImageSecond.setImage(new Image(String.valueOf(new File(String.valueOf(
@@ -128,42 +126,43 @@ public class MainController extends Controller implements Initializable {
         movieRatingFirst.setText(String.valueOf(products.get(3).getRating()));
         movieRatingSecond.setText(String.valueOf(products.get(4).getRating()));
         movieRatingThird.setText(String.valueOf(products.get(5).getRating()));
+
+        seriesViewsFirst.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(0).getTitle())) + " Odsłon");
+        seriesViewsSecond.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(1).getTitle())) + " Odsłon");
+        seriesViewsThird.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(2).getTitle())) + " Odsłon");
+        movieViewsFirst.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(3).getTitle())) + " Odsłon");
+        movieViewsSecond.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(4).getTitle())) + " Odsłon");
+        movieViewsThird.setText(String.valueOf(SimulationAPI.getGeneralWatchesAmountMap().get(products.get(5).getTitle())) + " Odsłon");
     }
 
     @FXML
-    public void createNewDistributor() {
-        Service.createNewDistributor();
-        Notifications notifications = Notifications
-            .create()
-            .title("Filmhub")
-            .text("Nowy dystrybutor stworzony!")
-            .graphic(null)
-            .hideAfter(Duration.seconds(2))
-            .position(Pos.BASELINE_RIGHT);
-        notifications.showConfirm();
+    public void makeSave() {
+        SimulationAPI.serialize();
+        showNotification("FilmHub", "Zrobiono sejwa");
     }
 
     @FXML
-    public void createNewUser() {
-        Service.createNewUser();
-        Notifications notifications = Notifications
-            .create()
-            .title("Filmhub")
-            .text("Nowy użytkownik stworzony!")
-            .graphic(null)
-            .hideAfter(Duration.seconds(2))
-            .position(Pos.BASELINE_RIGHT);
-        notifications.showConfirm();
+    public void loadSave() {
+        SimulationAPI.deserialize();
+        showNotification("FilmHub", "Wgrano sejwa");
+        refreshMainView();
     }
 
     @FXML
-    public void searchForProduct() {
-        String title = searchBar.getText();
-        utils.search(title);
+    public void openXKomInBrowser() {
+        try {
+            Desktop desktop = Desktop.getDesktop();
+            desktop.browse(new URI("https://www.x-kom.pl/g-6/c/31-myszki.html"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
         refreshMainView();
         Service.addOnDatasetChangeListener((e) -> {
             refreshMainView();

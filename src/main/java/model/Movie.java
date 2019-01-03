@@ -2,9 +2,10 @@ package main.java.model;
 
 import org.json.simple.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Movie extends IMDB {
+public class Movie extends IMDB implements Serializable {
 
     private ArrayList<String> trailers;
     private ArrayList<String> actors;
@@ -13,6 +14,7 @@ public class Movie extends IMDB {
 
     public Movie(int id) throws NoMoviesException {
         createFromJSON(id);
+        discount = new Discount();
     }
 
     public ArrayList<String> getTrailers() {
@@ -54,8 +56,13 @@ public class Movie extends IMDB {
      */
     @Override
     protected void createFromJSON(int id) throws NoMoviesException {
-        super.createFromJSON(id);
-        JSONObject movie = JSONUtils.getSingleMovieFromFile(id);
-        actors = JSONUtils.readActorsFromJSON(movie);
+        JSONObject movie = null;
+        try {
+            super.createFromJSON(id);
+            movie = JSONUtils.getSingleMovieFromFile(id);
+            actors = JSONUtils.readActorsFromJSON(movie);
+        } catch (NoMoviesException e) {
+            actors = createFromSecondaryJSON();
+        }
     }
 }

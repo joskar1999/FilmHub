@@ -1,12 +1,15 @@
 package main.java.model;
 
-public class Live extends Product {
+import java.io.Serializable;
+
+public class Live extends Product implements Serializable {
 
     private long startTime;
     private Discount discount;
 
     public Live(int id) throws NoMoviesException {
         createFromJSON(id);
+        discount = new Discount();
     }
 
     public long getStartTime() {
@@ -27,6 +30,10 @@ public class Live extends Product {
 
     @Override
     protected void createFromJSON(int id) throws NoMoviesException {
-        super.createFromJSON(id);
+        try {
+            super.createFromJSON(id);
+        } catch (NoMoviesException e) {
+            createFromSecondaryJSON();
+        }
     }
 }

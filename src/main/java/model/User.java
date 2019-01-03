@@ -1,15 +1,19 @@
 package main.java.model;
 
+import main.java.SimulationAPI;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class User implements Runnable {
+import static main.java.model.SimulationSettings.WATCH_TO_BUY_RATIO;
+
+public class User implements Runnable, Serializable {
 
     private int id;
     private String name;
@@ -19,16 +23,20 @@ public class User implements Runnable {
     private String cardNumber;
     private SubscriptionType subscriptionType;
     private List<Product> products;
-    private Random random;
+    private static Random random;
     private BigDecimal subscriptionPayment;
-    private OnPaymentListener onPaymentListener;
+    private transient OnPaymentListener onPaymentListener;
+    private transient OnWatchListener onWatchListener;
+    private boolean shouldStop;
+    private static int currentId = 0;
 
-    public User(int id) {
-        createFromJSON(id);
+    public User() {
+        createFromJSON();
         random = new Random();
         products = new ArrayList<>();
         subscriptionPayment = new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN);
         subscriptionType = SubscriptionType.NONE;
+        shouldStop = false;
     }
 
     public int getId() {
@@ -107,16 +115,22 @@ public class User implements Runnable {
         this.onPaymentListener = onPaymentListener;
     }
 
+    public void addOnWatchListener(OnWatchListener onWatchListener) {
+        this.onWatchListener = onWatchListener;
+    }
+
+    public void kill() {
+        this.shouldStop = true;
+    }
+
     /**
      * Creating random user, data will be chosen from fake file by given id
-     *
-     * @param id user id 0-999
      */
-    private void createFromJSON(int id) {
+    private void createFromJSON() {
         JSONArray array = JSONUtils.readJSONArray("\\src\\main\\resources\\json\\fakeUsers.json");
-        JSONObject person = (JSONObject) array.get(id);
+        JSONObject person = (JSONObject) array.get(currentId);
 
-        this.id = id;
+        this.id = currentId++;
         this.name = (String) person.get("name");
         this.surname = (String) person.get("surname");
         this.email = (String) person.get("email");
@@ -144,17 +158,25 @@ public class User implements Runnable {
      * Product is chosen of random from products base
      */
     private void requestProduct() {
-        int size = Service.getProducts().size();
+        int size = SimulationAPI.getProducts().size();
         boolean test = false;
         if (size == products.size()) {
             return;
         }
         do {
             int id = random.nextInt(size);
-            Product p = Service.getProducts().get(id);
+            Product p = SimulationAPI.getProducts().get(id);
             if (!checkIfProductIsInList(p)) {
                 products.add(p);
-                onPaymentListener.onPayment(p.getTitle(), getId());
+                int discountType;
+                if (p instanceof Live) {
+                    discountType = Service.LIVE_DISCOUNT;
+                } else if (p instanceof Movie) {
+                    discountType = Service.MOVIE_DISCOUNT;
+                } else {
+                    discountType = Service.NO_DISCOUNT;
+                }
+                onPaymentListener.onPayment(p.getTitle(), getId(), discountType);
                 test = false;
             } else {
                 test = true;
@@ -170,32 +192,58 @@ public class User implements Runnable {
     private int randomizeTimeToBuy() {
         int d = random.nextInt(6) + 1;
         int t = d * 24 * 1000;
-        t /= (int) Service.getSimulationSettings().getMultiplier();
+        t /= (int) SimulationAPI.getSimulationSettings().getMultiplier();
         return t;
+    }
+
+    /**
+     * Watching product by user, notifying service about it
+     */
+    private void watchRandomProduct() {
+        boolean isOnlyLives = true;
+        boolean isCorrectChoice = false;
+        for (Product p : products) {
+            if (p instanceof Movie || p instanceof Series) {
+                isOnlyLives = false;
+                break;
+            }
+        }
+        if (!isOnlyLives) {
+            while (!isCorrectChoice) {
+                int choice = random.nextInt(products.size());
+                if (products.get(choice) instanceof Movie || products.get(choice) instanceof Series) {
+                    isCorrectChoice = true;
+                    onWatchListener.onWatch(products.get(choice).getTitle());
+                }
+            }
+        }
     }
 
     public void randomizeSubscription() {
         int i = random.nextInt(100);
         if (i < 40) {
             subscriptionType = SubscriptionType.NONE;
-            setSubscriptionPayment(Service.getSubscription().getPriceMap().get(SubscriptionType.NONE));
+            setSubscriptionPayment(SimulationAPI.getSubscription().getPriceMap().get(SubscriptionType.NONE));
         } else if (i < 70) {
             subscriptionType = SubscriptionType.BASIC;
-            setSubscriptionPayment(Service.getSubscription().getPriceMap().get(SubscriptionType.BASIC));
+            setSubscriptionPayment(SimulationAPI.getSubscription().getPriceMap().get(SubscriptionType.BASIC));
         } else if (i < 90) {
             subscriptionType = SubscriptionType.FAMILY;
-            setSubscriptionPayment(Service.getSubscription().getPriceMap().get(SubscriptionType.FAMILY));
+            setSubscriptionPayment(SimulationAPI.getSubscription().getPriceMap().get(SubscriptionType.FAMILY));
         } else {
             subscriptionType = SubscriptionType.PREMIUM;
-            setSubscriptionPayment(Service.getSubscription().getPriceMap().get(SubscriptionType.PREMIUM));
+            setSubscriptionPayment(SimulationAPI.getSubscription().getPriceMap().get(SubscriptionType.PREMIUM));
         }
     }
 
     @Override
     public void run() {
-        while (true) {
+        while (!shouldStop) {
             if (subscriptionType.equals(SubscriptionType.NONE)) {
                 requestProduct();
+            }
+            for (int i = 0; i < WATCH_TO_BUY_RATIO; i++) {
+                watchRandomProduct();
             }
             try {
                 Thread.sleep(randomizeTimeToBuy());

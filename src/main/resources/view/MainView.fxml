@@ -23,17 +23,17 @@
                   <Font name="Segoe UI" size="22.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="1188.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Promocje">
+            <Text fill="WHITE" layoutX="1188.0" layoutY="113.0" onMouseClicked="#sendToDistributorsPage" strokeType="OUTSIDE" strokeWidth="0.0" text="Dystrybutorzy">
                <font>
                   <Font name="Segoe UI" size="22.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="978.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Abonamenty">
+            <Text fill="WHITE" layoutX="978.0" layoutY="113.0" onMouseClicked="#sendToSubscriptionPage" strokeType="OUTSIDE" strokeWidth="0.0" text="Abonamenty">
                <font>
                   <Font name="Segoe UI" size="22.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="823.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktorzy">
+            <Text fill="WHITE" layoutX="823.0" layoutY="112.0" onMouseClicked="#sendToClientsPage" strokeType="OUTSIDE" strokeWidth="0.0" text="Klienci">
                <font>
                   <Font name="Segoe UI" size="22.0" />
                </font>
@@ -88,12 +88,12 @@
             <Image url="@../images/flaga.jpeg" />
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="504.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nie masz abonamentu?">
+      <Text fill="WHITE" layoutX="472.0" layoutY="169.0" onMouseClicked="#loadSave" strokeType="OUTSIDE" strokeWidth="0.0" text="Wczytaj ostatniego sejwa!">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="#f89921" layoutX="697.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kup go teraz!">
+      <Text fill="#f89921" layoutX="687.0" layoutY="169.0" onMouseClicked="#makeSave" strokeType="OUTSIDE" strokeWidth="0.0" text="Zrób sejwa teraz!">
          <font>
             <Font size="18.0" />
          </font>
@@ -254,7 +254,7 @@
             </HBox>
          </children>
       </VBox>
-      <ImageView fitHeight="239.0" fitWidth="287.0" layoutX="1069.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="239.0" fitWidth="287.0" layoutX="1069.0" layoutY="201.0" onMouseClicked="#openXKomInBrowser" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/reklama.png" />
          </image>

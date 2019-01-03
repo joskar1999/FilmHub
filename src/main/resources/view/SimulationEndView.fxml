@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.Rating?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.MoviesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.SimulationEndController">
     <children>
         <AnchorPane prefHeight="134.0" prefWidth="1366.0" style="-fx-background-color: #1B1B1B;">
             <children>
@@ -37,7 +38,7 @@
                         <Font name="Segoe UI" size="22.0" />
                     </font>
                 </Text>
-                <Text fill="WHITE" layoutX="267.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filmy">
+                <Text fill="WHITE" layoutX="267.0" layoutY="113.0" onMouseClicked="#sendToMoviesPage" strokeType="OUTSIDE" strokeWidth="0.0" text="Filmy">
                     <font>
                         <Font name="Segoe UI" size="22.0" />
                     </font>
@@ -78,6 +79,21 @@
                 </Text>
             </children>
         </AnchorPane>
-        <ListView fx:id="listView" layoutX="42.0" layoutY="174.0" prefHeight="560.0" prefWidth="1430.0" style="-fx-background-color: #000000;" />
+        <Text fill="#f89921" layoutX="509.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Koniec symulacji">
+            <font>
+                <Font name="Segoe UI" size="48.0" />
+            </font>
+        </Text>
+      <Rating fx:id="ratingBar" layoutX="595.0" layoutY="313.0" rating="3.0" />
+      <ImageView fitHeight="50.0" fitWidth="200.0" layoutX="583.0" layoutY="580.0" onMouseClicked="#sendOpinion">
+         <image>
+            <Image url="@../images/send.png" />
+         </image>
+      </ImageView>
+      <TextArea fx:id="textArea" layoutX="432.0" layoutY="384.0" prefHeight="141.0" prefWidth="502.0" promptText="Przekaż swoją opinię..." style="-fx-background-color: #000000; -fx-control-inner-background: #000000;" text="Przekaż swoją opinię..." wrapText="true">
+         <font>
+            <Font name="Segoe UI" size="14.0" />
+         </font>
+      </TextArea>
     </children>
 </AnchorPane>
