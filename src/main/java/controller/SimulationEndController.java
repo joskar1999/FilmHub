@@ -52,7 +52,7 @@ public class SimulationEndController extends Controller implements Initializable
             msg.setText("Rating: " + ratingBar.getRating() + "\n" + "Opinia: " + textArea.getText());
             msg.setSentDate(new Date());
             Transport.send(msg);
-            System.out.println("Message sent.");
+            showNotification("FilmHub", "Dziękujemy za przesłanie opini");
         } catch (MessagingException e) {
             System.out.println("Erreur d'envoi, cause: " + e);
         }

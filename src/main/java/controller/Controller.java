@@ -24,37 +24,51 @@ public class Controller implements Initializable {
 
     @FXML
     protected void sendToMainPage() {
-        utils.switchScenes("MainView.fxml");
+        if (isActionAllowed) {
+            utils.switchScenes("MainView.fxml");
+        }
     }
 
     @FXML
     protected void sendToMoviesPage() {
-        utils.switchScenes("MoviesView.fxml");
+        if (isActionAllowed) {
+            utils.switchScenes("MoviesView.fxml");
+        }
     }
 
     @FXML
     protected void sendToLivePage() {
-        utils.switchScenes("LiveView.fxml");
+        if (isActionAllowed) {
+            utils.switchScenes("LiveView.fxml");
+        }
     }
 
     @FXML
     protected void sendToSeriesPage() {
-        utils.switchScenes("SeriesView.fxml");
+        if (isActionAllowed) {
+            utils.switchScenes("SeriesView.fxml");
+        }
     }
 
     @FXML
     protected void sendToSubscriptionPage() {
-        utils.switchScenes("SubscriptionView.fxml");
+        if (isActionAllowed) {
+            utils.switchScenes("SubscriptionView.fxml");
+        }
     }
 
     @FXML
     protected void sendToClientsPage() {
-        utils.switchScenes("UsersView.fxml");
+        if (isActionAllowed) {
+            utils.switchScenes("UsersView.fxml");
+        }
     }
 
     @FXML
     protected void sendToDistributorsPage() {
-        utils.switchScenes("DistributorView.fxml");
+        if (isActionAllowed) {
+            utils.switchScenes("DistributorView.fxml");
+        }
     }
 
     @FXML
@@ -64,8 +78,10 @@ public class Controller implements Initializable {
 
     @FXML
     public void searchForProduct() {
-        String title = searchBar.getText();
-        utils.search(title);
+        if (isActionAllowed) {
+            String title = searchBar.getText();
+            utils.search(title);
+        }
     }
 
     @FXML
@@ -97,7 +113,6 @@ public class Controller implements Initializable {
 
     public static void forbidAllActions() {
         isActionAllowed = false;
-        //TODO show popup informing about simulation end
     }
 
     @Override

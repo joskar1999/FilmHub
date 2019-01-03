@@ -389,6 +389,7 @@ public class Service implements Serializable {
         }
         if (negativeIncomes == 3) {
             killAllThreads();
+            timeUtils.kill();
             Controller.forbidAllActions();
             onSimulationEndListener.onSimulationEnd();
         }
