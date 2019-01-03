@@ -146,6 +146,7 @@ public class MainController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
         refreshMainView();
         Service.addOnDatasetChangeListener((e) -> {
             refreshMainView();

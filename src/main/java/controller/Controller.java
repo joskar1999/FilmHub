@@ -1,14 +1,20 @@
 package main.java.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import main.java.SimulationAPI;
+import main.java.model.Service;
 import main.java.view.ViewUtils;
 import org.controlsfx.control.Notifications;
 
-public class Controller {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class Controller implements Initializable {
 
     @FXML
     private TextField searchBar;
@@ -52,6 +58,11 @@ public class Controller {
     }
 
     @FXML
+    protected void sendToSimulationEndPage() {
+        utils.switchScenes("SimulationEndView.fxml");
+    }
+
+    @FXML
     public void searchForProduct() {
         String title = searchBar.getText();
         utils.search(title);
@@ -75,17 +86,26 @@ public class Controller {
 
     public static void showNotification(String title, String message) {
         Notifications notifications = Notifications
-                .create()
-                .title(title)
-                .text(message)
-                .graphic(null)
-                .hideAfter(Duration.seconds(2))
-                .position(Pos.BASELINE_RIGHT);
+            .create()
+            .title(title)
+            .text(message)
+            .graphic(null)
+            .hideAfter(Duration.seconds(2))
+            .position(Pos.BASELINE_RIGHT);
         notifications.showConfirm();
     }
 
     public static void forbidAllActions() {
         isActionAllowed = false;
         //TODO show popup informing about simulation end
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Service.addOnSimulationEndListener(() -> {
+            Platform.runLater(() -> {
+                sendToSimulationEndPage();
+            });
+        });
     }
 }

@@ -28,10 +28,11 @@ public class DistributorController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
         listView.setItems(distributors);
         listView.setCellFactory(e -> new DistributorListViewCell());
         listView.getStylesheets().add(
-                getClass().getResource("../../resources/css/styles.css").toExternalForm());
+            getClass().getResource("../../resources/css/styles.css").toExternalForm());
 
         Service.addOnDistributorsSetChangeListener(new OnDistributorsSetChangeListener() {
             @Override

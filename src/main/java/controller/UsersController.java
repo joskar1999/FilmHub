@@ -28,6 +28,7 @@ public class UsersController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
         listView.setItems(users);
         listView.setCellFactory(e -> new UserListViewCell());
         listView.getStylesheets().add(

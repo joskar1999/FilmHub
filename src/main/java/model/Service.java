@@ -32,6 +32,7 @@ public class Service implements Serializable {
     private static OnDatasetChangeListener onDatasetChangeListener;
     private static OnUsersSetChangeListener onUsersSetChangeListener;
     private static OnDistributorsSetChangeListener onDistributorsSetChangeListener;
+    private static OnSimulationEndListener onSimulationEndListener;
     public static boolean isUsersViewCreated = false;
     public static boolean isDistributorsViewCreated = false;
     public static final int NO_DISCOUNT = 0;
@@ -98,6 +99,10 @@ public class Service implements Serializable {
 
     public static void addOnDistributorsSetChangeListener(OnDistributorsSetChangeListener onDistributorsSetChangeListener) {
         Service.onDistributorsSetChangeListener = onDistributorsSetChangeListener;
+    }
+
+    public static void addOnSimulationEndListener(OnSimulationEndListener onSimulationEndListener) {
+        Service.onSimulationEndListener = onSimulationEndListener;
     }
 
     /**
@@ -385,6 +390,7 @@ public class Service implements Serializable {
         if (negativeIncomes == 3) {
             killAllThreads();
             Controller.forbidAllActions();
+            onSimulationEndListener.onSimulationEnd();
         }
     }
 

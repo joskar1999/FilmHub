@@ -28,9 +28,10 @@ public class ProductController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
         listView.setItems(products);
         listView.setCellFactory(e -> new ProductListViewCell());
         listView.getStylesheets().add(
-                getClass().getResource("../../resources/css/styles.css").toExternalForm());
+            getClass().getResource("../../resources/css/styles.css").toExternalForm());
     }
 }

@@ -18,5 +18,9 @@
     <orderEntry type="library" name="javafx11" level="application" />
     <orderEntry type="library" name="javafx" level="application" />
     <orderEntry type="library" name="gson-2.8.5" level="project" />
+    <orderEntry type="library" name="activation-1.1.1" level="project" />
+    <orderEntry type="library" name="javax.mail-api-1.6.2" level="project" />
+    <orderEntry type="library" name="activation" level="project" />
+    <orderEntry type="library" name="mail" level="project" />
   </component>
 </module>

@@ -86,6 +86,7 @@ public class SubscriptionController extends Controller implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
         updateUI();
     }
 }
