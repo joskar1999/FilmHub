@@ -3,6 +3,7 @@ package main.java;
 import main.java.model.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +46,10 @@ public class SimulationAPI {
 
     public static Map<String, Integer> getGeneralWatchesAmountMap() {
         return service.getGeneralWatchesAmountMap();
+    }
+
+    public static Map<String, ArrayList<Integer>> getProductsWatchesAmountMap() {
+        return service.getProductsWatchesAmountMap();
     }
 
     public static int getMovieAmount() {
