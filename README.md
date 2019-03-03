@@ -1,5 +1,5 @@
 # FilmHub
-Simple ~~PornHub~~ Netflix simulator <br/>
+### Simple ~~PornHub~~ Netflix simulator <br/>
 Simulating behavior of VOD system. App created as admin panel. User are able
 to create new client and distributor accounts, set prices of products and subscriptions,
 make discounts. There is also option to make quick save of the simulation, and 
